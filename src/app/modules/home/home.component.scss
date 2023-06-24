@@ -2,12 +2,11 @@
     height: 100%;
     background-color: black;
     color: white;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 // navbar
 .navbar {
-    position: fixed;
     top: 0;
     width: 100%;
     padding: 20px 10px 0px 15px;
@@ -22,6 +21,7 @@
 // navbar end
 .landing-container {
     height: 100vh;
+    margin-top: -30px;
 }
 
 .vh-100 {
@@ -29,11 +29,11 @@
 }
 
 .logo {
-    width: 20%;
+    display: none;
 }
 
 .landing-title {
-    color: #14141f;
+    color: black;
     background: linear-gradient(-45deg, #ff3632, #7b1614, #ff3632, #7b1614);
     background-size: 100% 100%;
     -webkit-background-clip: text;
@@ -64,8 +64,62 @@
     color: black;
 }
 
+.btn-container {
+    display: flex;
+}
+
+.btn-container-right {
+    margin-left: 10px;
+    margin-top: 50px;
+}
+
 .right-container {
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 566px) {
+    body {
+        background-color: black
+    }
+    ;
+    .logo {
+        display: block;
+        width: 15%;
+        margin-left: 10px;
+    }
+    .nav-btn {
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+        margin-top: -6px;
+    }
+    .landing-title {
+        font-size: 100px;
+    }
+    .landing-sub {
+        font-size: 18px;
+        margin-top: -10px;
+    }
+    .btn-container {
+        display: block;
+    }
+    .btn-container-right {
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+    .right-container {
+        height: auto !important;
+        margin-top: 80px;
+        margin-right: -40px;
+    }
+    .left-container {
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 30px;
+        background-color: rgba(0, 0, 0, 0.45);
+        height: auto !important;
+        margin-top: -180px;
+        z-index: 10;
+        position: relative;
+    }
 }
 
 ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,

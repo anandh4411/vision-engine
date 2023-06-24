@@ -1,8 +1,11 @@
 <div class="main-container">
 
     <!-- navbar -->
-    <nav class="navbar d-flex justify-content-end">
+    <nav class="navbar d-flex justify-content-between">
         <div>
+            <img class="logo" src="assets/img/logo.png" alt="">
+        </div>
+        <div class="nav-btn">
             <a href="/login" class="vision-btn vision-btn-dark btn-login">Login</a>
             <a href="/signup" class="vision-btn vision-btn-dark btn-signup">Signup</a>
         </div>
@@ -13,9 +16,15 @@
     <div class="container landing-container">
         <div class="row">
             <div class="col-sm-6">
-                <div class="d-flex align-items-center vh-100">
+                <div class="d-flex align-items-center justify-content-center vh-100 right-container">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="img-engine vert-move" src="assets/img/engine-2.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 order-sm-first">
+                <div class="d-flex align-items-center vh-100 left-container">
                     <div>
-                        <!-- <img class="logo" src="assets/img/logo.png" alt=""> -->
                         <h1 class="landing-title">
                             Vision
                         </h1>
@@ -26,8 +35,8 @@
                             Experience our cutting-edge video conference platform, where seamless communication is just
                             a click away.
                         </h4>
-                        <div class="d-flex">
-                            <div style="margin-top: 50px;">
+                        <div class="btn-container">
+                            <div class="" style="margin-top: 50px;">
                                 <button type="button" class="btn btn-warning landing-btn">Start a new conference
                                     <svg style="margin-left: 7px; margin-bottom: 2px" xmlns="http://www.w3.org/2000/svg"
                                         width="17" height="17" fill="currentColor" class="bi bi-plus-lg"
@@ -37,7 +46,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div style="margin-top: 50px; margin-left: 10px">
+                            <div class="btn-container-right">
                                 <p>
                                     <mat-form-field appearance="outline">
                                         <mat-label class="mat-label">Enter meeting url</mat-label>
@@ -55,13 +64,6 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="d-flex align-items-center justify-content-center vh-100 right-container">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img class="img-engine vert-move" src="assets/img/engine-2.png" alt="">
                     </div>
                 </div>
             </div>
