@@ -1,0 +1,217 @@
+.main-container {
+    height: 100%;
+    background-color: black;
+    color: white;
+    overflow-x: hidden;
+}
+
+// navbar
+.navbar {
+    top: 0;
+    width: 100%;
+    padding: 20px 10px 0px 15px;
+}
+
+.btn-signup {
+    margin-left: 10px;
+    background-color: #F3100A;
+    color: black;
+}
+
+// navbar end
+.landing-container {
+    height: 100vh;
+    margin-top: -30px;
+}
+
+.vh-100 {
+    height: 100vh;
+}
+
+.logo {
+    display: none;
+}
+
+.landing-title {
+    color: black;
+    background: linear-gradient(-45deg, #ff3632, #7b1614, #ff3632, #7b1614);
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 3px transparent;
+    font-size: 120px;
+    line-height: 1.5;
+}
+
+.landing-sub {
+    font-size: 20px;
+    line-height: 1.5;
+    color: rgb(145, 145, 145);
+}
+
+.landing-btn {
+    padding: 16px 20px 13px 20px;
+    font-family: 'Poppins';
+    font-weight: 500 !important;
+    border: 1.5px solid #F3100A;
+    background-color: #14141f00;
+    color: #F3100A;
+    border-radius: 10px;
+    transition-duration: .3s;
+}
+
+.landing-btn:hover {
+    background-color: #F3100A;
+    color: black;
+}
+
+.btn-container {
+    display: flex;
+}
+
+.btn-container-right {
+    margin-left: 10px;
+    margin-top: 50px;
+}
+
+.right-container {
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 566px) {
+    body {
+        background-color: black
+    }
+    ;
+    .logo {
+        display: block;
+        width: 15%;
+        margin-left: 10px;
+    }
+    .nav-btn {
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+        margin-top: -6px;
+    }
+    .landing-title {
+        font-size: 100px;
+    }
+    .landing-sub {
+        font-size: 18px;
+        margin-top: -10px;
+    }
+    .btn-container {
+        display: block;
+    }
+    .btn-container-right {
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+    .right-container {
+        height: auto !important;
+        margin-top: 80px;
+        margin-right: -40px;
+    }
+    .left-container {
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 30px;
+        background-color: rgba(0, 0, 0, 0.45);
+        height: auto !important;
+        margin-top: -180px;
+        z-index: 10;
+        position: relative;
+    }
+}
+
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+    border-color: #F3100A !important;
+}
+
+::ng-deep .mdc-text-field .mdc-text-field__input {
+    caret-color: #F3100A;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: rgb(165, 165, 165);
+    padding-left: 3px;
+}
+
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+    border-top-left-radius: var(--mdc-shape-small, 10px) !important;
+    border-bottom-left-radius: var(--mdc-shape-small, 10px) !important;
+}
+
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+    border-top-right-radius: var(--mdc-shape-small, 10px) !important;
+    border-bottom-right-radius: var(--mdc-shape-small, 10px) !important;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: red;
+    font-family: 'Poppins';
+    font-weight: 500 !important;
+    background-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: -10px;
+}
+
+::ng-deep .mdc-notched-outline__leading {
+    border-left: 1.5px solid !important;
+}
+
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+    border-top: 1.5px solid !important;
+    border-bottom: 1.5px solid !important;
+}
+
+::ng-deep .mdc-notched-outline__trailing {
+    border-right: 1.5px solid !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+    width: 160px !important;
+}
+
+::ng-deep .mat-mdc-form-field-icon-suffix>.mat-icon {
+    padding: 0px !important;
+    margin-right: 20px;
+    margin-top: 5px;
+    color: #F3100A;
+}
+
+.img-engine {
+    width: 80%;
+    margin-left: 20px;
+}
+
+img.vert-move {
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+}
+
+img.vert-move {
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
