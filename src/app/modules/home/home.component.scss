@@ -1,5 +1,5 @@
 .main-container {
-    height: 100%;
+    height: 100vh;
     background-color: black;
     color: white;
     overflow-x: hidden;
@@ -81,17 +81,14 @@
     body {
         background-color: black
     }
-    ;
-    .logo {
-        display: block;
-        width: 15%;
-        margin-left: 10px;
+    .main-container {
+        height: 100%;
     }
     .nav-btn {
         position: absolute;
         right: 0;
         margin-right: 10px;
-        margin-top: -6px;
+        margin-top: 25px;
     }
     .landing-title {
         font-size: 100px;
@@ -102,6 +99,7 @@
     }
     .btn-container {
         display: block;
+        margin-top: -20px;
     }
     .btn-container-right {
         margin-left: 0px;
@@ -109,14 +107,14 @@
     }
     .right-container {
         height: auto !important;
-        margin-top: 80px;
+        margin-top: 100px;
         margin-right: -40px;
     }
     .left-container {
         box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 30px;
         background-color: rgba(0, 0, 0, 0.45);
         height: auto !important;
-        margin-top: -180px;
+        margin-top: -190px;
         z-index: 10;
         position: relative;
     }

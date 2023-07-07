@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
@@ -11,7 +12,8 @@ import { RoomComponent } from './room.component';
   ],
   imports: [
     CommonModule,
-    RoomRoutingModule
+    RoomRoutingModule,
+    MatTabsModule
   ]
 })
 export class RoomModule { }
