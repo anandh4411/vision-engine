@@ -57,7 +57,7 @@
                             d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
                     </svg>
                 </a>
-                <a (click)="modeSwitch('five')" class="dock-align-middle"
+                <a (click)="modeSwitch('six')" class="dock-align-middle"
                     [class.mode-active]="windowModeStatus == 'five'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-3x3-gap-fill"
                         viewBox="0 0 16 16">
@@ -78,154 +78,45 @@
             <div class="d-flex">
                 <!-- layout 1 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-1-active':windowModeStatus == 'one', 'layout-2-active':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                    [ngClass]="{'layout-3-active layout-right-margin':windowModeStatus == 'five' || windowModeStatus == 'six', 'layout-1-active':windowModeStatus == 'one', 'layout-2-active':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
                     <!-- video 1 -->
-                    <div class="video video-1" [ngClass]="{'video-3':windowModeStatus == 'four'}">
+                    <div class="video video-1"
+                        [ngClass]="{'video-3':windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
                                     <span>You</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
                         <img class="video-call-wrapper" src="assets/img/video1.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="d-flex justify-content-center align-items-center video-bottom-bar-wrapper">
-                                <div class="call-control-btn-wrapper d-flex">
-                                    <a class="mic-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-fill" viewBox="0 0 16 16">
-                                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-                                            <path
-                                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-mute-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z" />
-                                            <path
-                                                d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                    <a class="camera-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-off-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l6.69 9.365zm-10.114-9A2.001 2.001 0 0 0 0 5v6a2 2 0 0 0 2 2h5.728L.847 3.366zm9.746 11.925-10-14 .814-.58 10 14-.814.58z" />
-                                        </svg>
-                                    </a>
-                                    <a class="call-cut-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- call actions component -->
+                        <app-call-actions></app-call-actions>
+                        <!-- call actions component end -->
                     </div>
                     <!-- video 1 end -->
                     <!-- video 4 -->
-                    <div class="video" [ngClass]="{'video-3':windowModeStatus == 'four'}">
+                    <div class="video"
+                        [ngClass]="{'video-3':windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
                                     <span>Name Lastn</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
                         <img class="video-call-wrapper" src="assets/img/video4.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="video-bottom-bar-wrapper" [style.width]="(subtitleStatus) ? '100%' : '120px'">
-                                <div class="d-flex">
-                                    <a class="sound-icon">
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-soundwave" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5zm-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5zm12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                    </a>
-                                    <div [class.subtitle-enabled]="subtitleStatus" class="subtitle-container">
-                                        <label>CC/Subtitle</label>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis sapiente
-                                            quos
-                                            ratione consequatur voluptates</p>
-                                    </div>
-                                    <a (click)="subtitleSwitch()" class="subtitle-control-btn"
-                                        [style.background-color]="(subtitleStatus) ? '#feae4f' : 'rgba(255, 255, 255, 0.21)'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-cc-square-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm3.408 5.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- video bottom bar component -->
+                        <app-video-bottom-bar></app-video-bottom-bar>
+                        <!-- video bottom bar component end -->
                     </div>
                     <!-- video 4 end -->
                 </div>
@@ -233,312 +124,89 @@
 
                 <!-- layout 2 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-2-active layout-2':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                    [ngClass]="{'layout-3-active': windowModeStatus == 'five' || windowModeStatus == 'six', 'layout-2-active layout-left-margin':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
                     <!-- video 2 -->
                     <div class="video"
-                        [ngClass]="{'video-2':windowModeStatus == 'two', 'video-3':windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                        [ngClass]="{'video-2':windowModeStatus == 'two', 'video-3':windowModeStatus == 'three' || windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
                                     <span>Name Lastn</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
                         <img class="video-call-wrapper" src="assets/img/video2.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="video-bottom-bar-wrapper" [style.width]="(subtitleStatus) ? '100%' : '120px'">
-                                <div class="d-flex">
-                                    <a class="sound-icon">
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-soundwave" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5zm-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5zm12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                    </a>
-                                    <div [class.subtitle-enabled]="subtitleStatus" class="subtitle-container">
-                                        <label>CC/Subtitle</label>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis sapiente
-                                            quos
-                                            ratione consequatur voluptates</p>
-                                    </div>
-                                    <a (click)="subtitleSwitch()" class="subtitle-control-btn"
-                                        [style.background-color]="(subtitleStatus) ? '#feae4f' : 'rgba(255, 255, 255, 0.21)'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-cc-square-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm3.408 5.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- video bottom bar component -->
+                        <app-video-bottom-bar></app-video-bottom-bar>
+                        <!-- video bottom bar component end -->
                     </div>
                     <!-- video 2 end -->
                     <!-- video 3 -->
                     <div class="video"
-                        [ngClass]="{'video-3':windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                        [ngClass]="{'video-3':windowModeStatus == 'three' || windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
                                     <span>Name Lastn</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
                         <img class="video-call-wrapper" src="assets/img/video3.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="video-bottom-bar-wrapper" [style.width]="(subtitleStatus) ? '100%' : '120px'">
-                                <div class="d-flex">
-                                    <a class="sound-icon">
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-soundwave" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5zm-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zm-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5zm12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                    </a>
-                                    <div [class.subtitle-enabled]="subtitleStatus" class="subtitle-container">
-                                        <label>CC/Subtitle</label>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis sapiente
-                                            quos
-                                            ratione consequatur voluptates</p>
-                                    </div>
-                                    <a (click)="subtitleSwitch()" class="subtitle-control-btn"
-                                        [style.background-color]="(subtitleStatus) ? '#feae4f' : 'rgba(255, 255, 255, 0.21)'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-cc-square-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm3.408 5.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- video bottom bar component -->
+                        <app-video-bottom-bar></app-video-bottom-bar>
+                        <!-- video bottom bar component end -->
                     </div>
                     <!-- video 3 end -->
                 </div>
                 <!-- layout 2 end -->
 
                 <!-- layout 3 -->
-                <div *ngIf="1+1==3" class="video-layout layout-3">
+                <div class="video-layout"
+                    [ngClass]="{'layout-3-active layout-left-margin':windowModeStatus == 'five' || windowModeStatus == 'six'}">
                     <!-- video 5 -->
-                    <div class="mode-container" [class.]="windowModeStatus == 'five'"
-                        [class.mode-2-container]="windowModeStatus == 'five'">
+                    <div class="video" [ngClass]="{'video-3':windowModeStatus == 'five' || windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
-                                    <span>You</span>
+                                    <span>Name Lastn</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
-                        <img class="video-call-wrapper" src="assets/img/video1.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="d-flex justify-content-center align-items-center video-bottom-bar-wrapper">
-                                <div class="call-control-btn-wrapper d-flex">
-                                    <a class="mic-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-fill" viewBox="0 0 16 16">
-                                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-                                            <path
-                                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-mute-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z" />
-                                            <path
-                                                d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                    <a class="camera-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-off-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l6.69 9.365zm-10.114-9A2.001 2.001 0 0 0 0 5v6a2 2 0 0 0 2 2h5.728L.847 3.366zm9.746 11.925-10-14 .814-.58 10 14-.814.58z" />
-                                        </svg>
-                                    </a>
-                                    <a class="call-cut-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <img class="video-call-wrapper" src="assets/img/video5.jpg" alt="">
+                        <!-- video bottom bar component -->
+                        <app-video-bottom-bar></app-video-bottom-bar>
+                        <!-- video bottom bar component end -->
                     </div>
                     <!-- video 5 end -->
                     <!-- video 6 -->
-                    <div class="mode-container" [class.]="windowModeStatus == 'six'"
-                        [class.mode-2-container]="windowModeStatus == 'six'">
+                    <div class="video" [ngClass]="{'video-3':windowModeStatus == 'six'}">
                         <div class="video-top-bar">
                             <div class="d-flex justify-content-between">
                                 <div class="name-container">
                                     <img src="assets/img/avatar.jpg" alt="">
-                                    <span>You</span>
+                                    <span>Name Lastn</span>
                                 </div>
-                                <div class="recording-container" [style.width]="(recordingStatus) ? '236px' : '40px'">
-                                    <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                                        style="float: left">
-                                        <path
-                                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                    </svg>
-                                    <div [class.recording-enabled]="recordingEnableAnimation"
-                                        style="float: left; height: 0;">
-                                        <span>Recording in
-                                            progress..</span>
-                                    </div>
-                                    <a *ngIf="recordingEnableAnimation" (click)="pauseRecording()"
-                                        class="recording-pause-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-pause-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                                        </svg>
-                                    </a>
-                                    <a (click)="startRecording()" class="recording-stop-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-stop-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- recording component -->
+                                <app-recording></app-recording>
+                                <!-- recording component end -->
                             </div>
                         </div>
-                        <img class="video-call-wrapper" src="assets/img/video1.jpg" alt="">
-                        <div class="video-bottom-bar">
-                            <div class="d-flex justify-content-center align-items-center video-bottom-bar-wrapper">
-                                <div class="call-control-btn-wrapper d-flex">
-                                    <a class="mic-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-fill" viewBox="0 0 16 16">
-                                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-                                            <path
-                                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-mic-mute-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z" />
-                                            <path
-                                                d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                    <a class="camera-control-btn">
-                                        <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-                                        </svg>
-                                        <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-camera-video-off-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l6.69 9.365zm-10.114-9A2.001 2.001 0 0 0 0 5v6a2 2 0 0 0 2 2h5.728L.847 3.366zm9.746 11.925-10-14 .814-.58 10 14-.814.58z" />
-                                        </svg>
-                                    </a>
-                                    <a class="call-cut-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <img class="video-call-wrapper" src="assets/img/video6.jpg" alt="">
+                        <!-- video bottom bar component -->
+                        <app-video-bottom-bar></app-video-bottom-bar>
+                        <!-- video bottom bar component end -->
                     </div>
                     <!-- video 6 end -->
                 </div>

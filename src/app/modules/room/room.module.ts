@@ -7,11 +7,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
+import { RecordingComponent } from './components/recording/recording.component';
+import { CallActionsComponent } from './components/call-actions/call-actions.component';
+import { VideoBottomBarComponent } from './components/video-bottom-bar/video-bottom-bar.component';
+import { ParticipantsComponent } from './components/participants/participants.component';
+import { ChatsComponent } from './components/chats/chats.component';
+import { VideoComponent } from './components/video/video.component';
 
 
 @NgModule({
   declarations: [
     RoomComponent,
+    RecordingComponent,
+    CallActionsComponent,
+    VideoBottomBarComponent,
+    ParticipantsComponent,
+    ChatsComponent,
+    VideoComponent,
   ],
   imports: [
     CommonModule,

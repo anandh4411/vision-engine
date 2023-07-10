@@ -9,9 +9,6 @@ import { FormBuilder } from '@angular/forms'
 export class RoomComponent implements OnInit {
   @ViewChild('emojiPickerButton') emojiPickerButton: ElementRef | any;
   public emojiPicker:boolean = false;
-  public subtitleStatus:boolean = false;
-  public recordingStatus:boolean = false;
-  public recordingEnableAnimation:boolean = false;
   public windowModeStatus:string = 'one';
   public messageForm:any;
 
@@ -37,21 +34,6 @@ export class RoomComponent implements OnInit {
   public emojiPickerSwitch(){
     this.emojiPicker = !this.emojiPicker;
   }
-  public subtitleSwitch(){
-    this.subtitleStatus = !this.subtitleStatus;
-  }
-  public startRecording(){
-    this.recordingStatus = !this.recordingStatus;
-    if(!this.recordingEnableAnimation){
-      setTimeout(()=>{ 
-        this.recordingEnableAnimation = true;               
-      }, 600);
-    }
-    else{
-      this.recordingEnableAnimation = false;
-    }
-  }
-  public pauseRecording(){}
   public modeSwitch(mode:string){
     switch (mode){
       case 'one':{

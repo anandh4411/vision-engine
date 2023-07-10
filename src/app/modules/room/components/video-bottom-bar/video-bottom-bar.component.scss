@@ -1,0 +1,50 @@
+.video-bottom-bar{
+    position: absolute;
+    bottom: 0;
+    width: -webkit-fill-available;
+    padding: 0px 18px 16px 16px;
+    .video-bottom-bar-wrapper{
+        background-color: rgba(0, 0, 0, 0.203);
+        border-radius: 25px;
+        color: white;
+        backdrop-filter: blur(4px);
+        padding: 10px;
+        transition: width 400ms ease-out;
+        overflow: hidden;
+        .sound-icon, .subtitle-control-btn{
+            color: white;
+            border-radius: 10px;
+            height: max-content;
+        }
+        .sound-icon{
+            background-color: #ffffff36;
+            padding: 5px 10px 4px 10px;
+            margin-right: 8px;
+        }
+        .sound-icon svg{
+            width: 30px;
+        }
+        .subtitle-enabled{
+            opacity: 1 !important;
+            height: 100px !important;
+            animation: fadeIn .5s !important;
+        }
+        .subtitle-container{
+            height: 0;
+            overflow: hidden;
+            transition: opacity .8s ease-out;
+            opacity: 0;
+            label{
+                font-size: 10px;
+            }
+        }
+        .subtitle-control-btn{
+            padding: 5px 10px 10px 10px;
+            background-color: #feae4f;
+            transition: background-color .1s ease-out;
+            svg{
+                width: 20px;
+            }
+        }
+    }
+}
