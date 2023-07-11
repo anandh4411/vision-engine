@@ -1,5 +1,5 @@
-
 .recording-container{
+    width: 40px;
     background-color: rgba(0, 0, 0, 0.203);
     border-radius: 25px;
     color: white;
@@ -51,5 +51,14 @@
     }
     .recording-pause-btn svg{
         margin-right: 5px;
+    }
+}
+.recording-status{
+    width: 236px;
+}
+.mode-6{
+    width: 100px;
+    span{
+        display: none;
     }
 }

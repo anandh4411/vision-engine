@@ -7,11 +7,11 @@ import { AuthComponent } from './modules/auth/auth.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   { 
-    path: '',
+    path: 'home',
     component: HomeComponent,
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },

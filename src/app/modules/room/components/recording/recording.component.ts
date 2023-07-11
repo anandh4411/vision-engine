@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-recording',
@@ -6,8 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./recording.component.scss']
 })
 export class RecordingComponent {
+  @Input() windowModeStatus:any;
+
   public recordingStatus:boolean = false;
   public recordingEnableAnimation:boolean = false;
+
+  ngOnInit(): void {
+      
+  }
 
   public pauseRecording(){}
   public startRecording(){

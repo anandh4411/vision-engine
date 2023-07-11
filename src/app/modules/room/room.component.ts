@@ -1,5 +1,5 @@
 import { Component, Renderer2, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms'
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-room',
