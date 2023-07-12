@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { RoomComponent } from './modules/room/room.component';
 import { AuthComponent } from './modules/auth/auth.component';
+import { RoomExitGuard } from './shared/guards/room-exit/room-exit.guard';
 
 const routes: Routes = [
   {
@@ -10,29 +11,39 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
-  { 
+  {
     path: 'home',
     component: HomeComponent,
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+    loadChildren: () =>
+      import('./modules/home/home.module').then((m) => m.HomeModule),
   },
-  { 
+  {
     path: 'login',
     component: AuthComponent,
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
-  },{ 
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: 'signup',
     component: AuthComponent,
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
-  { 
+  {
     path: 'room',
     component: RoomComponent,
-    loadChildren: () => import('./modules/room/room.module').then(m => m.RoomModule)
+    loadChildren: () =>
+      import('./modules/room/room.module').then((m) => m.RoomModule),
+    canDeactivate: [RoomExitGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

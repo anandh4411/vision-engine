@@ -13,6 +13,7 @@ import { VideoBottomBarComponent } from './components/video-bottom-bar/video-bot
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { VideoComponent } from './components/video/video.component';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { VideoComponent } from './components/video/video.component';
     PickerComponent,
     EmojiComponent,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    ComponentsModule
+  ],
 })
 export class RoomModule { }

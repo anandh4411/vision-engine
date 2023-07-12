@@ -557,9 +557,7 @@
                                                 Blanditiis, doloribus. Quo non vitae magnam saepe incidunt.</h4>
                                         </div>
                                         <div class="chat-content-box">
-                                            <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non, quas!
-                                                Blanditiis, doloribus. Quo non vitae magnam saepe
-                                                incidunt.
+                                            <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                                             </h4>
                                         </div>
                                         <span>You</span>
@@ -608,3 +606,17 @@
         <!-- right section end -->
     </div>
 </div>
+
+<ng-template #exit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Exit chat</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <label for=" ">Are you sure you want exit the chat? You can still rejoin after exiting.</label>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">No</button>
+        <button type="button" class="btn btn-danger" (click)="exitPage(true)">Exit</button>
+    </div>
+</ng-template>
