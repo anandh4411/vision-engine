@@ -18,7 +18,7 @@ export class RoomComponent implements OnInit {
   @ViewChild('emojiPickerButton') emojiPickerButton: ElementRef | any;
   @ViewChild('exit') exit: ElementRef | any;
   public emojiPicker: boolean = false;
-  public windowModeStatus: string = 'one';
+  public activeVideoNumber: string = 'one';
   public notificationStatus: boolean = false;
   public notificationType: string = 'alert';
   public messageForm: any;
@@ -73,27 +73,27 @@ export class RoomComponent implements OnInit {
   public modeSwitch(mode: string) {
     switch (mode) {
       case 'one': {
-        this.windowModeStatus = 'one';
+        this.activeVideoNumber = 'one';
         break;
       }
       case 'two': {
-        this.windowModeStatus = 'two';
+        this.activeVideoNumber = 'two';
         break;
       }
       case 'three': {
-        this.windowModeStatus = 'three';
+        this.activeVideoNumber = 'three';
         break;
       }
       case 'four': {
-        this.windowModeStatus = 'four';
+        this.activeVideoNumber = 'four';
         break;
       }
       case 'five': {
-        this.windowModeStatus = 'five';
+        this.activeVideoNumber = 'five';
         break;
       }
       case 'six': {
-        this.windowModeStatus = 'six';
+        this.activeVideoNumber = 'six';
         break;
       }
     }

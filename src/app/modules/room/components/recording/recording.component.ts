@@ -3,29 +3,25 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-recording',
   templateUrl: './recording.component.html',
-  styleUrls: ['./recording.component.scss']
+  styleUrls: ['./recording.component.scss'],
 })
 export class RecordingComponent {
-  @Input() windowModeStatus:any;
+  @Input() activeVideoNumber: any;
 
-  public recordingStatus:boolean = false;
-  public recordingEnableAnimation:boolean = false;
+  public recordingStatus: boolean = false;
+  public recordingEnableAnimation: boolean = false;
 
-  ngOnInit(): void {
-      
-  }
+  ngOnInit(): void {}
 
-  public pauseRecording(){}
-  public startRecording(){
+  public pauseRecording() {}
+  public startRecording() {
     this.recordingStatus = !this.recordingStatus;
-    if(!this.recordingEnableAnimation){
-      setTimeout(()=>{ 
-        this.recordingEnableAnimation = true;               
+    if (!this.recordingEnableAnimation) {
+      setTimeout(() => {
+        this.recordingEnableAnimation = true;
       }, 600);
-    }
-    else{
+    } else {
       this.recordingEnableAnimation = false;
     }
   }
-
 }

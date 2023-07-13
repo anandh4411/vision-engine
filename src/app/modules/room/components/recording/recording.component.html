@@ -1,4 +1,4 @@
-<div [ngClass]="{'mode-6': (windowModeStatus == 'five' || windowModeStatus == 'six') && recordingStatus, 'recording-status':recordingStatus}"
+<div [ngClass]="{'mode-6': (activeVideoNumber == 'five' || activeVideoNumber == 'six') && recordingStatus, 'recording-status':recordingStatus}"
     class="recording-container">
     <svg *ngIf="recordingEnableAnimation" class="recording-progress-icon" xmlns="http://www.w3.org/2000/svg"
         fill="currentColor" viewBox="0 0 16 16" style="float: left">

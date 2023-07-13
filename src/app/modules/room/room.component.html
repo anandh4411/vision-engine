@@ -30,14 +30,14 @@
             <!-- video window mode switcher -->
             <div class="mode-switcher">
                 <a (click)="modeSwitch('one')" class="dock-align-middle"
-                    [class.mode-active]="windowModeStatus == 'one'">
+                    [class.mode-active]="activeVideoNumber == 'one'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
                         class="bi bi-dash" viewBox="3 3 10 10">
                         <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                     </svg>
                 </a>
                 <a (click)="modeSwitch('two')" class="dock-align-middle"
-                    [class.mode-active]="windowModeStatus == 'two'">
+                    [class.mode-active]="activeVideoNumber == 'two'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
                         class="bi bi-pause-fill" viewBox="3 3 10 10">
                         <path
@@ -45,7 +45,7 @@
                     </svg>
                 </a>
                 <a (click)="modeSwitch('three')" class="dock-align-middle"
-                    [class.mode-active]="windowModeStatus == 'three'">
+                    [class.mode-active]="activeVideoNumber == 'three'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
                         viewBox="0 0 16 16">
                         <path
@@ -53,7 +53,7 @@
                     </svg>
                 </a>
                 <a (click)="modeSwitch('four')" class="dock-align-middle"
-                    [class.mode-active]="windowModeStatus == 'four'">
+                    [class.mode-active]="activeVideoNumber == 'four'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
                         viewBox="0 0 16 16">
                         <path
@@ -61,7 +61,7 @@
                     </svg>
                 </a>
                 <a (click)="modeSwitch('six')" class="dock-align-middle"
-                    [class.mode-active]="windowModeStatus == 'five' || windowModeStatus == 'six'">
+                    [class.mode-active]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-3x3-gap-fill"
                         viewBox="0 0 16 16">
                         <path
@@ -110,142 +110,48 @@
             <div class="d-flex">
                 <!-- layout 1 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-3-active layout-right-margin':windowModeStatus == 'five' || windowModeStatus == 'six', 'layout-1-active':windowModeStatus == 'one', 'layout-2-active':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                    [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber == 'five' || activeVideoNumber == 'six', 'layout-1-active':activeVideoNumber == 'one', 'layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
                     <!-- video 1 -->
-                    <div class="video video-1"
-                        [ngClass]="{'video-3':windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>You</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video1.jpg" alt="">
-                        <!-- call actions component -->
-                        <app-call-actions></app-call-actions>
-                        <!-- call actions component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
+                        [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six', 'videoMode1':activeVideoNumber == 'one' || activeVideoNumber == 'two' || activeVideoNumber == 'three'}"></app-video>
                     <!-- video 1 end -->
                     <!-- video 4 -->
-                    <div class="video"
-                        [ngClass]="{'video-3':windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>Name Lastn</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video4.jpg" alt="">
-                        <!-- video bottom bar component -->
-                        <app-video-bottom-bar [windowModeStatus]="windowModeStatus"></app-video-bottom-bar>
-                        <!-- video bottom bar component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber"
+                        [user]="{name: 'Name Surname', image: 'assets/img/video4.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six'}"></app-video>
                     <!-- video 4 end -->
                 </div>
                 <!-- layout 1 end -->
 
                 <!-- layout 2 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-3-active': windowModeStatus == 'five' || windowModeStatus == 'six', 'layout-2-active layout-left-margin':windowModeStatus == 'two' || windowModeStatus == 'three' || windowModeStatus == 'four'}">
+                    [ngClass]="{'layout-3-active': activeVideoNumber == 'five' || activeVideoNumber == 'six', 'layout-2-active layout-left-margin':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
                     <!-- video 2 -->
-                    <div class="video"
-                        [ngClass]="{'video-2':windowModeStatus == 'two', 'video-3':windowModeStatus == 'three' || windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>Name Lastn</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video2.jpg" alt="">
-                        <!-- video bottom bar component -->
-                        <app-video-bottom-bar [windowModeStatus]="windowModeStatus"></app-video-bottom-bar>
-                        <!-- video bottom bar component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber"
+                        [user]="{name: 'Name Surname', image: 'assets/img/video2.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six', 'videoMode1':activeVideoNumber == 'two'}"></app-video>
                     <!-- video 2 end -->
                     <!-- video 3 -->
-                    <div class="video"
-                        [ngClass]="{'video-3':windowModeStatus == 'three' || windowModeStatus == 'four' || windowModeStatus == 'five' || windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>Name Lastn</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video3.jpg" alt="">
-                        <!-- video bottom bar component -->
-                        <app-video-bottom-bar [windowModeStatus]="windowModeStatus"></app-video-bottom-bar>
-                        <!-- video bottom bar component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber"
+                        [user]="{name: 'Name Surname', image: 'assets/img/video3.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six'}"></app-video>
                     <!-- video 3 end -->
                 </div>
                 <!-- layout 2 end -->
 
                 <!-- layout 3 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-3-active layout-left-margin':windowModeStatus == 'five' || windowModeStatus == 'six'}">
+                    [ngClass]="{'layout-3-active layout-left-margin':activeVideoNumber == 'five' || activeVideoNumber == 'six'}">
                     <!-- video 5 -->
-                    <div class="video" [ngClass]="{'video-3':windowModeStatus == 'five' || windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>Name Lastn</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video5.jpg" alt="">
-                        <!-- video bottom bar component -->
-                        <app-video-bottom-bar [windowModeStatus]="windowModeStatus"></app-video-bottom-bar>
-                        <!-- video bottom bar component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber"
+                        [user]="{name: 'Name Surname', image: 'assets/img/video5.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'five' || activeVideoNumber == 'six'}"></app-video>
                     <!-- video 5 end -->
                     <!-- video 6 -->
-                    <div class="video" [ngClass]="{'video-3':windowModeStatus == 'six'}">
-                        <div class="video-top-bar">
-                            <div class="d-flex justify-content-between">
-                                <div class="name-container"
-                                    [class.mode-6-name]="windowModeStatus == 'five' || windowModeStatus == 'six'">
-                                    <img src="assets/img/avatar.jpg" alt="">
-                                    <span>Name Lastn</span>
-                                </div>
-                                <!-- recording component -->
-                                <app-recording [windowModeStatus]="windowModeStatus"></app-recording>
-                                <!-- recording component end -->
-                            </div>
-                        </div>
-                        <img class="video-call-wrapper" src="assets/img/video6.jpg" alt="">
-                        <!-- video bottom bar component -->
-                        <app-video-bottom-bar [windowModeStatus]="windowModeStatus"></app-video-bottom-bar>
-                        <!-- video bottom bar component end -->
-                    </div>
+                    <app-video [activeVideoNumber]="activeVideoNumber"
+                        [user]="{name: 'Name Surname', image: 'assets/img/video6.jpg'}"
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 'six'}"></app-video>
                     <!-- video 6 end -->
                 </div>
                 <!-- layout 3 end -->
