@@ -19,6 +19,8 @@ export class RoomComponent implements OnInit {
   @ViewChild('exit') exit: ElementRef | any;
   public emojiPicker: boolean = false;
   public windowModeStatus: string = 'one';
+  public notificationStatus: boolean = false;
+  public notificationType: string = 'alert';
   public messageForm: any;
   subject = new Subject<boolean>();
 
@@ -43,6 +45,10 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  enableNotification() {
+    this.notificationStatus = !this.notificationStatus;
+  }
 
   exitPage(exit: boolean) {
     if (exit) {

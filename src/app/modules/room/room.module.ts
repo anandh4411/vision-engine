@@ -14,6 +14,7 @@ import { ParticipantsComponent } from './components/participants/participants.co
 import { ChatsComponent } from './components/chats/chats.component';
 import { VideoComponent } from './components/video/video.component';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
     ParticipantsComponent,
     ChatsComponent,
     VideoComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
