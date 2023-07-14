@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-participants',
   templateUrl: './participants.component.html',
-  styleUrls: ['./participants.component.scss']
+  styleUrls: ['./participants.component.scss'],
 })
 export class ParticipantsComponent {
-
+  @Input() notificationStatus: any;
 }

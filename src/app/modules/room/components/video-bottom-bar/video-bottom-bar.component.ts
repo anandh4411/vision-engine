@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class VideoBottomBarComponent {
   @Input() activeVideoNumber: any;
-
   public subtitleStatus: boolean = false;
+
   public subtitleSwitch() {
     this.subtitleStatus = !this.subtitleStatus;
   }

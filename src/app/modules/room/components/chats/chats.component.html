@@ -1,1 +1,99 @@
-<p>chats works!</p>
+<div [class.notification-enabled-container]="notificationStatus" class="chat-container">
+    <!-- chat bubble container -->
+    <div class="chat-bubble-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <!-- chat bubble -->
+        <div class="chat-bubble">
+            <div class="d-flex">
+                <div class="avatar-box">
+                    <img src="assets/img/avatar.jpg" alt="">
+                </div>
+                <div class="chat-box">
+                    <span>Name</span>
+                    <div class="chat-content-box">
+                        <h4>weferf ergerg ergtr..</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- chat bubble end -->
+        <!-- chat bubble -->
+        <div class="chat-bubble">
+            <div class="d-flex">
+                <div class="avatar-box">
+                    <img src="assets/img/avatar.jpg" alt="">
+                </div>
+                <div class="chat-box">
+                    <span>Name</span>
+                    <div class="chat-content-box">
+                        <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non, quas!
+                            Blanditiis, doloribus. Quo non vitae magnam saepe incidunt.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- chat bubble end -->
+        <!-- chat bubble -->
+        <div class="chat-bubble">
+            <div class="d-flex">
+                <div class="avatar-box">
+                    <img src="assets/img/avatar.jpg" alt="">
+                </div>
+                <div class="chat-box">
+                    <span>Name</span>
+                    <div class="chat-content-box">
+                        <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non, quas!
+                            Blanditiis, doloribus. Quo non vitae magnam saepe incidunt.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- chat bubble end -->
+        <!-- chat bubble send -->
+        <div class="chat-bubble-send">
+            <div class="d-flex">
+                <div class="chat-box">
+                    <div class="chat-content-box">
+                        <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non, quas!
+                            Blanditiis, doloribus. Quo non vitae magnam saepe incidunt.</h4>
+                    </div>
+                    <div class="chat-content-box">
+                        <h4>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                        </h4>
+                    </div>
+                    <span>You</span>
+                </div>
+                <div class="avatar-box">
+                    <img src="assets/img/avatar.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- chat bubble send end -->
+    </div>
+    <!-- chat bubble container end -->
+
+    <!-- input box -->
+    <!-- emoji picker -->
+    <emoji-mart [isNative]="true" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"
+        [style]="{ position: 'absolute', bottom: '50px', }" [perLine]=8 [showPreview]=false>
+    </emoji-mart>
+    <!-- emoji picker end -->
+    <div class="chat-input-box">
+        <a #emojiPickerButton (click)="emojiPickerSwitch()" class="emoji-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+            </svg>
+        </a>
+        <a class="send-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <path
+                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+            </svg>
+        </a>
+        <form [formGroup]="messageForm">
+            <input formControlName="message" class="chat-input" type="text" placeholder="Type a message...">
+        </form>
+    </div>
+    <!-- input box end -->
+</div>
