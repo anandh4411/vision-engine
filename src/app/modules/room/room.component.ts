@@ -1,6 +1,15 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  OnInit,
+  HostListener,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { SwipeEvent } from 'ng-swipe';
 
 @Component({
   selector: 'app-room',
@@ -11,12 +20,31 @@ export class RoomComponent implements OnInit {
   @ViewChild('exit') exit: ElementRef | any;
   public activeVideoNumber: string = 'one';
   public notificationStatus: boolean = false;
+  public exitStatus: boolean = false;
   public notificationType: string = 'alert';
+  public isMobile: any;
   subject = new Subject<boolean>();
+  public swipedDown: boolean = false;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private deviceService: DeviceDetectorService,
+    private ref: ChangeDetectorRef
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isMobile = this.deviceService.isMobile();
+  }
+
+  onSwipeEnd(event: SwipeEvent) {
+    if (event.direction === 'y' && event.distance > 0) {
+      this.swipedDown = true;
+      this.ref.detectChanges();
+    } else if (event.direction === 'y' && event.distance < 0) {
+      this.swipedDown = false;
+      this.ref.detectChanges();
+    }
+  }
 
   enableNotification() {
     this.notificationStatus = !this.notificationStatus;
@@ -34,6 +62,13 @@ export class RoomComponent implements OnInit {
   open(exit: any) {
     this.modalService.open(exit, { centered: true });
   }
+
+  // @HostListener('window:beforeunload', ['$event'])
+  // onWindowClose(event: Event) {
+  //   event.preventDefault();
+  //   event.returnValue = true;
+  //   return false;
+  // }
 
   public modeSwitch(mode: string) {
     switch (mode) {

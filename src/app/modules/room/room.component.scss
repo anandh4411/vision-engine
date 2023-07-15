@@ -10,6 +10,7 @@
 .room-container {
   padding-top: 10px;
   height: 100vh;
+  overflow: hidden;
 }
 // room container end
 
@@ -89,6 +90,7 @@
     color: white !important;
   }
 }
+
 // page switcher end
 
 // net speed
@@ -129,10 +131,11 @@
   // animation: spin 10s linear infinite;
 }
 // @keyframes spin {
-//     100% {
-//       transform: rotateZ(360deg);
-//     }
+//   100% {
+//     transform: rotateZ(360deg);
+//   }
 // }
+
 // net speed end
 
 // left dock end
@@ -255,4 +258,149 @@
     --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
   }
 }
+
 // exit modal end
+
+// <---- mobile responsiveness ---->
+
+// mobile dock
+.mobile-top-dock {
+  width: 100%;
+  margin-top: -65px;
+  animation: fadeInFromBottom 0.5s !important;
+}
+.mobile-top-dock-enabled {
+  animation: fadeInFromTop 0.5s !important;
+  margin-top: 0px;
+}
+@keyframes fadeInFromTop {
+  0% {
+    margin-top: -65px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+@keyframes fadeInFromBottom {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: -65px;
+  }
+}
+.mobile-main-dock,
+.mobile-mode-switcher,
+.mobile-page-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+  width: fit-content;
+  padding: 0px 6px 4px 9px;
+  margin-right: 10px;
+  .mobile-switcher svg {
+    width: 26px;
+    transform: rotate(90deg);
+    margin-top: 4px;
+  }
+  .mode-active svg {
+    margin: -5px 0px -9px 0px;
+    padding: 7px;
+    background-color: #3a84f8;
+    color: white;
+    width: 30px !important;
+    transition: background-color 0.4s;
+  }
+  .mobile-switcher svg:nth-last-child(1) {
+    margin-right: 0px !important;
+  }
+  .mobile-page {
+    margin-top: 0px;
+    margin-right: 8px;
+    svg {
+      width: 15px;
+    }
+  }
+  .active {
+    padding: 0px 7px 0px 8px;
+    svg {
+      width: 15px;
+    }
+  }
+  .mobile-page:nth-last-child(1) {
+    margin-right: 0px !important;
+  }
+}
+.mobile-page-switcher {
+  padding: 5px 15px 5px 15px;
+}
+.mobile-main-dock {
+  padding: 4px 8px 4px 9px;
+  margin-right: 10px;
+  .logo-container {
+    padding: 6px 3px 6px 3px;
+    img {
+      width: 80%;
+      height: 80%;
+    }
+  }
+  svg {
+    margin-top: 0px;
+    margin-left: 8px;
+    width: 18px;
+  }
+}
+// mobile dock end
+
+@media only screen and (max-width: 566px) {
+  // mobile room container
+  .room-container {
+    padding-top: 2px;
+    height: 88vh;
+    overflow: hidden;
+  }
+  // mobile room container end
+
+  // mobile net speed
+  .net-speed-container {
+    margin: 0px 0px 0px 10px;
+  }
+  .net-speed-circle {
+    width: 37px;
+    height: 37px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+  }
+  .net-speed-circle:before {
+    border: 1.5px dashed #3a84f8;
+    height: calc(100% + 11px);
+    width: calc(100% + 12px);
+    top: -5px;
+    left: -6px;
+  }
+  p {
+    margin-top: -3px !important;
+    margin-left: -3px;
+    font-size: 15px;
+  }
+  span {
+    font-size: 7px !important;
+    margin-left: -10px !important;
+  }
+  // mobile net speed end
+}
+
+// mobile modal
+::ng-deep .modal {
+  @media only screen and (max-width: 566px) {
+    display: flex !important;
+    justify-content: center;
+  }
+}
+// mobile modal
+
+// <---- mobile responsiveness end ---->
+
+.dummy {
+  color: red !important;
+}
