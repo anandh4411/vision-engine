@@ -1,0 +1,21 @@
+<div class="video {{modeClassNameLocal}}">
+    <div class="video-top-bar">
+        <div class="d-flex justify-content-between">
+            <div class="name-container" [class.mode-6-name]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
+                <img src="assets/img/avatar.jpg" alt="">
+                <span>{{user.name}}</span>
+            </div>
+            <!-- recording component -->
+            <app-recording [activeVideoNumber]="activeVideoNumber"></app-recording>
+            <!-- recording component end -->
+        </div>
+    </div>
+    <img class="video-call-wrapper" src="{{user.image}}" alt="">
+    <!-- call actions component -->
+    <app-call-actions *ngIf="hostUser"></app-call-actions>
+    <!-- call actions component end -->
+
+    <!-- video bottom bar component -->
+    <app-video-bottom-bar *ngIf="!hostUser" [activeVideoNumber]="activeVideoNumber"></app-video-bottom-bar>
+    <!-- video bottom bar component end -->
+</div>

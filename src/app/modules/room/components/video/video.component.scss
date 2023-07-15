@@ -1,0 +1,59 @@
+.video-call-wrapper {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.video {
+  overflow: hidden;
+  border-radius: 46px;
+  position: relative;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  transition: width 0.8s, opacity 1s, height 0.8s;
+}
+.video-mode-2 {
+  height: 45.4vh;
+  width: 100%;
+  opacity: 1;
+}
+.video-mode-1 {
+  height: 92vh;
+  width: 100%;
+  opacity: 1;
+}
+.video:nth-child(2) {
+  margin-top: 10px;
+}
+.video-top-bar {
+  position: absolute;
+  top: 0;
+  width: -webkit-fill-available;
+  padding: 14px 18px 0px 16px;
+  .name-container {
+    background-color: rgba(0, 0, 0, 0.203);
+    border-radius: 25px;
+    color: white;
+    backdrop-filter: blur(4px);
+    padding: 4px;
+    height: max-content;
+    opacity: 1;
+    transition: opacity 800ms;
+    img {
+      width: 30px;
+      border-radius: 50%;
+    }
+    span {
+      font-size: 13px;
+      margin: 0px 5px 0px 5px;
+    }
+  }
+  // hide name, display only avatar
+  .mode-6-name {
+    span {
+      display: none;
+    }
+  }
+  // hide name, display only avatar end
+}

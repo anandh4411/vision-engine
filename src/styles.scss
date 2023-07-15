@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@ctrl/ngx-emoji-mart/picker';
 
 a {
     text-decoration: none !important;
+    cursor: pointer;
 }
 
 html,
@@ -38,3 +40,5 @@ body {
     background-color: #14141f00;
     color: #F3100A;
 }
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

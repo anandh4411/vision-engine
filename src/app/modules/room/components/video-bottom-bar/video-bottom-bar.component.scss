@@ -1,0 +1,103 @@
+.video-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  width: -webkit-fill-available;
+  padding: 0px 18px 16px 16px;
+  .video-bottom-bar-wrapper {
+    width: 114px;
+    height: 54px;
+    background-color: rgba(0, 0, 0, 0.203);
+    border-radius: 25px;
+    color: white;
+    backdrop-filter: blur(4px);
+    padding: 7px;
+    overflow: hidden;
+    transition: width 400ms ease-in-out, height 400ms ease-in-out;
+    .sound-icon,
+    .subtitle-control-btn {
+      color: white;
+      border-radius: 25px;
+      height: max-content;
+    }
+    .sound-icon {
+      background-color: #ffffff36;
+      padding: 4px 10px 4px 10px;
+      margin-right: 8px;
+    }
+    .sound-icon svg {
+      width: 30px;
+    }
+    @keyframes fadeIn {
+      0% {
+        margin-bottom: -300px;
+      }
+      100% {
+        margin-bottom: 0;
+      }
+    }
+    .subtitle-container {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      transition: opacity 0.8s ease-out;
+      opacity: 0;
+      label {
+        font-size: 10px;
+      }
+    }
+    .subtitle-control-btn {
+      padding: 5px 10px 10px 10px;
+      background-color: #feae4f;
+      transition: background-color 0.1s ease-out;
+      svg {
+        width: 20px;
+      }
+    }
+  }
+}
+.mode-6 {
+  padding: 0px 13px 13px 13px;
+  .video-bottom-bar-wrapper {
+    width: 75px;
+    height: 39px;
+    padding: 6px;
+    border-radius: 25px;
+    .sound-icon {
+      border-radius: 25px;
+      padding: 0px 6px 0px 5px;
+      margin-right: 5px;
+      svg {
+        width: 20px;
+        margin-bottom: 3px;
+      }
+    }
+    .subtitle-container {
+      label {
+        font-size: 9px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+    .subtitle-control-btn {
+      border-radius: 25px;
+      padding: 0px 6px 3px 6px;
+      svg {
+        width: 15px;
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
+
+.subtitle-enabled {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 8px !important;
+  .subtitle-container {
+    opacity: 1 !important;
+    height: 100px !important;
+    animation: fadeIn 0.5s !important;
+    width: auto !important;
+  }
+}
