@@ -263,31 +263,14 @@
 
 // <---- mobile responsiveness ---->
 
-// mobile dock
+// mobile top dock
 .mobile-top-dock {
   width: 100%;
   margin-top: -65px;
-  animation: fadeInFromBottom 0.5s !important;
+  transition: margin-top 0.5s;
 }
 .mobile-top-dock-enabled {
-  animation: fadeInFromTop 0.5s !important;
   margin-top: 0px;
-}
-@keyframes fadeInFromTop {
-  0% {
-    margin-top: -65px;
-  }
-  100% {
-    margin-top: 0;
-  }
-}
-@keyframes fadeInFromBottom {
-  0% {
-    margin-top: 0;
-  }
-  100% {
-    margin-top: -65px;
-  }
 }
 .mobile-main-dock,
 .mobile-mode-switcher,
@@ -351,7 +334,7 @@
     width: 18px;
   }
 }
-// mobile dock end
+// mobile top dock end
 
 @media only screen and (max-width: 566px) {
   // mobile room container
@@ -390,6 +373,64 @@
   // mobile net speed end
 }
 
+// mobile bottom dock
+.mobile-bottom-dock-container {
+  padding: 0px 10px 6px 10px;
+  background-color: rgba(0, 0, 0, 0);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  .mobile-bottom-dock {
+    padding: 8px 8px 7px 8px;
+    border-radius: 25px;
+    background-color: #f8f8f8;
+    overflow-y: scroll;
+    display: flex;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+    a {
+      color: #b7bfc6;
+      background-color: #e5e5e58c;
+      padding: 9px 13px 13px 13px;
+      border-radius: 50%;
+      margin: -2px 0px 0px 10px;
+      svg {
+        width: 20px;
+      }
+    }
+    .mobile-bottom-dock-active {
+      background-color: #3a84f8;
+      color: white;
+    }
+    .mobile-bottom-dock-active-green {
+      background-color: #feae4f;
+      color: black;
+    }
+    .call-cut-btn {
+      color: white;
+      background-color: red;
+      border-radius: 25px;
+      padding: 8px 20px 10px 20px;
+      margin: 0px;
+      svg {
+        width: 20px;
+        transform: rotate(135deg);
+      }
+    }
+  }
+  .mobile-bottom-dock::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+}
+// mobile bottom dock end
+
+// mobile content
+.mobile-content {
+  height: 89vh;
+}
+// mobile content end
+
 // mobile modal
 ::ng-deep .modal {
   @media only screen and (max-width: 566px) {
@@ -400,7 +441,3 @@
 // mobile modal
 
 // <---- mobile responsiveness end ---->
-
-.dummy {
-  color: red !important;
-}
