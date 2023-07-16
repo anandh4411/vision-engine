@@ -10,16 +10,18 @@ export class VideoComponent implements OnChanges {
   @Input() modeClassName: any;
   @Input() hostUser: any;
   @Input() user: any;
+  @Input() swipedDown: any;
 
   public modeClassNameLocal: any;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.modeClassName);
     if (this.modeClassName) {
       if (this.modeClassName.videoMode1) {
         this.modeClassNameLocal = 'video-mode-1';
       } else if (this.modeClassName.videoMode2) {
         this.modeClassNameLocal = 'video-mode-2';
+      } else if (this.modeClassName.mobileVideoMode1) {
+        this.modeClassNameLocal = 'mobile-video-mode-1';
       } else {
         this.modeClassNameLocal = '';
       }
