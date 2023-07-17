@@ -1,44 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@ctrl/ngx-emoji-mart/picker';
+@import "@ctrl/ngx-emoji-mart/picker";
 
 a {
-    text-decoration: none !important;
-    cursor: pointer;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: "Poppins";
+  margin: 0;
+  font-family: "Poppins";
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: "Poppins";
+  margin: 0;
+  font-family: "Poppins";
 }
 
 .vision-btn {
-    padding: 10px 20px 10px 20px;
-    font-size: 15px;
-    font-family: 'Poppins';
-    font-weight: 500 !important;
-    border: 1.5px solid #F3100A;
-    border-radius: 10px;
-    transition-duration: .3s;
+  padding: 10px 20px 10px 20px;
+  font-size: 15px;
+  font-family: "Poppins";
+  font-weight: 500 !important;
+  border: 1.5px solid #f3100a;
+  border-radius: 10px;
+  transition-duration: 0.3s;
 }
 
 .vision-btn-dark {
-    background-color: #14141f00;
-    color: #F3100A;
+  background-color: #14141f00;
+  color: #f3100a;
 }
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";

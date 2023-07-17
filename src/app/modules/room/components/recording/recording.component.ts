@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class RecordingComponent {
   @Input() activeVideoNumber: any;
+  @Input() isMobile: any;
 
   public recordingStatus: boolean = false;
   public recordingEnableAnimation: boolean = false;

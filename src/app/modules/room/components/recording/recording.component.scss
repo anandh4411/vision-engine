@@ -1,64 +1,90 @@
-.recording-container{
-    width: 40px;
-    background-color: rgba(0, 0, 0, 0.203);
-    border-radius: 25px;
+.recording-container {
+  width: 40px;
+  background-color: rgba(0, 0, 0, 0.203);
+  border-radius: 25px;
+  color: white;
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+  padding: 7px;
+  transition: width 0.5s cubic-bezier(0.11, 0.72, 0.08, 0.86);
+  .recording-progress-icon {
+    background-color: white;
+    padding: 5px;
+    color: #ff0000 !important;
+    border-radius: 50%;
+    width: 22px;
+    margin-top: 2px;
+    margin-right: 6px;
+    @keyframes recordingProgressIcon {
+      0% {
+        transform: scale(0.7);
+      }
+      50% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0.7);
+      }
+    }
+    animation: recordingProgressIcon 2s !important;
+    animation-iteration-count: infinite !important;
+  }
+  @keyframes fadeInRight {
+    0% {
+      margin-right: -300px;
+    }
+    100% {
+      margin-right: 0;
+    }
+  }
+  .recording-enabled {
+    height: 17px !important;
+    span {
+      opacity: 1 !important;
+      animation: fadeInRight 0.5s !important;
+    }
+  }
+  span {
+    font-size: 13px;
+    margin-right: 5px;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+  }
+  .recording-pause-btn svg,
+  .recording-stop-btn svg {
+    background-color: rgba(255, 255, 255, 0.21);
+    padding: 4px;
+    border-radius: 50%;
+    width: 26px;
     color: white;
+    margin-top: -2px;
     backdrop-filter: blur(4px);
-    overflow: hidden;
-    padding: 7px;
-    transition: width .5s ease-in-out;
-    .recording-progress-icon{
-        background-color: white;
-        padding: 5px;
-        color: #ff0000 !important;
-        border-radius: 50%;
-        width: 22px;
-        margin-top: 2px;
-        margin-right: 6px;
-        @keyframes recordingProgressIcon {
-            0% { width: 22px; padding: 5px; }
-            50% { width: 22.1px; padding: 0px; }
-            100% { width: 22px; padding: 5px; }
-        }
-        animation: recordingProgressIcon 2s;
-        animation-iteration-count: infinite;
-    }
-    @keyframes fadeInRight {
-        0% { margin-right: -300px; }
-        100% { margin-right: 0; }
-    }
-    .recording-enabled{
-        height: 17px !important;
-        span{
-            opacity: 1 !important;
-            animation: fadeInRight .5s !important;
-        }
-    }
-    span{
-        font-size: 13px;
-        margin-right: 5px;
-        transition: opacity 1s ease-out;
-        opacity: 0;
-    }
-    .recording-pause-btn svg, .recording-stop-btn svg{
-        background-color: rgba(255, 255, 255, 0.21);
-        padding: 4px;
-        border-radius: 50%;
-        width: 26px;
-        color: white;
-        margin-top: -2px;
-        backdrop-filter: blur(4px);
-    }
-    .recording-pause-btn svg{
-        margin-right: 5px;
-    }
+  }
+  .recording-pause-btn svg {
+    margin-right: 5px;
+  }
 }
-.recording-status{
-    width: 236px;
+.recording-status {
+  width: 236px;
 }
-.mode-6{
-    width: 100px;
-    span{
-        display: none;
-    }
+.mode-6 {
+  width: 100px;
+  .recording-pause-btn svg,
+  .recording-progress-icon {
+    animation: opacity 0.5s;
+  }
+  span {
+    display: none;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

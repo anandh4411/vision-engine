@@ -1,4 +1,5 @@
-<div class="video-bottom-bar" [class.mode-6]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
+<div class="video-bottom-bar"
+    [ngClass]="{'mode-6':activeVideoNumber == 'five' || activeVideoNumber == 'six', 'mobile-mode':isMobile}">
     <div class="video-bottom-bar-wrapper" [class.subtitle-enabled]="subtitleStatus">
         <div class="d-flex">
             <a class="sound-icon">

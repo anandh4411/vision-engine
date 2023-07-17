@@ -266,11 +266,13 @@
 // mobile top dock
 .mobile-top-dock {
   width: 100%;
-  margin-top: -65px;
-  transition: margin-top 0.5s;
+  height: 0px;
+  opacity: 0;
+  transition: height 1s, opacity 1s;
 }
 .mobile-top-dock-enabled {
-  margin-top: 0px;
+  height: 50px;
+  opacity: 1;
 }
 .mobile-main-dock,
 .mobile-mode-switcher,
