@@ -101,3 +101,11 @@
     width: auto !important;
   }
 }
+.mobile-mode {
+  padding: 0px 11px 11px 11px;
+  .subtitle-enabled {
+    .subtitle-container {
+      transition: opacity 1.5s ease-out !important;
+    }
+  }
+}

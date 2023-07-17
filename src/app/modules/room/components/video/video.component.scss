@@ -12,6 +12,7 @@
   width: 0;
   opacity: 0;
   transition: width 0.8s, opacity 1s, height 0.8s;
+  will-change: width, opacity, height;
 }
 .video-mode-2 {
   height: 45.4vh;
@@ -27,13 +28,13 @@
   margin-top: 10px;
 }
 .mobile-video-mode-1 {
-  height: 86.1vh;
+  height: 86.1svh;
   width: 100%;
   opacity: 1;
   border-radius: 32px;
 }
 .swiped-down-class {
-  height: 76.3vh;
+  height: 78svh;
 }
 .video-top-bar {
   position: absolute;
@@ -65,4 +66,7 @@
     }
   }
   // hide name, display only avatar end
+}
+.mobile-mode {
+  padding: 11px 11px 0px 12px;
 }

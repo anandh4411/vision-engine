@@ -1,12 +1,12 @@
 <div class="video {{modeClassNameLocal}}" [class.swiped-down-class]="swipedDown">
-    <div class="video-top-bar">
+    <div [class.mobile-mode]="isMobile" class="video-top-bar">
         <div class="d-flex justify-content-between">
             <div class="name-container" [class.mode-6-name]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
                 <img src="assets/img/avatar.jpg" alt="">
                 <span>{{user.name}}</span>
             </div>
             <!-- recording component -->
-            <app-recording [activeVideoNumber]="activeVideoNumber"></app-recording>
+            <app-recording [isMobile]="isMobile" [activeVideoNumber]="activeVideoNumber"></app-recording>
             <!-- recording component end -->
         </div>
     </div>
@@ -16,6 +16,7 @@
     <!-- call actions component end -->
 
     <!-- video bottom bar component -->
-    <app-video-bottom-bar *ngIf="!hostUser" [activeVideoNumber]="activeVideoNumber"></app-video-bottom-bar>
+    <app-video-bottom-bar *ngIf="!hostUser" [isMobile]="isMobile"
+        [activeVideoNumber]="activeVideoNumber"></app-video-bottom-bar>
     <!-- video bottom bar component end -->
 </div>

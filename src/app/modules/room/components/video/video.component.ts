@@ -11,6 +11,7 @@ export class VideoComponent implements OnChanges {
   @Input() hostUser: any;
   @Input() user: any;
   @Input() swipedDown: any;
+  @Input() isMobile: any;
 
   public modeClassNameLocal: any;
 
