@@ -3,7 +3,8 @@
         <div class="d-flex justify-content-between">
             <div class="name-container" [class.mode-6-name]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
                 <img src="assets/img/avatar.jpg" alt="">
-                <span>{{user.name}}</span>
+                <span
+                    [style.display]="(modeClassNameLocal=='mobile-video-mode-2') ? 'none' : 'inline'">{{user.name}}</span>
             </div>
             <!-- recording component -->
             <app-recording [isMobile]="isMobile" [activeVideoNumber]="activeVideoNumber"></app-recording>
@@ -16,7 +17,7 @@
     <!-- call actions component end -->
 
     <!-- video bottom bar component -->
-    <app-video-bottom-bar *ngIf="!hostUser" [isMobile]="isMobile"
+    <app-video-bottom-bar *ngIf="!hostUser" [isMobile]="isMobile" [modeClassName]="modeClassNameLocal"
         [activeVideoNumber]="activeVideoNumber"></app-video-bottom-bar>
     <!-- video bottom bar component end -->
 </div>

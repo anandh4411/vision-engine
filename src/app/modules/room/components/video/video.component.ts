@@ -23,6 +23,8 @@ export class VideoComponent implements OnChanges {
         this.modeClassNameLocal = 'video-mode-2';
       } else if (this.modeClassName.mobileVideoMode1) {
         this.modeClassNameLocal = 'mobile-video-mode-1';
+      } else if (this.modeClassName.mobileVideoMode2) {
+        this.modeClassNameLocal = 'mobile-video-mode-2';
       } else {
         this.modeClassNameLocal = '';
       }

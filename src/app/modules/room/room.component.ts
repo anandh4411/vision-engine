@@ -18,7 +18,7 @@ import { SwipeEvent } from 'ng-swipe';
 })
 export class RoomComponent implements OnInit {
   @ViewChild('exit') exit: ElementRef | any;
-  public activeVideoNumber: string = 'one';
+  public activeVideoNumber: string = 'four';
   public notificationStatus: boolean = false;
   public exitStatus: boolean = false;
   public notificationType: string = 'alert';

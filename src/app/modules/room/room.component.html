@@ -191,8 +191,7 @@
 <!-- mobile version -->
 <div *ngIf="isMobile" class="container-fluid room-container" ngSwipe (swipeEnd)="onSwipeEnd($event)">
     <!-- mobile top dock -->
-    <div [ngClass]="{'mobile-top-dock-enabled':swipedDown, 'mobile-top-dock-disabled':!swipedDown, }"
-        class="mobile-top-dock">
+    <div [ngClass]="{'mobile-top-dock-enabled':swipedDown }" class="mobile-top-dock">
         <div class="d-flex justify-content-center align-items-center">
             <!-- main dock -->
             <div class="main-dock mobile-main-dock" *ngIf="1+1==3">
@@ -296,11 +295,37 @@
 
     <!-- mobile content -->
     <div class="mobile-content">
-        <div class="mobile-layout-1">
+        <!-- mobile-layout-1 -->
+        <div class="mobile-layout d-flex justify-content-between"
+            [ngClass]="{'mobile-layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four', 'mobile-layout-1-active':activeVideoNumber == 'one'}">
+            <!-- video 1 -->
             <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
-                [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 'one'}" [swipedDown]="swipedDown"
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'four','mobileVideoMode1':activeVideoNumber == 'one' || activeVideoNumber == 'two' || activeVideoNumber == 'three'}"
+                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+            <!-- video 1 -->
+            <!-- video 4 -->
+            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video4.jpg'}"
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'four'}" [swipedDown]="swipedDown"
                 [isMobile]="isMobile"></app-video>
+            <!-- video 4 -->
         </div>
+        <!-- mobile-layout-1-end -->
+
+        <!-- mobile-layout-2 -->
+        <div class="mobile-layout d-flex justify-content-between" style="margin-top: 8px;"
+            [ngClass]="{'mobile-layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
+            <!-- video 2 -->
+            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video2.jpg'}"
+                [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 'two', 'mobileVideoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four'}"
+                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+            <!-- video 2 -->
+            <!-- video 3 -->
+            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video3.jpg'}"
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four'}"
+                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+            <!-- video 3 -->
+        </div>
+        <!-- mobile-layout-2-end -->
     </div>
     <!-- mobile content end -->
 
@@ -375,6 +400,10 @@
 
 </div>
 <!-- mobile version end -->
+
+<!-- common modal -->
+<div class="common-modal"></div>
+<!-- common modal exit -->
 
 <!-- exit confirming modal -->
 <ng-template #exit let-modal>
