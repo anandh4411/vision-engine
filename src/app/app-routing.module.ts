@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { RoomComponent } from './modules/room/room.component';
-import { AuthComponent } from './modules/auth/auth.component';
 import { RoomExitGuard } from './shared/guards/room-exit/room-exit.guard';
 
 const routes: Routes = [
@@ -16,18 +15,6 @@ const routes: Routes = [
     component: HomeComponent,
     loadChildren: () =>
       import('./modules/home/home.module').then((m) => m.HomeModule),
-  },
-  {
-    path: 'login',
-    component: AuthComponent,
-    loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
-    path: 'signup',
-    component: AuthComponent,
-    loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'room',
