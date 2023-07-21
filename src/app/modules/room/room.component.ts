@@ -18,13 +18,17 @@ import { SwipeEvent } from 'ng-swipe';
 })
 export class RoomComponent implements OnInit {
   @ViewChild('exit') exit: ElementRef | any;
-  public activeVideoNumber: string = 'four';
+  public activeVideoNumber: string = 'one';
   public notificationStatus: boolean = false;
   public exitStatus: boolean = false;
   public notificationType: string = 'alert';
   public isMobile: any;
   subject = new Subject<boolean>();
   public swipedDown: boolean = false;
+  public modalBlur: boolean = false;
+  public modalBlurExit: boolean = false;
+  public modalContent: any;
+  public dockMenuModal: any;
 
   constructor(
     private modalService: NgbModal,
@@ -34,6 +38,26 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+  }
+
+  modalSwitch(content: any) {
+    if (this.modalBlur && this.modalContent != ('' || null || content)) {
+      this.modalContent = content;
+    } else if (!this.modalBlur) {
+      this.modalBlur = true;
+      this.modalContent = content;
+    } else {
+      this.modalBlurExit = true;
+      setTimeout(() => {
+        this.modalBlur = false;
+        this.modalBlurExit = false;
+        this.modalContent = '';
+      }, 300);
+    }
+  }
+
+  dockMenuModalSwitch() {
+    this.dockMenuModal = !this.dockMenuModal;
   }
 
   onSwipeEnd(event: SwipeEvent) {

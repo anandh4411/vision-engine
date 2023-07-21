@@ -114,3 +114,36 @@
   height: 75vh;
 }
 // notification enabled end
+
+// mobile mode
+.mobile-mode {
+  height: 100%;
+  padding: 5px;
+  .chat-input-box {
+    margin-bottom: 5px;
+    width: 97%;
+  }
+  .chat-box {
+    span {
+      color: white;
+      font-size: 14px;
+    }
+    .chat-content-box {
+      width: 95%;
+      padding-left: 15px;
+      background-color: #f5f5f5bb;
+      backdrop-filter: blur(7px);
+      h4 {
+        font-size: 16px;
+      }
+    }
+  }
+  .chat-bubble-send {
+    .chat-content-box {
+      background-color: #63a4ff82;
+      background-image: linear-gradient(320deg, #3a83f883 0%, #68a2ff 74%);
+      backdrop-filter: blur(7px);
+    }
+  }
+}
+// mobile mode end

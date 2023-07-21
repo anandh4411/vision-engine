@@ -14,6 +14,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ChatsComponent {
   @Input() notificationStatus: any;
+  @Input() isMobile: any;
   @ViewChild('emojiPickerButton') emojiPickerButton: ElementRef | any;
   public emojiPicker: boolean = false;
   public messageForm: any;

@@ -21,10 +21,12 @@ export class VideoBottomBarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['modeClassName'].currentValue == 'mobile-video-mode-2') {
-      this.modeClassNameLocal = 'mobile-video-mode-2';
-    } else {
-      this.modeClassNameLocal = '';
+    if (changes['modeClassName']) {
+      if (changes['modeClassName'].currentValue == 'mobile-video-mode-2') {
+        this.modeClassNameLocal = 'mobile-video-mode-2';
+      } else {
+        this.modeClassNameLocal = '';
+      }
     }
   }
 

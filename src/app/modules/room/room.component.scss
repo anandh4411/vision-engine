@@ -266,13 +266,6 @@
 // mobile top dock
 .mobile-top-dock {
   width: 100%;
-  height: 0;
-  transform: translateY(-70px);
-  transition: transform 1s cubic-bezier(0, 1.01, 0.66, 0.97);
-}
-.mobile-top-dock-enabled {
-  height: 50px;
-  transform: translateY(0px);
 }
 .mobile-main-dock,
 .mobile-mode-switcher,
@@ -357,7 +350,7 @@
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
   }
   .net-speed-circle:before {
-    border: 1.5px dashed #3a84f8;
+    border: 1.5px dashed #ffffff;
     height: calc(100% + 11px);
     width: calc(100% + 12px);
     top: -5px;
@@ -377,8 +370,9 @@
 
 // mobile bottom dock
 .mobile-bottom-dock-container {
+  z-index: 100;
   padding: 0px 10px 6px 10px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgb(255, 255, 255);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -397,6 +391,7 @@
       padding: 9px 13px 13px 13px;
       border-radius: 50%;
       margin: -2px 0px 0px 10px;
+      transition: background-color 0.2s ease;
       svg {
         width: 20px;
       }
@@ -438,20 +433,24 @@
   height: 87svh;
 }
 .mobile-layout-2-active {
-  height: 43svh;
-  // dummy
+  height: 42.8svh;
 }
 // mobile video layout end
 
-// common modal
-.common-modal {
-  background-color: grey;
-  width: 95%;
-  height: 90%;
-  position: absolute;
-  top: 0;
+// mobile dock menu modal
+.dock-menu-modal {
+  width: 97%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.498);
+  backdrop-filter: blur(7px);
+  border-radius: 25px;
+  transform: translateY(0px);
+  transition: transform 0.4s ease;
 }
-// common modal end
+.dock-menu-modal-enabled {
+  transform: translateY(-12svh);
+}
+// mobile dock menu modal end
 
 // mobile modal
 ::ng-deep .modal {
