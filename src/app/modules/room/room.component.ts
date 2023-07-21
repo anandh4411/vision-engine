@@ -25,6 +25,10 @@ export class RoomComponent implements OnInit {
   public isMobile: any;
   subject = new Subject<boolean>();
   public swipedDown: boolean = false;
+  public modalBlur: boolean = false;
+  public modalBlurExit: boolean = false;
+  public modalContent: any;
+  public dockMenuModal: any;
 
   constructor(
     private modalService: NgbModal,
@@ -34,6 +38,26 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+  }
+
+  modalSwitch(content: any) {
+    if (this.modalBlur && this.modalContent != ('' || null || content)) {
+      this.modalContent = content;
+    } else if (!this.modalBlur) {
+      this.modalBlur = true;
+      this.modalContent = content;
+    } else {
+      this.modalBlurExit = true;
+      setTimeout(() => {
+        this.modalBlur = false;
+        this.modalBlurExit = false;
+        this.modalContent = '';
+      }, 300);
+    }
+  }
+
+  dockMenuModalSwitch() {
+    this.dockMenuModal = !this.dockMenuModal;
   }
 
   onSwipeEnd(event: SwipeEvent) {

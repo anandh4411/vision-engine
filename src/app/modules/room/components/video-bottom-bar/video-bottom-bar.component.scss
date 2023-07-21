@@ -29,10 +29,10 @@
     }
     @keyframes fadeIn {
       0% {
-        margin-bottom: -300px;
+        transform: translateY(300px);
       }
       100% {
-        margin-bottom: 0;
+        transform: translateY(0px);
       }
     }
     .subtitle-container {
@@ -97,7 +97,7 @@
   .subtitle-container {
     opacity: 1 !important;
     height: 100px !important;
-    animation: fadeIn 0.5s !important;
+    animation: fadeIn 0.8s !important;
     width: auto !important;
   }
 }
@@ -106,6 +106,35 @@
   .subtitle-enabled {
     .subtitle-container {
       transition: opacity 1.5s ease-out !important;
+    }
+  }
+}
+.mobile-video-mode-2 {
+  padding: 0px 8px 8px 8px;
+  .video-bottom-bar-wrapper {
+    width: 80px;
+    height: 38px;
+    padding: 5px;
+    .sound-icon {
+      padding: 0px 7px 3.5px 7px;
+      margin-right: 5px;
+    }
+    .sound-icon svg {
+      width: 20px;
+    }
+    .subtitle-container {
+      label {
+        font-size: 8px;
+      }
+      span {
+        font-size: 8.5px;
+      }
+    }
+    .subtitle-control-btn {
+      padding: 0px 8px 4px 8px;
+      svg {
+        width: 14px;
+      }
     }
   }
 }

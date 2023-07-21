@@ -16,6 +16,7 @@ import { ChatsComponent } from './components/chats/chats.component';
 import { VideoComponent } from './components/video/video.component';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ModalBlurredCommonComponent } from './components/modal-blurred-common/modal-blurred-common.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NotificationComponent } from './components/notification/notification.co
     ChatsComponent,
     VideoComponent,
     NotificationComponent,
+    ModalBlurredCommonComponent,
   ],
   imports: [
     CommonModule,

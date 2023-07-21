@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ParticipantsComponent {
   @Input() notificationStatus: any;
+  @Input() isMobile: any;
 }

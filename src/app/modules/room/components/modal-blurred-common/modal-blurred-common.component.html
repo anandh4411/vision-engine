@@ -1,0 +1,27 @@
+<!-- common modal -->
+<div class="common-modal-container" *ngIf="modalBlur" [class.common-modal-exit]="modalBlurExit">
+    <div class="common-modal">
+        <app-chats [ngStyle]="{'display': modalContent == 'chats' ? 'inline' : 'none'}"
+            [isMobile]="isMobile"></app-chats>
+        <app-participants [ngStyle]="{'display': modalContent == 'participants' ? 'inline' : 'none'}"
+            [isMobile]="isMobile"></app-participants>
+
+        <div [ngStyle]="{'display': modalContent == 'comming-present' ? 'inline' : 'none'}"
+            class="text-center comming-soon">
+            <h1>Share Screen</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="assets/img/comming-soon.png" alt="">
+            </div>
+        </div>
+
+        <div [ngStyle]="{'display': modalContent == 'comming-board' ? 'inline' : 'none'}"
+            class="text-center comming-soon">
+            <h1>White Board</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="assets/img/comming-soon.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- common modal exit -->
