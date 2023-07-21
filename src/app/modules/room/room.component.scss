@@ -407,7 +407,7 @@
 
 // mobile content
 .mobile-content {
-  height: 89svh;
+  height: 89vh;
 }
 // mobile content end
 
@@ -416,10 +416,10 @@
   transition: width 0.8s, height 0.8s;
 }
 .mobile-layout-1-active {
-  height: 86.8svh;
+  height: 86.8vh;
 }
 .mobile-layout-2-active {
-  height: 42.8svh;
+  height: 42.8vh;
 }
 // mobile video layout end
 
@@ -436,9 +436,26 @@
   z-index: 10;
 }
 .dock-menu-modal-enabled {
-  transform: translateY(-12svh);
+  transform: translateY(-12vh);
 }
 // mobile dock menu modal end
+
+// safari mobile styles
+@supports (-webkit-appearance: none) {
+  .mobile-content {
+    height: 89svh;
+  }
+  .mobile-layout-1-active {
+    height: 86.8svh;
+  }
+  .mobile-layout-2-active {
+    height: 42.8svh;
+  }
+  .dock-menu-modal-enabled {
+    transform: translateY(-12svh);
+  }
+}
+// safari mobile styles end
 
 // mobile modal
 ::ng-deep .modal {
