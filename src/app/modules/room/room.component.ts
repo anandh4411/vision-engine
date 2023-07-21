@@ -5,6 +5,7 @@ import {
   OnInit,
   HostListener,
   ChangeDetectorRef,
+  Renderer2,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -18,6 +19,7 @@ import { SwipeEvent } from 'ng-swipe';
 })
 export class RoomComponent implements OnInit {
   @ViewChild('exit') exit: ElementRef | any;
+  @ViewChild('dockMenuModalEle') dockMenuModalEle: ElementRef | any;
   public activeVideoNumber: string = 'one';
   public notificationStatus: boolean = false;
   public exitStatus: boolean = false;
@@ -33,8 +35,19 @@ export class RoomComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private deviceService: DeviceDetectorService,
-    private ref: ChangeDetectorRef
-  ) {}
+    private ref: ChangeDetectorRef,
+    private renderer: Renderer2
+  ) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (
+        e.target !== this.dockMenuModalEle.nativeElement &&
+        e.target !== this.dockMenuModalEle.nativeElement.children[0] &&
+        e.target !== this.dockMenuModalEle.nativeElement.children[1]
+      ) {
+        this.dockMenuModal = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
