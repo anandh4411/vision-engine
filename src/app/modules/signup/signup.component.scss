@@ -214,7 +214,7 @@
   .modal-content {
     border-radius: 20px;
     padding: 8px;
-    height: 360px;
+    // height: 360px;
     position: relative;
   }
   .modal-header,
@@ -227,6 +227,7 @@
   }
   .modal-body {
     padding: 15px;
+    margin-bottom: 44px;
     .upload-image {
       color: #1d90f5;
       padding: 10px;
@@ -283,9 +284,40 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    padding-right: 20px;
+    button {
+      width: 47%;
+    }
+    .btn-outline-dark {
+      color: #95979b;
+      border: 1px solid #95979b;
+    }
+    .btn-outline-dark:hover {
+      color: white;
+      background-color: #f44336;
+      border: 1px solid #f44336;
+    }
   }
   .btn-close {
     --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
   }
 }
+
+// image cropper
+.image-cropper-container {
+  border-radius: 15px;
+  border: 1.5px dashed #1d90f5;
+  background-color: #1d90f519;
+  width: 100%;
+  overflow: hidden;
+  object-fit: fill;
+}
+::ng-deep .ngx-ic-cropper:after {
+  border: dashed 1.5px !important;
+}
+::ng-deep .ngx-ic-cropper {
+  outline: rgba(0, 0, 0, 0.208) solid 100vw !important;
+}
+// image cropper end
+
 // profile picture modal end

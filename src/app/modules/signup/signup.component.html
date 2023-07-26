@@ -71,18 +71,6 @@
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
-                        <!-- <mat-form-field class="example-full-width">
-                            <mat-label>Choose Profile Picture</mat-label>
-                            <input matInput>
-                            <mat-icon matSuffix>
-                                perm_media
-                            </mat-icon>
-                        </mat-form-field> -->
-
-                        <!-- <input #csvInput hidden="true" type="file" onclick="this.value=null"
-                            (change)="csvInputChange($event)" />
-                        <a mat-flat-button color="primary" (click)="csvInput.click()">Choose Spreadsheet File
-                            (CSV)</a> -->
                         <a (click)="open(profilePic)" class="file-input-field">
                             <span>Choose Profile Picture</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -123,7 +111,10 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <a (click)="uploadProPic()" class="upload-image" [class.upload-image-active]="uploading">
+        <input onclick="this.value=null" #profilePicInput type="file" (change)="fileChangeEvent($event)"
+            hidden="true" />
+        <a *ngIf="imageChangedEvent == ''" (click)="profilePicInput.click()" class="upload-image"
+            [class.upload-image-active]="uploading">
             <div class="text-center d-grid justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-image-fill"
                     viewBox="0 0 16 16">
@@ -135,6 +126,13 @@
                 </span>
             </div>
         </a>
+        <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+                (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <!-- <img [src]="croppedImage" /> -->
+
         <div class="uploading-box" [class.uploading-box-active]="uploading">
             <span>Uploading...</span>
             <div class="d-flex justify-content-between">
@@ -149,8 +147,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">No</button>
-        <button type="button" class="btn btn-danger" (click)="exitPage(true)">Exit</button>
+        <button type="button" class="btn btn-outline-dark" (click)="clearProPic()"
+            [disabled]="imageChangedEvent == ''">Clear</button>
+        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;" (click)="proPicDone()"
+            [disabled]="imageChangedEvent == ''">Done</button>
     </div>
 </ng-template>
 <!-- profile picture modal -->
