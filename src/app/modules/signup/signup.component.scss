@@ -1,0 +1,170 @@
+// navbar
+.navbar-2 {
+  padding: 20px 10px 5px 40px;
+  a {
+    display: flex;
+    color: black;
+  }
+  .logo-wrapper {
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .title {
+    margin: 10px 0px 0px 10px;
+    h4 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}
+// navbar end
+
+// form page left container
+.form-left-container {
+  padding: 75px 0px 80px 85px;
+  .form-wrapper {
+    h1 {
+      font-size: 45px;
+      font-weight: 600;
+      // color: white;
+      // background-image: linear-gradient(
+      //   45deg,
+      //   #35c3f3 0%,
+      //   #8b9fe8 20%,
+      //   #e681d8 39%,
+      //   #ffa9a4 76%,
+      //   #fed2ce 100%
+      // );
+      // background-size: 100% 100%;
+      // -webkit-background-clip: text;
+      // -webkit-text-stroke: 5px transparent;
+      // line-height: 1.5;
+      // letter-spacing: 2px;
+    }
+    label:nth-child(1) {
+      font-size: 15px;
+      font-weight: 500;
+      color: #95979b;
+      margin-bottom: 10px;
+    }
+    .already-have {
+      color: #9fa3a9;
+      font-weight: 400;
+      font-size: 14px;
+      margin-top: 7px;
+      a {
+        font-weight: 500;
+        color: #2b97f6;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+// form page left container end
+
+// form page right container
+.form-right-container {
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  overflow: hidden;
+}
+// form page right container end
+
+// signup-image
+.signup-image-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -10;
+}
+.signup-image {
+  // width: 70%;
+  height: 100vh;
+}
+.line-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.line {
+  width: 100vh;
+  height: 2px;
+  overflow: hidden;
+  transform: rotate(90deg);
+}
+
+.line::before {
+  content: "";
+  display: block;
+  padding: 0 12px;
+  margin: 0 -12px;
+  border-bottom: 2px dashed #ccc;
+}
+// signup-image end
+
+// common input field
+.common-form {
+  margin-top: 30px;
+}
+.common-form-control {
+  width: 70%;
+}
+.common-form-footer {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.common-form-btn {
+  border-radius: 25px;
+  padding: 13px 40px;
+  font-size: 13px;
+}
+.common-form-btn-submit {
+  background-color: #1d90f5;
+  color: white;
+}
+.common-form-btn-method {
+  background-color: #f3f6fb;
+  color: #94979d;
+}
+::ng-deep
+  .mat-mdc-text-field-wrapper
+  .mat-mdc-form-field-flex
+  .mat-mdc-floating-label {
+  font-size: 15px;
+}
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  font-size: 15px !important;
+}
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+::ng-deep .mat-mdc-form-field-required-marker {
+  display: none;
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #f3f6fb;
+  border-radius: 15px;
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):focus-within {
+  border: 2px solid #1d90f5;
+  background-color: white;
+}
+::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: unset;
+}
+::ng-deep .mdc-line-ripple {
+  display: none;
+}
+::ng-deep
+  .mdc-text-field--focused:not(.mdc-text-field--disabled)
+  .mdc-floating-label {
+  color: #1d90f5;
+  font-size: 14px;
+  margin-top: -4px;
+}
+// common input field end

@@ -1,0 +1,83 @@
+<nav class="navbar-2">
+    <a routerLink="/">
+        <div class="logo-wrapper">
+            <img src="assets/img/logo2-blue.png" alt="">
+        </div>
+        <div class="title">
+            <h4>Vision Engine.</h4>
+        </div>
+    </a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 form-left-container">
+            <div class="form-wrapper">
+                <label>START FOR FREE</label>
+                <h1>Create new account.</h1>
+                <label class="already-have">Already A Member?<a>Log in</a></label>
+                <form action="" class="common-form">
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Name</mat-label>
+                            <input type="text" matInput placeholder="Steve Jobs">
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Email</mat-label>
+                            <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <mat-error
+                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Phone</mat-label>
+                            <input type="text" matInput placeholder="Steve Jobs">
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter New Password</mat-label>
+                            <input type="password" matInput placeholder="@something123!">
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Confirm Password</mat-label>
+                            <input type="password" matInput placeholder="Steve Jobs">
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Choose Profile Picture</mat-label>
+                            <input type="text" matInput placeholder="Steve Jobs">
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-footer">
+                        <div class="common-form-btn-control">
+                            <a class="common-form-btn common-form-btn-method">Change method</a>
+                        </div>
+                        <div class="common-form-btn-control">
+                            <a class="common-form-btn common-form-btn-submit">Create account</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6 form-right-container">
+        </div>
+    </div>
+</div>
+<div class="signup-image-wrapper">
+    <!-- <div class="line-container">
+        <div class="line"></div>
+    </div> -->
+    <img src="assets/img/signup.jpg" alt="" class="signup-image">
+</div>
+<div class="main-wrapper"></div>
