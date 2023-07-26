@@ -208,12 +208,14 @@
 }
 // common input field end
 
-// exit modal
+// profile picture modal
 ::ng-deep .modal-dialog {
-  width: 288px;
+  width: 400px;
   .modal-content {
     border-radius: 20px;
     padding: 8px;
+    height: 360px;
+    position: relative;
   }
   .modal-header,
   .modal-footer {
@@ -224,13 +226,66 @@
     font-size: 19px;
   }
   .modal-body {
-    padding: 3px 5px 8px 15px;
-    label {
-      font-size: 15px;
+    padding: 15px;
+    .upload-image {
+      color: #1d90f5;
+      padding: 10px;
+      border-radius: 15px;
+      border: 1.5px dashed #1d90f5;
+      background-color: #1d90f519;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: height 0.3s ease;
+      svg {
+        width: 50px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+      }
     }
+    .upload-image-active {
+      height: 125px;
+      svg {
+        display: none;
+      }
+    }
+    .uploading-box {
+      opacity: 0;
+      display: none;
+      margin-top: 10px;
+      background-color: #f3f6fb;
+      border-radius: 10px;
+      padding: 10px;
+      transform: translateY(5px);
+      transition: transform 0.3s ease, opacity 1s ease;
+      span {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      svg {
+        margin-top: -26px;
+        width: 14px;
+      }
+    }
+    .uploading-box-active {
+      display: block;
+      transform: translate(0px);
+      opacity: 1;
+    }
+  }
+  .modal-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
   .btn-close {
     --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
   }
 }
-// exit modal end
+// profile picture modal end

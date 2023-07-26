@@ -13,6 +13,7 @@ export class SignupComponent {
   passwordHide = true;
   cpasswordHide = true;
   fileUploadQueue: any;
+  public uploading: boolean = false;
 
   constructor(private modalService: NgbModal) {}
 
@@ -25,8 +26,8 @@ export class SignupComponent {
     console.log(fileInputEvent.target.files[0]);
   }
 
-  exitPage(exit: boolean) {
-    if (exit) {
+  exitPage(modalName: boolean) {
+    if (modalName) {
       this.subject.next(true);
       this.modalService.dismissAll();
     } else {
@@ -34,7 +35,11 @@ export class SignupComponent {
     }
   }
 
-  open(exit: any) {
-    this.modalService.open(exit, { centered: true });
+  open(modalName: any) {
+    this.modalService.open(modalName, { centered: true });
+  }
+
+  uploadProPic() {
+    this.uploading = !this.uploading;
   }
 }

@@ -119,11 +119,34 @@
 <!-- profile picture modal -->
 <ng-template #profilePic let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Exit chat</h4>
+        <h4 class="modal-title" id="modal-basic-title">Set your profile picture</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <label for=" ">Are you sure you want exit the chat? You can still rejoin after exiting.</label>
+        <a (click)="uploadProPic()" class="upload-image" [class.upload-image-active]="uploading">
+            <div class="text-center d-grid justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-image-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z" />
+                </svg>
+                <span>
+                    Drag & Drop your image
+                </span>
+            </div>
+        </a>
+        <div class="uploading-box" [class.uploading-box-active]="uploading">
+            <span>Uploading...</span>
+            <div class="d-flex justify-content-between">
+                <h6>progress</h6>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">No</button>
