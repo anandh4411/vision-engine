@@ -20,12 +20,18 @@
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Name</mat-label>
                             <input type="text" matInput placeholder="Steve Jobs">
+                            <mat-icon matSuffix>
+                                person
+                            </mat-icon>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Email</mat-label>
                             <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <mat-icon matSuffix>
+                                email
+                            </mat-icon>
                             <mat-error
                                 *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                                 Please enter a valid email address
@@ -38,26 +44,54 @@
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Phone</mat-label>
-                            <input type="text" matInput placeholder="Steve Jobs">
+                            <input type="text" matInput placeholder="+91 XXX YYY XXXX">
+                            <mat-icon matSuffix>
+                                phone
+                            </mat-icon>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter New Password</mat-label>
-                            <input type="password" matInput placeholder="@something123!">
+                            <input matInput [type]="passwordHide ? 'password' : 'text'">
+                            <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                                <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input type="password" matInput placeholder="Steve Jobs">
+                            <input matInput [type]="cpasswordHide ? 'password' : 'text'">
+                            <a class="password-hide" mat-icon-button matSuffix (click)="cpasswordHide = !cpasswordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cpasswordHide">
+                                <mat-icon>{{cpasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
-                        <mat-form-field class="example-full-width">
+                        <!-- <mat-form-field class="example-full-width">
                             <mat-label>Choose Profile Picture</mat-label>
-                            <input type="text" matInput placeholder="Steve Jobs">
-                        </mat-form-field>
+                            <input matInput>
+                            <mat-icon matSuffix>
+                                perm_media
+                            </mat-icon>
+                        </mat-form-field> -->
+
+                        <!-- <input #csvInput hidden="true" type="file" onclick="this.value=null"
+                            (change)="csvInputChange($event)" />
+                        <a mat-flat-button color="primary" (click)="csvInput.click()">Choose Spreadsheet File
+                            (CSV)</a> -->
+                        <a (click)="open(profilePic)" class="file-input-field">
+                            <span>Choose Profile Picture</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                                <path
+                                    d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            </svg>
+                        </a>
                     </div>
                     <div class="common-form-footer">
                         <div class="common-form-btn-control">
@@ -81,3 +115,19 @@
     <img src="assets/img/signup.jpg" alt="" class="signup-image">
 </div>
 <div class="main-wrapper"></div>
+
+<!-- profile picture modal -->
+<ng-template #profilePic let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Exit chat</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <label for=" ">Are you sure you want exit the chat? You can still rejoin after exiting.</label>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">No</button>
+        <button type="button" class="btn btn-danger" (click)="exitPage(true)">Exit</button>
+    </div>
+</ng-template>
+<!-- profile picture modal -->
