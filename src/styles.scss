@@ -9,21 +9,17 @@ a {
 html,
 body {
   height: 100%;
+  // overflow-x: hidden !important;
 }
 
 body {
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Poppins" !important;
 }
 
 html,
 body {
   height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: "Poppins";
 }
 
 .vision-btn {
@@ -49,3 +45,22 @@ body {
 //     height: 100svh !important;
 //   }
 // }
+
+// custom scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+// custom scrollbar end

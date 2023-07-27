@@ -258,7 +258,6 @@
     --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
   }
 }
-
 // exit modal end
 
 // <---- mobile responsiveness ---->
@@ -431,7 +430,7 @@
   backdrop-filter: blur(7px);
   border-radius: 25px;
   transform: translateY(0);
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
   position: relative;
   z-index: 10;
 }
@@ -440,7 +439,7 @@
 }
 // mobile dock menu modal end
 
-// safari mobile styles
+// safari browser mobile styles
 @supports (-webkit-appearance: none) {
   .mobile-content {
     height: 89svh;
@@ -455,7 +454,7 @@
     transform: translateY(-12svh);
   }
 }
-// safari mobile styles end
+// safari browser mobile styles end
 
 // mobile modal
 ::ng-deep .modal {

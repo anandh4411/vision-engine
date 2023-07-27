@@ -1,0 +1,168 @@
+<nav class="navbar-2">
+    <a routerLink="/">
+        <div class="logo-wrapper">
+            <img src="assets/img/logo2-blue.png" alt="">
+        </div>
+        <div class="title">
+            <h4>Vision Engine.</h4>
+        </div>
+    </a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 form-left-container">
+            <div class="form-wrapper">
+                <label>START FOR FREE</label>
+                <h1>Create new account.</h1>
+                <label class="already-have">Already A Member?<a routerLink="/login">Log in</a></label>
+                <form action="" class="common-form">
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Name</mat-label>
+                            <input type="text" matInput placeholder="Steve Jobs">
+                            <mat-icon matSuffix>
+                                person
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Email</mat-label>
+                            <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <mat-icon matSuffix>
+                                email
+                            </mat-icon>
+                            <mat-error
+                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Please enter a valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter Phone</mat-label>
+                            <input type="text" matInput placeholder="+91 XXX YYY XXXX">
+                            <mat-icon matSuffix>
+                                phone
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Enter New Password</mat-label>
+                            <input matInput [type]="passwordHide ? 'password' : 'text'">
+                            <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                                <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput [type]="cpasswordHide ? 'password' : 'text'">
+                            <a class="password-hide" mat-icon-button matSuffix (click)="cpasswordHide = !cpasswordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cpasswordHide">
+                                <mat-icon>{{cpasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                    <div class="common-form-control">
+                        <a (click)="open(profilePic)" class="file-input-field">
+                            <span>Choose Profile Picture</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                                <path
+                                    d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="common-form-footer">
+                        <div class="common-form-btn-control">
+                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change method</a>
+                        </div>
+                        <div class="common-form-btn-control">
+                            <a class="common-form-btn common-form-btn-submit">Create account</a>
+                        </div>
+                    </div>
+                    <div class="login-methods" [class.login-methods-active]="loginMethodsActive">
+                        <a class="login-method">
+                            <img src="assets/img/logo-google.png" alt="">
+                        </a>
+                        <a class="login-method">
+                            <img src="assets/img/logo-apple.png" alt="">
+                        </a>
+                        <a class="login-method">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-facebook"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6 form-right-container">
+        </div>
+    </div>
+</div>
+<div *ngIf="!isMobile" class="signup-image-wrapper">
+    <img src="assets/img/signup.jpg" alt="" class="signup-image">
+</div>
+
+
+<!-- profile picture modal -->
+<ng-template #profilePic let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Set your profile picture</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <input onclick="this.value=null" #profilePicInput type="file" (change)="fileChangeEvent($event)"
+            hidden="true" />
+        <a appDragDropFile (fileDropped)="onFileDropped($event)" *ngIf="imageChangedEvent == ''"
+            (click)="profilePicInput.click()" class="upload-image" [class.upload-image-active]="uploading">
+            <div class="text-center d-grid justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-image-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z" />
+                </svg>
+                <span>
+                    Drag & Drop your image
+                </span>
+            </div>
+        </a>
+        <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
+            <image-cropper [autoCrop]="false" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+        <!-- <img [src]="croppedImage" /> -->
+
+        <div class="uploading-box" [class.uploading-box-active]="uploading">
+            <span>Uploading...</span>
+            <div class="d-flex justify-content-between">
+                <h6>progress</h6>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="clearProPic()"
+            [disabled]="imageChangedEvent == ''">Clear</button>
+        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;" (click)="proPicDone()"
+            [disabled]="imageChangedEvent == ''">Done</button>
+    </div>
+</ng-template>
+<!-- profile picture modal -->
