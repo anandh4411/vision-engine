@@ -12,7 +12,7 @@ import {
 export class DragDropFileDirective {
   constructor() {}
 
-  @HostBinding('class.fileover') fileOver: any;
+  @HostBinding('class.fileover') fileOver: boolean = false;
   @Output() fileDropped = new EventEmitter<any>();
 
   // Dragover listener
