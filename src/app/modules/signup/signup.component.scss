@@ -23,25 +23,11 @@
 
 // form page left container
 .form-left-container {
-  padding: 75px 0px 80px 85px;
+  padding: 75px 0px 130px 85px;
   .form-wrapper {
     h1 {
       font-size: 45px;
       font-weight: 600;
-      // color: white;
-      // background-image: linear-gradient(
-      //   45deg,
-      //   #35c3f3 0%,
-      //   #8b9fe8 20%,
-      //   #e681d8 39%,
-      //   #ffa9a4 76%,
-      //   #fed2ce 100%
-      // );
-      // background-size: 100% 100%;
-      // -webkit-background-clip: text;
-      // -webkit-text-stroke: 5px transparent;
-      // line-height: 1.5;
-      // letter-spacing: 2px;
     }
     label:nth-child(1) {
       font-size: 15px;
@@ -108,6 +94,7 @@
 // common input field
 .common-form {
   margin-top: 30px;
+  position: relative;
 }
 .common-form-control {
   width: 70%;
@@ -207,6 +194,41 @@
   font-size: 11px;
 }
 // common input field end
+
+// change method
+.login-methods {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  background-color: #f3f6fb;
+  padding: 10px;
+  border-radius: 25px;
+  width: 70%;
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  .login-method {
+    margin: 0px 10px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 25px;
+    img {
+      width: 30px;
+    }
+    svg {
+      width: 30px;
+      color: #1d90f5;
+    }
+  }
+}
+.login-methods-active {
+  opacity: 1;
+  transform: translateX(0px);
+}
+// change method end
 
 // profile picture modal
 ::ng-deep .modal-dialog {

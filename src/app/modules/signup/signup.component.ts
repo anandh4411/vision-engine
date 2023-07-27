@@ -18,6 +18,7 @@ export class SignupComponent {
   public uploading: boolean = false;
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  loginMethodsActive: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -29,8 +30,8 @@ export class SignupComponent {
     Validators.email,
   ]);
 
-  csvInputChange(fileInputEvent: any) {
-    console.log(fileInputEvent.target.files[0]);
+  changeMethod() {
+    this.loginMethodsActive = !this.loginMethodsActive;
   }
 
   exitPage(modalName: boolean) {
