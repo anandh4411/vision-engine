@@ -14,7 +14,7 @@
             <div class="form-wrapper">
                 <label>START FOR FREE</label>
                 <h1>Create new account.</h1>
-                <label class="already-have">Already A Member?<a>Log in</a></label>
+                <label class="already-have">Already A Member?<a routerLink="/login">Log in</a></label>
                 <form action="" class="common-form">
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
@@ -117,7 +117,7 @@
 
 
 <!-- profile picture modal -->
-<ng-template #profilePic let-modal #scroll [scrollTop]="scroll.scrollHeight">
+<ng-template #profilePic let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Set your profile picture</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
