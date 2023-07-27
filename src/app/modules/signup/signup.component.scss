@@ -395,3 +395,38 @@
 /* Shake animation end */
 
 // profile picture modal end
+
+// mobile designs
+@media only screen and (max-width: 566px) {
+  .form-left-container {
+    padding: 59px 0px 130px 35px;
+  }
+  .common-form-control,
+  .common-form-footer,
+  .login-methods {
+    width: 90%;
+  }
+  .common-form-footer {
+    margin-top: 10px;
+    .common-form-btn {
+      padding: 13px 14px;
+      font-size: 15px;
+    }
+  }
+  ::ng-deep .modal-dialog {
+    margin: 0 auto;
+    width: 340px;
+  }
+  ::ng-deep .ngx-ic-cropper:after {
+    border: dashed 2px white !important;
+  }
+  .image-cropper-container {
+    border-radius: unset;
+    border: unset;
+    background-color: unset;
+    width: 100%;
+    overflow: hidden;
+    object-fit: fill;
+  }
+}
+// mobile designs end

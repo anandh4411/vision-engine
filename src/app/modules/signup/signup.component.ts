@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   subject = new Subject<boolean>();
   passwordHide = true;
   cpasswordHide = true;
@@ -19,11 +20,17 @@ export class SignupComponent {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   loginMethodsActive: boolean = false;
+  public isMobile: any;
 
   constructor(
     private modalService: NgbModal,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private deviceService: DeviceDetectorService
   ) {}
+
+  ngOnInit(): void {
+    this.isMobile = this.deviceService.isMobile();
+  }
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -54,8 +61,6 @@ export class SignupComponent {
   // image crop
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
-    console.log(event);
-    console.log(this.imageChangedEvent);
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);

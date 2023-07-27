@@ -111,16 +111,13 @@
         </div>
     </div>
 </div>
-<div class="signup-image-wrapper">
-    <!-- <div class="line-container">
-        <div class="line"></div>
-    </div> -->
+<div *ngIf="!isMobile" class="signup-image-wrapper">
     <img src="assets/img/signup.jpg" alt="" class="signup-image">
 </div>
-<div class="main-wrapper"></div>
+
 
 <!-- profile picture modal -->
-<ng-template #profilePic let-modal>
+<ng-template #profilePic let-modal #scroll [scrollTop]="scroll.scrollHeight">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Set your profile picture</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -142,8 +139,8 @@
             </div>
         </a>
         <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
-            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
-                (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
+            <image-cropper [autoCrop]="false" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
                 (loadImageFailed)="loadImageFailed()"></image-cropper>
         </div>
         <!-- <img [src]="croppedImage" /> -->
