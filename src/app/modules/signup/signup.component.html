@@ -113,8 +113,8 @@
     <div class="modal-body">
         <input onclick="this.value=null" #profilePicInput type="file" (change)="fileChangeEvent($event)"
             hidden="true" />
-        <a *ngIf="imageChangedEvent == ''" (click)="profilePicInput.click()" class="upload-image"
-            [class.upload-image-active]="uploading">
+        <a appDragDropFile (fileDropped)="onFileDropped($event)" *ngIf="imageChangedEvent == ''"
+            (click)="profilePicInput.click()" class="upload-image" [class.upload-image-active]="uploading">
             <div class="text-center d-grid justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-image-fill"
                     viewBox="0 0 16 16">

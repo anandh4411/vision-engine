@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 
 @NgModule({
   declarations: [SignupComponent],
@@ -23,6 +24,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ReactiveFormsModule,
     NgIf,
     ImageCropperModule,
+    DirectivesModule,
   ],
 })
 export class SignupModule {}

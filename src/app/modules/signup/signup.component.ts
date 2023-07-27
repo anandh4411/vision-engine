@@ -53,6 +53,8 @@ export class SignupComponent {
   // image crop
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
+    console.log(event);
+    console.log(this.imageChangedEvent);
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
@@ -72,4 +74,8 @@ export class SignupComponent {
     this.imageChangedEvent = '';
   }
   proPicDone() {}
+
+  onFileDropped(event: any) {
+    this.imageChangedEvent = { target: { files: [event[0]] } };
+  }
 }
