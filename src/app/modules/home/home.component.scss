@@ -1,215 +1,307 @@
 .main-container {
-    height: 100vh;
-    background-color: black;
-    color: white;
-    overflow-x: hidden;
+  height: 100vh;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
 }
 
 // navbar
 .navbar {
-    top: 0;
-    width: 100%;
-    padding: 20px 10px 0px 15px;
+  top: 0;
+  width: 100%;
+  padding: 20px 10px 0px 15px;
 }
-
 .btn-signup {
-    margin-left: 10px;
-    background-color: #F3100A;
-    color: black;
+  margin-left: 10px;
+  background-color: #f3100a;
+  color: black;
 }
-
+.profile-avatar-btn {
+  position: relative;
+  margin-left: 10px;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    width: 36px;
+    border-radius: 50%;
+  }
+}
+.profile-avatar-btn:before {
+  position: absolute;
+  content: "";
+  height: calc(100% + 22px);
+  width: calc(100% + 9px);
+  border: 1.5px solid red;
+  top: -10px;
+  left: -4.5px;
+  border-radius: inherit;
+  // animation: spin 10s linear infinite;
+}
 // navbar end
+
 .landing-container {
-    height: 100vh;
-    margin-top: -30px;
+  height: 100vh;
+  margin-top: -30px;
 }
-
 .vh-100 {
-    height: 100vh;
+  height: 100vh;
 }
-
 .logo {
-    display: none;
+  display: none;
 }
-
 .landing-title {
-    color: black;
-    background: linear-gradient(-45deg, #ff3632, #7b1614, #ff3632, #7b1614);
-    background-size: 100% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-stroke: 3px transparent;
-    font-size: 120px;
-    line-height: 1.5;
+  color: black;
+  background: linear-gradient(-45deg, #ff3632, #7b1614, #ff3632, #7b1614);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 3px transparent;
+  font-size: 120px;
+  line-height: 1.5;
 }
-
 .landing-sub {
-    font-size: 20px;
-    line-height: 1.5;
-    color: rgb(145, 145, 145);
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgb(145, 145, 145);
 }
-
 .landing-btn {
-    padding: 16px 20px 13px 20px;
-    font-family: 'Poppins';
-    font-weight: 500 !important;
-    border: 1.5px solid #F3100A;
-    background-color: #14141f00;
-    color: #F3100A;
-    border-radius: 10px;
-    transition-duration: .3s;
+  padding: 16px 20px 13px 20px;
+  font-family: "Poppins";
+  font-weight: 500 !important;
+  border: 1.5px solid #f3100a;
+  background-color: #14141f00;
+  color: #f3100a;
+  border-radius: 10px;
+  transition-duration: 0.3s;
 }
-
 .landing-btn:hover {
-    background-color: #F3100A;
-    color: black;
+  background-color: #f3100a;
+  color: black;
 }
-
 .btn-container {
-    display: flex;
+  display: flex;
 }
-
 .btn-container-right {
-    margin-left: 10px;
-    margin-top: 50px;
+  margin-left: 10px;
+  margin-top: 50px;
 }
-
 .right-container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 566px) {
-    body {
-        background-color: black
-    }
-    .main-container {
-        height: 100%;
-    }
-    .nav-btn {
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
-        margin-top: 25px;
-    }
-    .landing-title {
-        font-size: 100px;
-    }
-    .landing-sub {
-        font-size: 18px;
-        margin-top: -10px;
-    }
-    .btn-container {
-        display: block;
-        margin-top: -20px;
-    }
-    .btn-container-right {
-        margin-left: 0px;
-        margin-top: 20px;
-    }
-    .right-container {
-        height: auto !important;
-        margin-top: 100px;
-        margin-right: -40px;
-    }
-    .left-container {
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 30px;
-        background-color: rgba(0, 0, 0, 0.45);
-        height: auto !important;
-        margin-top: -190px;
-        z-index: 10;
-        position: relative;
-    }
+  body {
+    background-color: black;
+  }
+  .main-container {
+    height: 100%;
+  }
+  .nav-btn {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 25px;
+  }
+  .landing-title {
+    font-size: 100px;
+  }
+  .landing-sub {
+    font-size: 18px;
+    margin-top: -10px;
+  }
+  .btn-container {
+    display: block;
+    margin-top: -20px;
+  }
+  .btn-container-right {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  .right-container {
+    height: auto !important;
+    margin-top: 100px;
+    margin-right: -40px;
+  }
+  .left-container {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 30px;
+    background-color: rgba(0, 0, 0, 0.45);
+    height: auto !important;
+    margin-top: -190px;
+    z-index: 10;
+    position: relative;
+  }
 }
 
-::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
-::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
-::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
-    border-color: #F3100A !important;
+::ng-deep
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__leading,
+::ng-deep
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__notch,
+::ng-deep
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__trailing {
+  border-color: #f3100a !important;
 }
 
 ::ng-deep .mdc-text-field .mdc-text-field__input {
-    caret-color: #F3100A;
+  caret-color: #f3100a;
 }
 
-::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
-    color: rgb(165, 165, 165);
-    padding-left: 3px;
+::ng-deep
+  .mdc-text-field:not(.mdc-text-field--disabled)
+  .mdc-text-field__input {
+  color: rgb(165, 165, 165);
+  padding-left: 3px;
 }
 
-::ng-deep .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
-    border-top-left-radius: var(--mdc-shape-small, 10px) !important;
-    border-bottom-left-radius: var(--mdc-shape-small, 10px) !important;
+::ng-deep
+  .mdc-text-field--outlined
+  .mdc-notched-outline
+  .mdc-notched-outline__leading {
+  border-top-left-radius: var(--mdc-shape-small, 10px) !important;
+  border-bottom-left-radius: var(--mdc-shape-small, 10px) !important;
 }
 
-::ng-deep .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
-    border-top-right-radius: var(--mdc-shape-small, 10px) !important;
-    border-bottom-right-radius: var(--mdc-shape-small, 10px) !important;
+::ng-deep
+  .mdc-text-field--outlined
+  .mdc-notched-outline
+  .mdc-notched-outline__trailing {
+  border-top-right-radius: var(--mdc-shape-small, 10px) !important;
+  border-bottom-right-radius: var(--mdc-shape-small, 10px) !important;
 }
 
 ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
-    color: red;
-    font-family: 'Poppins';
-    font-weight: 500 !important;
-    background-color: black;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: -10px;
+  color: red;
+  font-family: "Poppins";
+  font-weight: 500 !important;
+  background-color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: -10px;
 }
 
 ::ng-deep .mdc-notched-outline__leading {
-    border-left: 1.5px solid !important;
+  border-left: 1.5px solid !important;
 }
 
 ::ng-deep .mdc-notched-outline__leading,
 ::ng-deep .mdc-notched-outline__notch,
 ::ng-deep .mdc-notched-outline__trailing {
-    border-top: 1.5px solid !important;
-    border-bottom: 1.5px solid !important;
+  border-top: 1.5px solid !important;
+  border-bottom: 1.5px solid !important;
 }
 
 ::ng-deep .mdc-notched-outline__trailing {
-    border-right: 1.5px solid !important;
+  border-right: 1.5px solid !important;
 }
 
 ::ng-deep .mat-mdc-form-field-infix {
-    width: 160px !important;
+  width: 160px !important;
 }
 
-::ng-deep .mat-mdc-form-field-icon-suffix>.mat-icon {
-    padding: 0px !important;
-    margin-right: 20px;
-    margin-top: 5px;
-    color: #F3100A;
+::ng-deep .mat-mdc-form-field-icon-suffix > .mat-icon {
+  padding: 0px !important;
+  margin-right: 20px;
+  margin-top: 5px;
+  color: #f3100a;
 }
 
 .img-engine {
-    width: 80%;
-    margin-left: 20px;
+  width: 80%;
+  margin-left: 20px;
 }
 
 img.vert-move {
-    -webkit-animation: mover 2s infinite alternate;
-    animation: mover 2s infinite alternate;
+  -webkit-animation: mover 2s infinite alternate;
+  animation: mover 2s infinite alternate;
 }
 
 img.vert-move {
-    -webkit-animation: mover 2s infinite alternate;
-    animation: mover 2s infinite alternate;
+  -webkit-animation: mover 2s infinite alternate;
+  animation: mover 2s infinite alternate;
 }
 
 @-webkit-keyframes mover {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-20px);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes mover {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-20px);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }
+
+// profile modal
+::ng-deep .modal-dialog {
+  width: 400px;
+  .modal-content {
+    border-radius: 20px;
+    padding: 8px;
+    // height: 360px;
+    position: relative;
+  }
+  .modal-header {
+    border-bottom: none;
+    border-top: none;
+    svg {
+      width: 22px;
+      color: black;
+    }
+  }
+  .modal-title {
+    font-size: 19px;
+  }
+  .modal-body {
+    padding: 15px;
+    margin-bottom: 44px;
+    position: relative;
+    .cover-img {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 20px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+    }
+    .profile-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 104px;
+      margin-left: 15px;
+      .profile-header {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        .profile-avatar-wrapper {
+          width: 110px;
+          height: 110px;
+          background-color: rgb(255, 255, 255);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            border-radius: 50%;
+            width: 100px;
+          }
+        }
+        .profile-name-wrapper {
+          margin-top: 60px;
+        }
+      }
+    }
+  }
+  .btn-close {
+    --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+  }
+}
+// profile modal end
