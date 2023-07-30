@@ -1,0 +1,15 @@
+.profile-header-nav {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  a svg {
+    width: 25px;
+    color: black;
+  }
+  span {
+    font-size: 18px;
+  }
+}
+.profile-body {
+  padding: 15px 20px;
+}
