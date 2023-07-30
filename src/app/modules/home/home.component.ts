@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  passwordHide = true;
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
   constructor(private modalService: NgbModal) {}
 
   open(modalName: any) {
