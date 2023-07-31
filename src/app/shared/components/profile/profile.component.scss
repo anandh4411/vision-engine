@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
+    position: relative;
     .profile-avatar-wrapper {
       margin-left: -14px;
       width: 162px;
@@ -75,12 +76,65 @@
         color: #1d90f5;
       }
     }
+    .profile-picture-options {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-color: white;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      padding: 10px;
+      border-radius: 20px;
+      z-index: 15;
+      color: #5d5d5d;
+      width: 20vw;
+      margin-left: 125px;
+      margin-bottom: -90px;
+      animation: enlarge 0.3s ease;
+      transform-origin: left;
+      ul {
+        list-style-type: none;
+        padding-left: unset;
+        margin-bottom: unset;
+        text-align: center;
+        a {
+          display: block;
+          padding: 10px;
+          border-radius: 25px;
+          background-color: #f3f6fb;
+          width: 100%;
+          svg {
+            width: 15px;
+            margin-left: 5px;
+            margin-bottom: 2px;
+          }
+        }
+        a:hover {
+          background-color: #e9ecf2;
+        }
+        li:nth-last-child(1) {
+          margin-top: 10px;
+          a {
+            color: #f44336;
+          }
+        }
+      }
+    }
+    @keyframes enlarge {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   }
 }
 
 // common input field
 .common-form {
-  margin-top: 30px;
+  margin-top: 14px;
   position: relative;
   ::ng-deep mat-icon {
     color: #95979b;
@@ -153,18 +207,22 @@
   width: 49%;
   text-align: center;
 }
-.common-form-btn {
+.common-form-btn,
+.profile-btn-cancel,
+.profile-btn-save {
   border-radius: 25px;
   padding: 13px;
   font-size: 14px;
   display: block;
 }
-.common-form-btn-submit {
+.common-form-btn-submit,
+.profile-btn-save {
   background-color: #1d90f5;
   color: white;
 }
 .common-form-btn-logout,
-.delete-account-btn {
+.delete-account-btn,
+.profile-btn-cancel {
   background-color: #f3f6fb;
   color: #f44336;
 }
@@ -205,15 +263,65 @@
 }
 // common input field end
 
+// image cropper
+.image-cropper-container {
+  display: flex;
+  align-items: center;
+  height: 60vh;
+}
+::ng-deep .ngx-ic-cropper:after {
+  border: dashed 1.5px !important;
+}
+::ng-deep .ngx-ic-cropper {
+  outline: rgba(0, 0, 0, 0.208) solid 100vw !important;
+}
+.image-cropper-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .profile-btn-cancel,
+  .profile-btn-save {
+    text-align: center;
+    width: 48%;
+    svg {
+      margin-left: 5px;
+      margin-bottom: 3px;
+      width: 15px;
+    }
+  }
+}
+// image cropper end
+
 // mobile responsiveness
 @media only screen and (max-width: 566px) {
   .profile-content {
-    margin-top: 151px;
+    margin-top: 165px;
+    .profile-avatar-wrapper {
+      margin-left: -23px !important;
+    }
     .profile-avatar-wrapper:before {
-      height: calc(100% + 1px) !important;
-      width: calc(100% - 44px) !important;
-      left: 22px !important;
+      height: calc(100% + 3px) !important;
+      width: calc(100% - 47px) !important;
+      left: 24px !important;
       top: -2px !important;
+    }
+    .profile-name-wrapper {
+      h1 {
+        position: relative;
+        svg {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin-right: -27px;
+          margin-top: 6px !important;
+        }
+      }
+    }
+    .profile-body {
+      .common-form {
+        margin-top: 8px;
+        margin-bottom: 40px;
+      }
     }
   }
 }

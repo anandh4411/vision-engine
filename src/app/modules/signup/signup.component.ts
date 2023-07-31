@@ -15,7 +15,6 @@ export class SignupComponent implements OnInit {
   subject = new Subject<boolean>();
   passwordHide = true;
   cpasswordHide = true;
-  fileUploadQueue: any;
   public uploading: boolean = false;
   imageChangedEvent: any = '';
   croppedImage: any = '';

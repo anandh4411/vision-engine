@@ -1,104 +1,156 @@
-<div class="cover-img">
-    <img src="assets/img/cover-img.jpg" alt="">
-</div>
-<div class="profile-content">
-    <div class="profile-header">
-        <div class="profile-avatar-wrapper">
-            <img src="assets/img/avatar-2.jpg" alt="">
-            <a class="profile-pic-edit">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                </svg>
-            </a>
+<div *ngIf="imageChangedEvent == ''">
+    <div class="cover-img">
+        <img src="assets/img/cover-img.jpg" alt="">
+    </div>
+    <div class="profile-content">
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                <img src="assets/img/avatar-2.jpg" alt="">
+                <a (click)="profilePicOptionsSwitch()" #profilePicOptionsElem class="profile-pic-edit">
+                    <svg [style.color]="profilePicOptions ? '#5d5d5d' : 'white'" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="profile-name-wrapper">
+                <h1>Ranbir Kapoor
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-patch-check-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+                    </svg>
+                </h1>
+            </div>
+            <div *ngIf="profilePicOptions" class="profile-picture-options">
+                <ul>
+                    <li>
+                        <input onclick="this.value=null" #profilePicInput type="file" (change)="fileChangeEvent($event)"
+                            hidden="true" />
+                        <a (click)="profilePicInput.click()">Update
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a>Remove
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash3-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="profile-name-wrapper">
-            <h1>Ranbir Kapoor
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-patch-check-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
-                </svg>
-            </h1>
+        <div class="profile-body">
+            <form action="" class="common-form">
+                <div class="common-form-control">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Name</mat-label>
+                        <input type="text" matInput placeholder="Steve Jobs">
+                        <mat-icon matSuffix>
+                            person
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="common-form-control">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Email</mat-label>
+                        <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                        <mat-icon matSuffix>
+                            email
+                        </mat-icon>
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="common-form-control">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter Phone</mat-label>
+                        <input type="text" matInput placeholder="+91 XXX YYY XXXX">
+                        <mat-icon matSuffix>
+                            phone
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="common-form-control">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Enter New Password</mat-label>
+                        <input matInput [type]="passwordHide ? 'password' : 'text'">
+                        <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                            <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </a>
+                    </mat-form-field>
+                </div>
+                <div class="common-form-footer">
+                    <div class="common-form-btn-control">
+                        <a class="common-form-btn common-form-btn-logout">
+                            Logout
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="common-form-btn-control">
+                        <a class="common-form-btn common-form-btn-submit">Save changes
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <a class="common-form-btn delete-account-btn">
+                    Delete account
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash3-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                    </svg>
+                </a>
+            </form>
         </div>
     </div>
-    <div class="profile-body">
-        <form action="" class="common-form">
-            <div class="common-form-control">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter Name</mat-label>
-                    <input type="text" matInput placeholder="Steve Jobs">
-                    <mat-icon matSuffix>
-                        person
-                    </mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="common-form-control">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter Email</mat-label>
-                    <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
-                    <mat-icon matSuffix>
-                        email
-                    </mat-icon>
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                        Please enter a valid email address
-                    </mat-error>
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                        Email is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="common-form-control">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter Phone</mat-label>
-                    <input type="text" matInput placeholder="+91 XXX YYY XXXX">
-                    <mat-icon matSuffix>
-                        phone
-                    </mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="common-form-control">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Enter New Password</mat-label>
-                    <input matInput [type]="passwordHide ? 'password' : 'text'">
-                    <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
-                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
-                        <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </a>
-                </mat-form-field>
-            </div>
-            <div class="common-form-footer">
-                <div class="common-form-btn-control">
-                    <a class="common-form-btn common-form-btn-logout">
-                        Logout
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-                            <path fill-rule="evenodd"
-                                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-                        </svg>
-                    </a>
-                </div>
-                <div class="common-form-btn-control">
-                    <a class="common-form-btn common-form-btn-submit">Save changes
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <a class="common-form-btn delete-account-btn">
-                Delete account
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash3-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                </svg>
-            </a>
-        </form>
+</div>
+
+<div *ngIf="imageChangedEvent != ''">
+    <div class="image-croper-wrapper">
+        <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
+            <image-cropper [autoCrop]="false" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"></image-cropper>
+        </div>
+    </div>
+    <div class="image-cropper-footer">
+        <a (click)="clearProPic()" class="profile-btn-cancel">Cancel
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <path
+                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+            </svg>
+        </a>
+        <a class="profile-btn-save">Upload picture
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                <path
+                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path
+                    d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+            </svg>
+        </a>
     </div>
 </div>
