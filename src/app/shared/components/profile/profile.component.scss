@@ -323,6 +323,16 @@
         margin-bottom: 40px;
       }
     }
+    .profile-picture-options {
+      width: 50vw !important;
+      margin-left: 116px !important;
+    }
+  }
+  .image-cropper-footer {
+    position: absolute !important ;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
   }
 }
 // mobile responsiveness end
