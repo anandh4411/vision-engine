@@ -11,22 +11,27 @@ export class VideoComponent implements OnChanges {
   @Input() hostUser: any;
   @Input() user: any;
   @Input() isMobile: any;
-  recordingStatus: boolean = false;
-
-  public modeClassNameLocal: any;
+  recordingStatus = false;
+  public modeClassNameLocal = '';
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.modeClassName) {
-      if (this.modeClassName.videoMode1) {
-        this.modeClassNameLocal = 'video-mode-1';
-      } else if (this.modeClassName.videoMode2) {
-        this.modeClassNameLocal = 'video-mode-2';
-      } else if (this.modeClassName.mobileVideoMode1) {
-        this.modeClassNameLocal = 'mobile-video-mode-1';
-      } else if (this.modeClassName.mobileVideoMode2) {
-        this.modeClassNameLocal = 'mobile-video-mode-2';
-      } else {
-        this.modeClassNameLocal = '';
+      switch (true) {
+        case this.modeClassName.videoMode1:
+          this.modeClassNameLocal = 'video-mode-1';
+          break;
+        case this.modeClassName.videoMode2:
+          this.modeClassNameLocal = 'video-mode-2';
+          break;
+        case this.modeClassName.mobileVideoMode1:
+          this.modeClassNameLocal = 'mobile-video-mode-1';
+          break;
+        case this.modeClassName.mobileVideoMode2:
+          this.modeClassNameLocal = 'mobile-video-mode-2';
+          break;
+        default:
+          this.modeClassNameLocal = '';
+          break;
       }
     }
   }
