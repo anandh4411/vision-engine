@@ -10,10 +10,8 @@ export class RecordingComponent {
   @Input() activeVideoNumber: any;
   @Input() isMobile: any;
 
-  public recordingStatus: boolean = false;
-  public recordingEnableAnimation: boolean = false;
-
-  ngOnInit(): void {}
+  public recordingStatus = false;
+  public recordingEnableAnimation = false;
 
   public pauseRecording() {}
   public startRecording() {
