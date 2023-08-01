@@ -324,6 +324,7 @@
     --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
   }
 }
+// profile picture modal end
 
 // image cropper
 .image-cropper-container {
@@ -341,6 +342,97 @@
   outline: rgba(0, 0, 0, 0.208) solid 100vw !important;
 }
 // image cropper end
+
+// otp modal
+::ng-deep .modal-dialog {
+  .otp-modal-body {
+    padding: 15px;
+    margin-bottom: 44px;
+    overflow: hidden;
+    .otp-method-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: -15px;
+      padding-bottom: 80px;
+      .otp-img-wrapper {
+        img {
+          width: 150px;
+        }
+      }
+      .otp-text-wrapper {
+        margin-top: 5px;
+        width: 70%;
+        text-align: center;
+      }
+    }
+    span {
+      color: #95979b;
+      font-size: 14px;
+    }
+    .enter-otp-container {
+      padding-bottom: 40px;
+      .enter-otp-main-title {
+        font-size: 15px;
+        color: #7d7e80;
+      }
+      .otp-input-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 30px 0px;
+        input {
+          max-width: 20%;
+          height: 60px;
+          background-color: #f3f6fb;
+          border: none;
+          border-radius: 15px;
+          text-align: center;
+          font-size: 25px;
+          color: #7d7e80;
+        }
+        input:focus-visible {
+          outline: 2px solid #1d90f5;
+        }
+        input::-webkit-inner-spin-button,
+        input::-webkit-outer-spin-button {
+          display: none;
+        }
+      }
+      a {
+        color: #1d90f5;
+      }
+    }
+  }
+  .otp-modal-footer {
+    padding: 20px;
+    .otp-btn {
+      width: 100%;
+      border-radius: 10px;
+      padding: 12px;
+      color: black;
+      font-size: 14px;
+      background-color: #feae4f;
+      svg {
+        width: 16px;
+        margin-left: 5px;
+        margin-bottom: 2px;
+      }
+    }
+    .otp-btn:nth-last-child(1) {
+      margin-top: 8px;
+    }
+    .otp-btn-create {
+      background-color: #1d90f5;
+      color: white;
+    }
+  }
+  .btn-close {
+    --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+  }
+}
+// otp modal end
 
 /* Shake animation */
 .fileover {

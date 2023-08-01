@@ -20,6 +20,9 @@ export class SignupComponent implements OnInit {
   croppedImage: any = '';
   loginMethodsActive: boolean = false;
   public isMobile: any;
+  otpMethod: string = '';
+  countDown: any = '00:30';
+  interval: any;
 
   constructor(
     private modalService: NgbModal,
@@ -52,6 +55,11 @@ export class SignupComponent implements OnInit {
   open(modalName: any) {
     this.modalService.open(modalName, { centered: true });
   }
+  close(modalName: any) {
+    this.modalService.dismissAll();
+    this.otpMethod = '';
+    this.stopOtpTimer();
+  }
 
   uploadProPic() {
     this.uploading = !this.uploading;
@@ -82,5 +90,33 @@ export class SignupComponent implements OnInit {
 
   onFileDropped(event: any) {
     this.imageChangedEvent = { target: { files: [event[0]] } };
+  }
+
+  sendOtp(method: any) {
+    this.otpMethod = method;
+    this.OtpTimer(30);
+  }
+
+  onOtpChange(event: any) {
+    console.log(event);
+  }
+
+  OtpTimer(seconds: any) {
+    let remainingSeconds: number = seconds;
+    let formattedSeconds: string = '00';
+    this.interval = setInterval(() => {
+      remainingSeconds--;
+      const seconds = remainingSeconds % 60;
+      formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      this.countDown = `00:${formattedSeconds}`;
+      if (remainingSeconds <= 0) {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+  }
+
+  stopOtpTimer() {
+    clearInterval(this.interval);
+    this.countDown = '00:30';
   }
 }
