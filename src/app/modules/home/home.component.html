@@ -24,7 +24,8 @@
             <div class="col-sm-6">
                 <div class="d-flex align-items-center justify-content-center vh-100 right-container">
                     <div class="d-flex align-items-center justify-content-center">
-                        <img class="img-engine vert-move" src="assets/img/bg.png" alt="">
+                        <img *ngIf="!isMobile" class="img-engine vert-move" src="assets/img/bg.png" alt="">
+                        <img *ngIf="isMobile" class="img-engine vert-move" src="assets/img/bg-2.png" alt="">
                     </div>
                 </div>
             </div>

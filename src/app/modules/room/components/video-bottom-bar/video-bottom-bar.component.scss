@@ -44,13 +44,18 @@
       label {
         font-size: 10px;
       }
+      p {
+        margin-top: 5px;
+        font-size: 15px;
+        font-weight: 400;
+      }
     }
     .subtitle-control-btn {
-      padding: 5px 10px 10px 10px;
+      padding: 7px 10px 9px 10px;
       background-color: #feae4f;
       transition: background-color 0.1s ease-out;
       svg {
-        width: 20px;
+        width: 22px;
       }
     }
   }
@@ -64,11 +69,10 @@
     border-radius: 25px;
     .sound-icon {
       border-radius: 25px;
-      padding: 0px 6px 0px 5px;
+      padding: 0px 6px 2px 5px;
       margin-right: 5px;
       svg {
         width: 20px;
-        margin-bottom: 3px;
       }
     }
     .subtitle-container {
@@ -81,10 +85,9 @@
     }
     .subtitle-control-btn {
       border-radius: 25px;
-      padding: 0px 6px 3px 6px;
+      padding: 0px 6px 2px 6px;
       svg {
         width: 15px;
-        margin-bottom: 3px;
       }
     }
   }

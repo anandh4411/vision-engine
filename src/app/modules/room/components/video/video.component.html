@@ -1,13 +1,14 @@
-<div class="video {{modeClassNameLocal}}" [class.swiped-down-class]="swipedDown">
+<div class="video {{modeClassNameLocal}}">
     <div [class.mobile-mode]="isMobile" class="video-top-bar">
         <div class="d-flex justify-content-between">
-            <div class="name-container" [class.mode-6-name]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
+            <div class="name-container" [class.mode-6-name]="activeVideoNumber > 4">
                 <img src="assets/img/avatar.jpg" alt="">
                 <span
-                    [style.display]="(modeClassNameLocal=='mobile-video-mode-2') ? 'none' : 'inline'">{{user.name}}</span>
+                    [style.display]="(modeClassNameLocal=='mobile-video-mode-2' || recordingStatus) ? 'none' : 'inline'">{{user.name}}</span>
             </div>
             <!-- recording component -->
-            <app-recording [isMobile]="isMobile" [activeVideoNumber]="activeVideoNumber"></app-recording>
+            <app-recording [isMobile]="isMobile" [activeVideoNumber]="activeVideoNumber"
+                (recordingStatusNotify)="recordingStatusClick($event)"></app-recording>
             <!-- recording component end -->
         </div>
     </div>

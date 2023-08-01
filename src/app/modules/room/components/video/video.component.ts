@@ -10,8 +10,8 @@ export class VideoComponent implements OnChanges {
   @Input() modeClassName: any;
   @Input() hostUser: any;
   @Input() user: any;
-  @Input() swipedDown: any;
   @Input() isMobile: any;
+  recordingStatus: boolean = false;
 
   public modeClassNameLocal: any;
 
@@ -21,7 +21,6 @@ export class VideoComponent implements OnChanges {
         this.modeClassNameLocal = 'video-mode-1';
       } else if (this.modeClassName.videoMode2) {
         this.modeClassNameLocal = 'video-mode-2';
-        console.log('videoMode2');
       } else if (this.modeClassName.mobileVideoMode1) {
         this.modeClassNameLocal = 'mobile-video-mode-1';
       } else if (this.modeClassName.mobileVideoMode2) {
@@ -30,5 +29,9 @@ export class VideoComponent implements OnChanges {
         this.modeClassNameLocal = '';
       }
     }
+  }
+
+  recordingStatusClick(status: any) {
+    this.recordingStatus = status;
   }
 }

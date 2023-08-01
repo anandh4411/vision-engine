@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-recording',
@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./recording.component.scss'],
 })
 export class RecordingComponent {
+  @Output() recordingStatusNotify: EventEmitter<any> = new EventEmitter<any>();
   @Input() activeVideoNumber: any;
   @Input() isMobile: any;
 
@@ -17,6 +18,7 @@ export class RecordingComponent {
   public pauseRecording() {}
   public startRecording() {
     this.recordingStatus = !this.recordingStatus;
+    this.recordingStatusNotify.emit(this.recordingStatus);
     if (!this.recordingEnableAnimation) {
       setTimeout(() => {
         this.recordingEnableAnimation = true;

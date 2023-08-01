@@ -4,6 +4,9 @@ import {
   Renderer2,
   ElementRef,
   ViewChild,
+  ChangeDetectorRef,
+  AfterContentChecked,
+  OnInit,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
@@ -12,18 +15,29 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './chats.component.html',
   styleUrls: ['./chats.component.scss'],
 })
-export class ChatsComponent {
+export class ChatsComponent implements AfterContentChecked, OnInit {
   @Input() notificationStatus: any;
   @Input() isMobile: any;
   @ViewChild('emojiPickerButton') emojiPickerButton: ElementRef | any;
   public emojiPicker: boolean = false;
   public messageForm: any;
 
-  constructor(private renderer: Renderer2, private formBuilder: FormBuilder) {
+  constructor(
+    private renderer: Renderer2,
+    private formBuilder: FormBuilder,
+    private cdref: ChangeDetectorRef
+  ) {
     this.messageForm = this.formBuilder.group({
       message: [''],
     });
+  }
 
+  ngAfterContentChecked() {
+    // implemeted this to fix an error related to auto swipe down to bottom in chat container
+    // this.cdref.detach();
+  }
+
+  ngOnInit(): void {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (
         e.target !== this.emojiPickerButton.nativeElement &&

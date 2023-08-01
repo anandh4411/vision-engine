@@ -5,7 +5,7 @@
         <div class="col-sm-1 dock-container">
 
             <!-- internet speed -->
-            <div class="net-speed-container" *ngIf="1+1==3">
+            <div class="net-speed-container" *ngIf="false">
                 <div class="net-speed-circle text-center">
                     <p>8.7</p>
                     <span>mb/s</span>
@@ -15,9 +15,9 @@
 
             <!-- main dock -->
             <div class="main-dock">
-                <div class="logo-container dock-align-middle">
+                <a routerLink="/" class="logo-container dock-align-middle">
                     <img src="assets/img/logo2.png" alt="">
-                </div>
+                </a>
                 <a (click)="enableNotification()" class="dock-align-middle">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill"
                         viewBox="0 0 16 16">
@@ -30,39 +30,34 @@
 
             <!-- video window mode switcher -->
             <div class="mode-switcher">
-                <a (click)="modeSwitch('one')" class="dock-align-middle"
-                    [class.mode-active]="activeVideoNumber == 'one'">
+                <a (click)="modeSwitch(1)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
                         class="bi bi-dash" viewBox="3 3 10 10">
                         <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                     </svg>
                 </a>
-                <a (click)="modeSwitch('two')" class="dock-align-middle"
-                    [class.mode-active]="activeVideoNumber == 'two'">
+                <a (click)="modeSwitch(2)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
                         class="bi bi-pause-fill" viewBox="3 3 10 10">
                         <path
                             d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
                     </svg>
                 </a>
-                <a (click)="modeSwitch('three')" class="dock-align-middle"
-                    [class.mode-active]="activeVideoNumber == 'three'">
+                <a (click)="modeSwitch(3)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 3">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
                         viewBox="0 0 16 16">
                         <path
                             d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
                     </svg>
                 </a>
-                <a (click)="modeSwitch('four')" class="dock-align-middle"
-                    [class.mode-active]="activeVideoNumber == 'four'">
+                <a (click)="modeSwitch(4)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
                         viewBox="0 0 16 16">
                         <path
                             d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
                     </svg>
                 </a>
-                <a (click)="modeSwitch('six')" class="dock-align-middle"
-                    [class.mode-active]="activeVideoNumber == 'five' || activeVideoNumber == 'six'">
+                <a (click)="modeSwitch(6)" class="dock-align-middle" [class.mode-active]="activeVideoNumber > 4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-3x3-gap-fill"
                         viewBox="0 0 16 16">
                         <path
@@ -111,48 +106,47 @@
             <div class="d-flex">
                 <!-- layout 1 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber == 'five' || activeVideoNumber == 'six', 'layout-1-active':activeVideoNumber == 'one', 'layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
+                    [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber > 4, 'layout-1-active':activeVideoNumber == 1, 'layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
                     <!-- video 1 -->
                     <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
                         [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six', 'videoMode1':activeVideoNumber == 'one' || activeVideoNumber == 'two' || activeVideoNumber == 'three'}"></app-video>
+                        [modeClassName]="{'videoMode2':activeVideoNumber > 3, 'videoMode1':activeVideoNumber < 4}"></app-video>
                     <!-- video 1 end -->
                     <!-- video 4 -->
                     <app-video [activeVideoNumber]="activeVideoNumber"
                         [user]="{name: 'Name Surname', image: 'assets/img/video4.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six'}"></app-video>
+                        [modeClassName]="{'videoMode2':activeVideoNumber > 3}"></app-video>
                     <!-- video 4 end -->
                 </div>
                 <!-- layout 1 end -->
 
                 <!-- layout 2 -->
                 <div class="video-layout"
-                    [ngClass]="{'layout-3-active': activeVideoNumber == 'five' || activeVideoNumber == 'six', 'layout-2-active layout-left-margin':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
+                    [ngClass]="{'layout-3-active': activeVideoNumber > 4, 'layout-2-active layout-left-margin':activeVideoNumber > 1 && activeVideoNumber < 5}">
                     <!-- video 2 -->
                     <app-video [activeVideoNumber]="activeVideoNumber"
                         [user]="{name: 'Name Surname', image: 'assets/img/video2.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six', 'videoMode1':activeVideoNumber == 'two'}"></app-video>
+                        [modeClassName]="{'videoMode2':activeVideoNumber > 2, 'videoMode1':activeVideoNumber == 2}"></app-video>
                     <!-- video 2 end -->
                     <!-- video 3 -->
                     <app-video [activeVideoNumber]="activeVideoNumber"
                         [user]="{name: 'Name Surname', image: 'assets/img/video3.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four' || activeVideoNumber == 'five' || activeVideoNumber == 'six'}"></app-video>
+                        [modeClassName]="{'videoMode2':activeVideoNumber > 2}"></app-video>
                     <!-- video 3 end -->
                 </div>
                 <!-- layout 2 end -->
 
                 <!-- layout 3 -->
-                <div class="video-layout"
-                    [ngClass]="{'layout-3-active layout-left-margin':activeVideoNumber == 'six' || activeVideoNumber == 'five'}">
+                <div class="video-layout" [ngClass]="{'layout-3-active layout-left-margin':activeVideoNumber > 4}">
                     <!-- video 5 -->
                     <app-video [activeVideoNumber]="activeVideoNumber"
                         [user]="{name: 'Name Surname', image: 'assets/img/video5.jpg'}"
-                        [modeClassName]="{'videoMode2': activeVideoNumber == 'six' || activeVideoNumber == 'five'}"></app-video>
+                        [modeClassName]="{'videoMode2': activeVideoNumber > 4}"></app-video>
                     <!-- video 5 end -->
                     <!-- video 6 -->
                     <app-video [activeVideoNumber]="activeVideoNumber"
                         [user]="{name: 'Name Surname', image: 'assets/img/video6.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 'six'}"></app-video>
+                        [modeClassName]="{'videoMode2':activeVideoNumber == 6}"></app-video>
                     <!-- video 6 end -->
                 </div>
                 <!-- layout 3 end -->
@@ -189,38 +183,37 @@
 <!-- desktop version end -->
 
 <!-- mobile version -->
-<div *ngIf="isMobile" class="container-fluid room-container" ngSwipe (swipeEnd)="onSwipeEnd($event)">
+<div *ngIf="isMobile" class="container-fluid room-container">
 
     <!-- mobile content -->
     <div class="mobile-content">
         <!-- mobile-layout-1 -->
         <div class="mobile-layout d-flex justify-content-between"
-            [ngClass]="{'mobile-layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four', 'mobile-layout-1-active':activeVideoNumber == 'one'}">
+            [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5, 'mobile-layout-1-active':activeVideoNumber == 1}">
             <!-- video 1 -->
             <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'four','mobileVideoMode1':activeVideoNumber == 'one' || activeVideoNumber == 'two' || activeVideoNumber == 'three'}"
-                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4,'mobileVideoMode1':activeVideoNumber < 4}"
+                [isMobile]="isMobile"></app-video>
             <!-- video 1 -->
             <!-- video 4 -->
             <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video4.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'four'}" [swipedDown]="swipedDown"
-                [isMobile]="isMobile"></app-video>
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4}" [isMobile]="isMobile"></app-video>
             <!-- video 4 -->
         </div>
         <!-- mobile-layout-1-end -->
 
         <!-- mobile-layout-2 -->
         <div class="mobile-layout d-flex justify-content-between" style="margin-top: 8px;"
-            [ngClass]="{'mobile-layout-2-active':activeVideoNumber == 'two' || activeVideoNumber == 'three' || activeVideoNumber == 'four'}">
+            [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
             <!-- video 2 -->
             <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video2.jpg'}"
-                [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 'two', 'mobileVideoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four'}"
-                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+                [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 2, 'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
+                [isMobile]="isMobile"></app-video>
             <!-- video 2 -->
             <!-- video 3 -->
             <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video3.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 'three' || activeVideoNumber == 'four'}"
-                [swipedDown]="swipedDown" [isMobile]="isMobile"></app-video>
+                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
+                [isMobile]="isMobile"></app-video>
             <!-- video 3 -->
         </div>
         <!-- mobile-layout-2-end -->
@@ -263,31 +256,31 @@
 
                 <!-- video window mode switcher -->
                 <div class="mode-switcher mobile-mode-switcher">
-                    <a (click)="modeSwitch('one')" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 'one'">
+                    <a (click)="modeSwitch(1)" class="dock-align-middle mobile-switcher"
+                        [class.mode-active]="activeVideoNumber == 1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
                             class="bi bi-dash" viewBox="3 3 10 10">
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                         </svg>
                     </a>
-                    <a (click)="modeSwitch('two')" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 'two'">
+                    <a (click)="modeSwitch(2)" class="dock-align-middle mobile-switcher"
+                        [class.mode-active]="activeVideoNumber == 2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
                             class="bi bi-pause-fill" viewBox="3 3 10 10">
                             <path
                                 d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
                         </svg>
                     </a>
-                    <a (click)="modeSwitch('three')" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 'three'">
+                    <a (click)="modeSwitch(3)" class="dock-align-middle mobile-switcher"
+                        [class.mode-active]="activeVideoNumber == 3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
                             viewBox="0 0 16 16">
                             <path
                                 d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
                         </svg>
                     </a>
-                    <a (click)="modeSwitch('four')" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 'four'">
+                    <a (click)="modeSwitch(4)" class="dock-align-middle mobile-switcher"
+                        [class.mode-active]="activeVideoNumber == 4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
                             viewBox="0 0 16 16">
                             <path
@@ -298,7 +291,7 @@
                 <!-- video window mode switcher end -->
 
                 <!-- internet speed -->
-                <div class="net-speed-container" *ngIf="1+1==2">
+                <div class="net-speed-container" *ngIf="true">
                     <div class="net-speed-circle text-center">
                         <p>8.7</p>
                         <span>mb/s</span>
