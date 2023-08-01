@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -12,7 +11,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  subject = new Subject<boolean>();
   passwordHide = true;
   cpasswordHide = true;
   public uploading: boolean = false;
@@ -41,15 +39,6 @@ export class SignupComponent implements OnInit {
 
   changeMethod() {
     this.loginMethodsActive = !this.loginMethodsActive;
-  }
-
-  exitPage(modalName: boolean) {
-    if (modalName) {
-      this.subject.next(true);
-      this.modalService.dismissAll();
-    } else {
-      this.subject.next(false);
-    }
   }
 
   open(modalName: any) {
@@ -95,10 +84,6 @@ export class SignupComponent implements OnInit {
   sendOtp(method: any) {
     this.otpMethod = method;
     this.OtpTimer(30);
-  }
-
-  onOtpChange(event: any) {
-    console.log(event);
   }
 
   OtpTimer(seconds: any) {
