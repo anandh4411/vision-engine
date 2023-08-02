@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production && gzipper compress  --brotli ./dist",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -25,7 +25,6 @@
     "@popperjs/core": "^2.11.6",
     "angular-material-fileupload": "^3.0.2",
     "bootstrap": "^5.2.3",
-    "gzipper": "^7.2.0",
     "ngx-device-detector": "^6.0.2",
     "ngx-image-cropper": "^7.0.2",
     "rxjs": "~7.8.0",
