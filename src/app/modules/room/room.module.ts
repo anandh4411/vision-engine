@@ -4,7 +4,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SwipeModule } from 'ng-swipe';
 
 import { RoomRoutingModule } from './room-routing.module';
 import { RoomComponent } from './room.component';
@@ -39,7 +38,6 @@ import { ModalBlurredCommonComponent } from './components/modal-blurred-common/m
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    SwipeModule,
   ],
 })
 export class RoomModule {}

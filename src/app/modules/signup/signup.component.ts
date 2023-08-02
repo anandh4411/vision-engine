@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -12,15 +11,16 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  subject = new Subject<boolean>();
   passwordHide = true;
   cpasswordHide = true;
-  fileUploadQueue: any;
   public uploading: boolean = false;
   imageChangedEvent: any = '';
   croppedImage: any = '';
   loginMethodsActive: boolean = false;
   public isMobile: any;
+  otpMethod: string = '';
+  countDown: any = '00:30';
+  interval: any;
 
   constructor(
     private modalService: NgbModal,
@@ -41,17 +41,13 @@ export class SignupComponent implements OnInit {
     this.loginMethodsActive = !this.loginMethodsActive;
   }
 
-  exitPage(modalName: boolean) {
-    if (modalName) {
-      this.subject.next(true);
-      this.modalService.dismissAll();
-    } else {
-      this.subject.next(false);
-    }
-  }
-
   open(modalName: any) {
     this.modalService.open(modalName, { centered: true });
+  }
+  close(modalName: any) {
+    this.modalService.dismissAll();
+    this.otpMethod = '';
+    this.stopOtpTimer();
   }
 
   uploadProPic() {
@@ -83,5 +79,29 @@ export class SignupComponent implements OnInit {
 
   onFileDropped(event: any) {
     this.imageChangedEvent = { target: { files: [event[0]] } };
+  }
+
+  sendOtp(method: any) {
+    this.otpMethod = method;
+    this.OtpTimer(30);
+  }
+
+  OtpTimer(seconds: any) {
+    let remainingSeconds: number = seconds;
+    let formattedSeconds: string = '00';
+    this.interval = setInterval(() => {
+      remainingSeconds--;
+      const seconds = remainingSeconds % 60;
+      formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      this.countDown = `00:${formattedSeconds}`;
+      if (remainingSeconds <= 0) {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+  }
+
+  stopOtpTimer() {
+    clearInterval(this.interval);
+    this.countDown = '00:30';
   }
 }

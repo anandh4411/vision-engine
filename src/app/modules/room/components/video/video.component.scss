@@ -27,9 +27,6 @@
 .video:nth-child(2) {
   margin-top: 10px;
 }
-.swiped-down-class {
-  height: 78svh;
-}
 .video-top-bar {
   position: absolute;
   top: 0;
@@ -51,6 +48,15 @@
     span {
       font-size: 13px;
       margin: 0px 5px 0px 5px;
+      animation: opacityFade 0.4s ease;
+    }
+    @keyframes opacityFade {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
   }
   // hide name, display only avatar

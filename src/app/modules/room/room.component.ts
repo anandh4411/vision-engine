@@ -4,13 +4,10 @@ import {
   ViewChild,
   OnInit,
   HostListener,
-  ChangeDetectorRef,
-  Renderer2,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { SwipeEvent } from 'ng-swipe';
 
 @Component({
   selector: 'app-room',
@@ -18,41 +15,35 @@ import { SwipeEvent } from 'ng-swipe';
   styleUrls: ['./room.component.scss'],
 })
 export class RoomComponent implements OnInit {
-  @ViewChild('exit') exit: ElementRef | any;
   @ViewChild('dockMenuModalEle') dockMenuModalEle: ElementRef | any;
-  public activeVideoNumber: string = 'one';
-  public notificationStatus: boolean = false;
-  public exitStatus: boolean = false;
-  public notificationType: string = 'alert';
-  public isMobile: any;
+  @ViewChild('exit') exit: ElementRef | any;
   subject = new Subject<boolean>();
+  public exitStatus: boolean = false;
   public swipedDown: boolean = false;
   public modalBlur: boolean = false;
   public modalBlurExit: boolean = false;
+  public notificationStatus: boolean = false;
+  public activeVideoNumber: number = 1;
+  public notificationType: string = 'alert';
+  public isMobile: any;
   public modalContent: any;
   public dockMenuModal: any;
 
   constructor(
     private modalService: NgbModal,
-    private deviceService: DeviceDetectorService,
-    private ref: ChangeDetectorRef,
-    private renderer: Renderer2
-  ) {
-    this.renderer.listen('window', 'click', (e: Event) => {
-      if (
-        e.target !== this.dockMenuModalEle.nativeElement &&
-        e.target !== this.dockMenuModalEle.nativeElement.children[0] &&
-        e.target !== this.dockMenuModalEle.nativeElement.children[1]
-      ) {
-        this.dockMenuModal = false;
-      }
-    });
-  }
+    private deviceService: DeviceDetectorService
+  ) {}
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
 
+  // for switching video sizes and number of videos in layout
+  public modeSwitch(mode: any) {
+    this.activeVideoNumber = mode;
+  }
+
+  // mobile version -  chat, participant.. modal switch
   modalSwitch(content: any) {
     if (this.modalBlur && this.modalContent != ('' || null || content)) {
       this.modalContent = content;
@@ -61,6 +52,7 @@ export class RoomComponent implements OnInit {
       this.modalContent = content;
     } else {
       this.modalBlurExit = true;
+      // we are delaying these lines of code for modal exit animation to work
       setTimeout(() => {
         this.modalBlur = false;
         this.modalBlurExit = false;
@@ -69,24 +61,35 @@ export class RoomComponent implements OnInit {
     }
   }
 
+  // mobile menu option modal switch
   dockMenuModalSwitch() {
     this.dockMenuModal = !this.dockMenuModal;
   }
 
-  onSwipeEnd(event: SwipeEvent) {
-    if (event.direction === 'y' && event.distance > 0) {
-      this.swipedDown = true;
-      this.ref.detectChanges();
-    } else if (event.direction === 'y' && event.distance < 0) {
-      this.swipedDown = false;
-      this.ref.detectChanges();
+  // for exiting mobile menu option modal when clicked anywhere on window
+  @HostListener('window:click', ['$event'])
+  onWindowClick(event: Event) {
+    if (
+      this.isMobile &&
+      event.target !== this.dockMenuModalEle.nativeElement &&
+      event.target !== this.dockMenuModalEle.nativeElement.children[0] &&
+      event.target !== this.dockMenuModalEle.nativeElement.children[1]
+    ) {
+      this.dockMenuModal = false;
     }
   }
 
+  // notification switch (join request, person left notification)
   enableNotification() {
     this.notificationStatus = !this.notificationStatus;
   }
 
+  // for ngb modals to open
+  open(exit: any) {
+    this.modalService.open(exit, { centered: true });
+  }
+
+  // for exit page warning - works with room exit route guard
   exitPage(exit: boolean) {
     if (exit) {
       this.subject.next(true);
@@ -96,43 +99,11 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  open(exit: any) {
-    this.modalService.open(exit, { centered: true });
-  }
-
+  // for preventing page refresh and navigation
   // @HostListener('window:beforeunload', ['$event'])
   // onWindowClose(event: Event) {
   //   event.preventDefault();
   //   event.returnValue = true;
   //   return false;
   // }
-
-  public modeSwitch(mode: string) {
-    switch (mode) {
-      case 'one': {
-        this.activeVideoNumber = 'one';
-        break;
-      }
-      case 'two': {
-        this.activeVideoNumber = 'two';
-        break;
-      }
-      case 'three': {
-        this.activeVideoNumber = 'three';
-        break;
-      }
-      case 'four': {
-        this.activeVideoNumber = 'four';
-        break;
-      }
-      case 'five': {
-        this.activeVideoNumber = 'five';
-        break;
-      }
-      case 'six': {
-        this.activeVideoNumber = 'six';
-        break;
-      }
-    }
-  }
 }

@@ -86,7 +86,7 @@
                             <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change method</a>
                         </div>
                         <div class="common-form-btn-control">
-                            <a class="common-form-btn common-form-btn-submit">Create account</a>
+                            <a (click)="open(otp)" class="common-form-btn common-form-btn-submit">Create account</a>
                         </div>
                     </div>
                     <div class="login-methods" [class.login-methods-active]="loginMethodsActive">
@@ -143,7 +143,6 @@
                 [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
                 (loadImageFailed)="loadImageFailed()"></image-cropper>
         </div>
-        <!-- <img [src]="croppedImage" /> -->
 
         <div class="uploading-box" [class.uploading-box-active]="uploading">
             <span>Uploading...</span>
@@ -165,4 +164,57 @@
             [disabled]="imageChangedEvent == ''">Done</button>
     </div>
 </ng-template>
-<!-- profile picture modal -->
+<!-- profile picture modal end -->
+
+<!-- otp modal -->
+<ng-template #otp let-modal>
+    <div class="modal-header">
+        <h4 *ngIf="otpMethod == ''" class="modal-title" id="modal-basic-title">Verification Method</h4>
+        <h4 *ngIf="otpMethod != ''" class="modal-title" id="modal-basic-title">Verify Phone</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="close(otp)"></button>
+    </div>
+    <div class="otp-modal-body modal-body">
+        <div *ngIf="otpMethod == ''" class="otp-method-container">
+            <div class="otp-img-wrapper">
+                <img src="assets/img/otp.png" alt="">
+            </div>
+            <div class="otp-text-wrapper">
+                <span>Choose where to recieve a 4 digit code to verify.</span>
+            </div>
+        </div>
+        <div *ngIf="otpMethod != ''" class="enter-otp-container text-center">
+            <h2>{{countDown}}</h2>
+            <span class="enter-otp-main-title">Code is sent to +91 9496671855</span>
+            <form action="">
+                <div class="otp-input-wrapper">
+                    <input #input1 (keyup)="(input1.value.length == 1) ? input2.focus() : ''" maxlength="1"
+                        type="number">
+                    <input #input2 (keyup)="(input2.value.length == 1) ? input3.focus() : input1.focus()" maxlength="1"
+                        type="number">
+                    <input #input3 (keyup)="(input3.value.length == 1) ? input4.focus() : input2.focus()" maxlength="1"
+                        type="number">
+                    <input #input4 (keyup)="(input4.value.length == 0) ? input3.focus() : ''" maxlength="1"
+                        type="number">
+                </div>
+            </form>
+            <span>Didn't recieve code? <a>Request again</a></span>
+        </div>
+    </div>
+    <div class="otp-modal-footer modal-footer">
+        <button *ngIf="otpMethod == ''" (click)="sendOtp('phone')" type="button" class="btn otp-btn">Verify with Phone
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                <path
+                    d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z" />
+            </svg>
+        </button>
+        <button *ngIf="otpMethod == ''" (click)="sendOtp('email')" type="button" class="btn otp-btn">Verify with Email
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                <path
+                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+            </svg>
+        </button>
+        <button *ngIf="otpMethod != ''" type="button" class="btn otp-btn otp-btn-create">Verify and Create
+            Account</button>
+    </div>
+</ng-template>
+<!-- otp modal end -->

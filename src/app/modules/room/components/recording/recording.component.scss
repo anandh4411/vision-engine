@@ -6,7 +6,7 @@
   backdrop-filter: blur(4px);
   overflow: hidden;
   padding: 7px;
-  transition: width 0.5s cubic-bezier(0.11, 0.72, 0.08, 0.86);
+  transition: width 0.4s cubic-bezier(0.11, 0.72, 0.08, 0.86);
   .recording-progress-icon {
     background-color: white;
     padding: 5px;
@@ -46,6 +46,7 @@
   }
   span {
     font-size: 13px;
+    font-weight: 300;
     margin-right: 5px;
     transition: opacity 1s ease-out;
     opacity: 0;
@@ -57,7 +58,6 @@
     border-radius: 50%;
     width: 26px;
     color: white;
-    margin-top: -2px;
     backdrop-filter: blur(4px);
   }
   .recording-pause-btn svg {
@@ -65,7 +65,7 @@
   }
 }
 .recording-status {
-  width: 236px;
+  width: 250px;
 }
 .mode-6 {
   width: 100px;
