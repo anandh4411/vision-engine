@@ -15,28 +15,35 @@
                 <label>START FOR FREE</label>
                 <h1>Create new account.</h1>
                 <label class="already-have">Already A Member?<a routerLink="/login">Log in</a></label>
-                <form action="" class="common-form">
+                <form [formGroup]="userForm" class="common-form">
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Name</mat-label>
-                            <input type="text" matInput placeholder="Steve Jobs">
+                            <input formControlName="name" type="text" matInput placeholder="Steve Jobs">
                             <mat-icon matSuffix>
                                 person
                             </mat-icon>
+                            <mat-error
+                                *ngIf="userForm.get('name')?.hasError('pattern') &&  userForm.get('name')?.touched">
+                                Please enter a valid name
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+                                Name is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Email</mat-label>
-                            <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <input formControlName="email" type="email" matInput placeholder="email@gmail.com">
                             <mat-icon matSuffix>
                                 email
                             </mat-icon>
                             <mat-error
-                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                *ngIf="userForm.get('email')?.hasError('pattern') &&  userForm.get('email')?.touched">
                                 Please enter a valid email address
                             </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                            <mat-error *ngIf="userForm.get('email')?.hasError('required')">
                                 Email is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -44,30 +51,50 @@
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Phone</mat-label>
-                            <input type="text" matInput placeholder="+91 XXX YYY XXXX">
+                            <input formControlName="phone" type="text" matInput placeholder="+91 XXX YYY XXXX">
                             <mat-icon matSuffix>
                                 phone
                             </mat-icon>
+                            <mat-error
+                                *ngIf="userForm.get('phone')?.hasError('pattern') || userForm.get('phone')?.hasError('min') || userForm.get('phone')?.hasError('max') &&  userForm.get('phone')?.touched">
+                                Please enter a valid phone number
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('phone')?.hasError('required')">
+                                Phone is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter New Password</mat-label>
-                            <input matInput [type]="passwordHide ? 'password' : 'text'">
+                            <input formControlName="password" matInput [type]="passwordHide ? 'password' : 'text'">
                             <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
                                 <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </a>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('min')">
+                                Password must be minimum 8 characters
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input matInput [type]="cpasswordHide ? 'password' : 'text'">
+                            <input formControlName="cpassword" matInput [type]="cpasswordHide ? 'password' : 'text'">
                             <a class="password-hide" mat-icon-button matSuffix (click)="cpasswordHide = !cpasswordHide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cpasswordHide">
                                 <mat-icon>{{cpasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </a>
+                            <mat-error *ngIf="userForm.get('cpassword')?.hasError('required')">
+                                Confirm Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error
+                                *ngIf="userForm.get('cpassword')?.hasError('passwordMismatch') && !userForm.get('cpassword')?.hasError('required')">
+                                Passwords does not <strong>match</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
@@ -139,9 +166,8 @@
             </div>
         </a>
         <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
-            <image-cropper [autoCrop]="false" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
-                (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <image-cropper [autoCrop]="true" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)"></image-cropper>
         </div>
 
         <div class="uploading-box" [class.uploading-box-active]="uploading">
@@ -160,8 +186,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="clearProPic()"
             [disabled]="imageChangedEvent == ''">Clear</button>
-        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;" (click)="proPicDone()"
-            [disabled]="imageChangedEvent == ''">Done</button>
+        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;"
+            (click)="modal.dismiss('Cross click')" [disabled]="imageChangedEvent == ''">Done</button>
     </div>
 </ng-template>
 <!-- profile picture modal end -->

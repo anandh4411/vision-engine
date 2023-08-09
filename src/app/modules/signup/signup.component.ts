@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -13,29 +19,64 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class SignupComponent implements OnInit {
   passwordHide = true;
   cpasswordHide = true;
-  public uploading: boolean = false;
+  uploading = false;
+  loginMethodsActive = false;
+  otpMethod = '';
+  isMobile: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  loginMethodsActive: boolean = false;
-  public isMobile: any;
-  otpMethod: string = '';
-  countDown: any = '00:30';
   interval: any;
+  countDown: any = '00:30';
+  public fd: any;
+  public userForm: FormGroup;
 
   constructor(
     private modalService: NgbModal,
     private sanitizer: DomSanitizer,
-    private deviceService: DeviceDetectorService
-  ) {}
+    private deviceService: DeviceDetectorService,
+    private formBuilder: FormBuilder
+  ) {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+')]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}'),
+        ],
+      ],
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[0-9]+'),
+          Validators.min(1000000000),
+          Validators.max(1000000000000000),
+        ],
+      ],
+      password: ['', [Validators.required, Validators.min(10000000)]],
+      cpassword: ['', [Validators.required]],
+    });
+    this.userForm
+      .get('cpassword')
+      ?.setValidators([
+        Validators.required,
+        this.passwordMatchValidator.bind(this),
+      ]);
+  }
+
+  // Custom validator function
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    if (control.root.get('password')?.value !== control.value)
+      return { passwordMismatch: true };
+    return null;
+  }
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
 
   changeMethod() {
     this.loginMethodsActive = !this.loginMethodsActive;
@@ -59,8 +100,8 @@ export class SignupComponent implements OnInit {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
-    // event.blob can be used to upload the cropped image
+    // this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
+    this.fd.append('profile_pic', event.blob);
   }
   imageLoaded(image: LoadedImage) {
     // show cropper
