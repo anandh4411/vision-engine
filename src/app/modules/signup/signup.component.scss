@@ -1,3 +1,24 @@
+// spinner
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.084);
+  ::ng-deep .spinner {
+    width: 50px !important;
+  }
+  ::ng-deep
+    .mat-mdc-progress-spinner
+    .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #7d7e80;
+  }
+}
+// spinner end
+
 // navbar
 .navbar-2 {
   padding: 20px 10px 5px 40px;
@@ -377,6 +398,10 @@
         font-size: 15px;
         color: #7d7e80;
       }
+      .otp-invalid-title {
+        color: #f44336;
+        margin-top: 10px;
+      }
       .otp-input-wrapper {
         display: flex;
         flex-direction: row;
@@ -396,6 +421,11 @@
         input:focus-visible {
           outline: unset;
           border: 2px solid #1d90f5;
+        }
+        .otp-invalid {
+          outline: unset;
+          border: 2px solid #f44336;
+          color: #f44336;
         }
         input::-webkit-inner-spin-button,
         input::-webkit-outer-spin-button {
@@ -524,3 +554,10 @@
   }
 }
 // mobile designs end
+
+// for otp modal
+.a-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #95979b !important;
+}

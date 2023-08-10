@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserService } from 'src/app/services/user.service';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,6 +10,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import {
+  ImageCroppedEvent,
+  LoadedImage,
+  base64ToFile,
+} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-signup',
@@ -17,24 +22,31 @@ import {
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('otp') otp: ElementRef | any;
+  loader = false;
   passwordHide = true;
   cpasswordHide = true;
   uploading = false;
   loginMethodsActive = false;
   otpMethod = '';
+  email: any;
   isMobile: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
   interval: any;
   countDown: any = '00:30';
-  public fd: any;
+  public formData = new FormData();
   public userForm: FormGroup;
+  public otpForm: FormGroup;
+  resendOtpVar = false;
+  otpInvalid = false;
 
   constructor(
     private modalService: NgbModal,
     private sanitizer: DomSanitizer,
     private deviceService: DeviceDetectorService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+')]],
@@ -63,6 +75,12 @@ export class SignupComponent implements OnInit {
         Validators.required,
         this.passwordMatchValidator.bind(this),
       ]);
+    this.otpForm = this.formBuilder.group({
+      input1: [''],
+      input2: [''],
+      input3: [''],
+      input4: [''],
+    });
   }
 
   // Custom validator function
@@ -76,6 +94,47 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+  }
+
+  createAccount() {
+    this.loader = true;
+    this.formData.append('profile_pic', this.croppedImage);
+    this.formData.append('name', this.userForm.get('name')?.value);
+    this.formData.append('email', this.userForm.get('email')?.value);
+    this.formData.append('phone', this.userForm.get('phone')?.value);
+    this.formData.append('password', this.userForm.get('password')?.value);
+    this.userService.createUser(this.formData).subscribe((res: any) => {
+      this.loader = false;
+      this.email = res;
+      this.open(this.otp);
+      this.OtpTimer(30);
+    });
+  }
+
+  verifyOtp() {
+    const otp =
+      '' +
+      this.otpForm.get('input1')?.value +
+      this.otpForm.get('input2')?.value +
+      this.otpForm.get('input3')?.value +
+      this.otpForm.get('input4')?.value;
+    const obj = {
+      otp: otp,
+      email: this.email,
+    };
+    this.userService.verifyOtp(obj).subscribe((res: any) => {
+      if (res.invalid_otp) this.otpInvalid = true;
+      else console.log(res);
+    });
+  }
+
+  removeOtpError() {
+    if (this.otpInvalid) this.otpInvalid = false;
+  }
+
+  resendOtp() {
+    if (!this.resendOtpVar) return;
+    console.log('rensend');
   }
 
   changeMethod() {
@@ -99,18 +158,14 @@ export class SignupComponent implements OnInit {
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
+  blobToFile(blob: Blob, fileName: string): File {
+    const fileType = blob.type;
+    const parts = [blob];
+    const file = new File(parts, fileName, { type: fileType });
+    return file;
+  }
   imageCropped(event: ImageCroppedEvent) {
-    // this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
-    this.fd.append('profile_pic', event.blob);
-  }
-  imageLoaded(image: LoadedImage) {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
-  }
-  loadImageFailed() {
-    // show message
+    this.croppedImage = this.blobToFile(event.blob!, 'profile.png');
   }
   // image crop end
   clearProPic() {
@@ -120,11 +175,6 @@ export class SignupComponent implements OnInit {
 
   onFileDropped(event: any) {
     this.imageChangedEvent = { target: { files: [event[0]] } };
-  }
-
-  sendOtp(method: any) {
-    this.otpMethod = method;
-    this.OtpTimer(30);
   }
 
   OtpTimer(seconds: any) {
@@ -137,9 +187,12 @@ export class SignupComponent implements OnInit {
       this.countDown = `00:${formattedSeconds}`;
       if (remainingSeconds <= 0) {
         clearInterval(this.interval);
+        this.resendOtpVar = true;
       }
     }, 1000);
   }
+
+  sendOtp(method: any) {}
 
   stopOtpTimer() {
     clearInterval(this.interval);

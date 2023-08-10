@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://your-dev-api-url.com/',
+  apiUrl: 'https://vision-engine-auth-service.onrender.com/',
 };
