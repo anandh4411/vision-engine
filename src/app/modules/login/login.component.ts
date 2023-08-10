@@ -1,29 +1,80 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserService } from 'src/app/services/user.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-  public isMobile: any;
-  loginMethodsActive: boolean = false;
+export class LoginComponent implements OnInit, OnDestroy {
+  @ViewChild('loginFailed') loginFailed: ElementRef | any;
+  loader = false;
+  loginMethodsActive = false;
   passwordHide = true;
   cpasswordHide = true;
+  public isMobile: any;
+  public userForm: FormGroup;
 
-  constructor(private deviceService: DeviceDetectorService) {}
+  constructor(
+    private deviceService: DeviceDetectorService,
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    public toastService: ToastService,
+    private router: Router
+  ) {
+    this.userForm = this.formBuilder.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}'),
+        ],
+      ],
+      password: ['', [Validators.required, Validators.min(10000000)]],
+    });
+  }
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
+  ngOnDestroy(): void {
+    this.toastService.clear();
+  }
+  showDanger(template: any) {
+    this.toastService.show(template, {
+      classname: 'bg-danger text-light',
+      delay: 15000,
+    });
+  }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
+  login() {
+    Object.keys(this.userForm.controls).forEach((controlName) => {
+      this.userForm.get(controlName)?.markAsTouched();
+    });
+    if (this.userForm.valid) {
+      this.userService.loginUser(this.userForm.value).subscribe({
+        next: (res: any) => {
+          this.loader = false;
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['/']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.showDanger(this.loginFailed);
+        },
+      });
+    }
+  }
   changeMethod() {
     this.loginMethodsActive = !this.loginMethodsActive;
   }

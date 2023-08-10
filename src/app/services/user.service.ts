@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
@@ -25,6 +25,10 @@ export class UserService {
 
   public dicardCreateUser(val: any): Observable<any> {
     return this.http.post(this.apiUrl + 'user/discard', val);
+  }
+
+  public loginUser(val: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.apiUrl + 'login', val);
   }
 
   public updateUser(val: any): Observable<any> {

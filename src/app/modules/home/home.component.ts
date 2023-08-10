@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+    console.log(localStorage.getItem('token'));
   }
 
   constructor(
