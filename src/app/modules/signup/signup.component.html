@@ -46,11 +46,14 @@
                                 email
                             </mat-icon>
                             <mat-error
-                                *ngIf="userForm.get('email')?.hasError('pattern') &&  userForm.get('email')?.touched">
+                                *ngIf="userForm.get('email')?.hasError('invalidPattern') &&  userForm.get('email')?.touched">
                                 Please enter a valid email address
                             </mat-error>
                             <mat-error *ngIf="userForm.get('email')?.hasError('required')">
                                 Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('email')?.hasError('emailExists')">
+                                This email <strong>exists</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -116,7 +119,7 @@
                     </div>
                     <div class="common-form-footer">
                         <div class="common-form-btn-control">
-                            <a (click)="showSuccess('hey')" class="common-form-btn common-form-btn-method">Change
+                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change
                                 method</a>
                         </div>
                         <div class="common-form-btn-control">

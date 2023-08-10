@@ -6,22 +6,22 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import {
   AbstractControl,
+  AsyncValidatorFn,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
-import {
-  ImageCroppedEvent,
-  LoadedImage,
-  base64ToFile,
-} from 'ngx-image-cropper';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -47,23 +47,22 @@ export class SignupComponent implements OnInit, OnDestroy {
   public otpForm: FormGroup;
   resendOtpVar = false;
   otpInvalid = false;
+  userExists = false;
 
   constructor(
     private modalService: NgbModal,
-    private sanitizer: DomSanitizer,
     private deviceService: DeviceDetectorService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private router: Router
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+')]],
       email: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+.[a-zA-Z]{2,4}'),
-        ],
+        [Validators.required],
+        [this.userExistsValidator(this.userService)],
       ],
       phone: [
         '',
@@ -83,6 +82,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         Validators.required,
         this.passwordMatchValidator.bind(this),
       ]);
+
     this.otpForm = this.formBuilder.group({
       input1: [''],
       input2: [''],
@@ -98,6 +98,27 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (control.root.get('password')?.value !== control.value)
       return { passwordMismatch: true };
     return null;
+  }
+
+  // Custom async validator function
+  userExistsValidator(userService: UserService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      const obj = {
+        email: control.value,
+      };
+      if (this.isValidEmailPattern(control.value)) {
+        return userService.createUser(obj).pipe(
+          map((exists) => (exists ? { emailExists: true } : null)),
+          catchError(() => of(null))
+        );
+      } else {
+        return of({ invalidPattern: true });
+      }
+    };
+  }
+  isValidEmailPattern(email: string): boolean {
+    const pattern = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}/;
+    return pattern.test(email);
   }
 
   ngOnInit(): void {
@@ -116,18 +137,29 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   createAccount() {
-    this.loader = true;
-    this.formData.append('profile_pic', this.croppedImage);
-    this.formData.append('name', this.userForm.get('name')?.value);
-    this.formData.append('email', this.userForm.get('email')?.value);
-    this.formData.append('phone', this.userForm.get('phone')?.value);
-    this.formData.append('password', this.userForm.get('password')?.value);
-    this.userService.createUser(this.formData).subscribe((res: any) => {
-      this.loader = false;
-      this.email = res;
-      this.open(this.otp);
-      this.OtpTimer(30);
+    Object.keys(this.userForm.controls).forEach((controlName) => {
+      this.userForm.get(controlName)?.markAsTouched();
     });
+    if (this.userForm.valid) {
+      this.loader = true;
+      this.formData.append('profile_pic', this.croppedImage);
+      this.formData.append('name', this.userForm.get('name')?.value);
+      this.formData.append('email', this.userForm.get('email')?.value);
+      this.formData.append('phone', this.userForm.get('phone')?.value);
+      this.formData.append('password', this.userForm.get('password')?.value);
+      this.userService.createUser(this.formData).subscribe((res: any) => {
+        if (res.user_exists) {
+          this.userExists = true;
+          this.loader = false;
+          console.log(res);
+        } else {
+          this.loader = false;
+          this.email = res;
+          this.open(this.otp);
+          this.OtpTimer(30);
+        }
+      });
+    }
   }
 
   verifyOtp() {
@@ -143,6 +175,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     };
     this.userService.verifyOtp(obj).subscribe((res: any) => {
       if (res.invalid_otp) this.otpInvalid = true;
+      else {
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/']);
+        this.close(otp);
+      }
     });
   }
 
@@ -159,6 +196,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       })
       .subscribe((res: any) => {
         this.email = res;
+        this.showSuccess('Otp resended to ' + this.email);
         this.OtpTimer(30);
         this.loader = false;
         this.resendOtpVar = false;
