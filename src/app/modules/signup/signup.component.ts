@@ -1,8 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
+import { ToastService } from 'src/app/services/toast.service';
 import {
   AbstractControl,
   FormBuilder,
@@ -21,7 +28,7 @@ import {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   @ViewChild('otp') otp: ElementRef | any;
   loader = false;
   passwordHide = true;
@@ -46,7 +53,8 @@ export class SignupComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private deviceService: DeviceDetectorService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    public toastService: ToastService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+')]],
@@ -96,6 +104,17 @@ export class SignupComponent implements OnInit {
     this.isMobile = this.deviceService.isMobile();
   }
 
+  ngOnDestroy(): void {
+    this.toastService.clear();
+  }
+
+  showSuccess(message: any) {
+    this.toastService.show(message, {
+      classname: 'bg-success text-light',
+      delay: 3000,
+    });
+  }
+
   createAccount() {
     this.loader = true;
     this.formData.append('profile_pic', this.croppedImage);
@@ -124,7 +143,6 @@ export class SignupComponent implements OnInit {
     };
     this.userService.verifyOtp(obj).subscribe((res: any) => {
       if (res.invalid_otp) this.otpInvalid = true;
-      else console.log(res);
     });
   }
 
@@ -134,7 +152,17 @@ export class SignupComponent implements OnInit {
 
   resendOtp() {
     if (!this.resendOtpVar) return;
-    console.log('rensend');
+    this.loader = true;
+    this.userService
+      .resendOtp({
+        email: this.email,
+      })
+      .subscribe((res: any) => {
+        this.email = res;
+        this.OtpTimer(30);
+        this.loader = false;
+        this.resendOtpVar = false;
+      });
   }
 
   changeMethod() {

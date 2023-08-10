@@ -116,7 +116,8 @@
                     </div>
                     <div class="common-form-footer">
                         <div class="common-form-btn-control">
-                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change method</a>
+                            <a (click)="showSuccess('hey')" class="common-form-btn common-form-btn-method">Change
+                                method</a>
                         </div>
                         <div class="common-form-btn-control">
                             <a (click)="createAccount()" class="common-form-btn common-form-btn-submit">Create
@@ -262,3 +263,6 @@
     </div>
 </ng-template>
 <!-- otp modal end -->
+
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

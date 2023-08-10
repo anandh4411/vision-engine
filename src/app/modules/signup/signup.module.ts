@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
+import { ToastsContainer } from '../../shared/components/toast/toasts-container.component';
 
 @NgModule({
   declarations: [SignupComponent],
@@ -27,6 +28,7 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     ImageCropperModule,
     DirectivesModule,
     MatProgressSpinnerModule,
+    ToastsContainer,
   ],
 })
 export class SignupModule {}
