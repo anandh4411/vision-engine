@@ -1,3 +1,24 @@
+// spinner
+.spinner-container {
+  width: 449px;
+  height: 65%;
+  position: fixed;
+  z-index: 1060;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: rgba(0, 0, 0, 0.084);
+  ::ng-deep .spinner {
+    width: 50px !important;
+  }
+  ::ng-deep
+    .mat-mdc-progress-spinner
+    .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: #7d7e80;
+  }
+}
+// spinner end
+
 .cover-img {
   position: relative;
   overflow: hidden;

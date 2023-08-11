@@ -4,6 +4,8 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
+  Renderer2,
+  AfterViewInit,
 } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
@@ -11,14 +13,20 @@ import { ToastService } from 'src/app/services/toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('loginFailed') loginFailed: ElementRef | any;
+  // for preloader
+  windowLoaded: Subject<boolean> = new BehaviorSubject(false);
+  apiResponded = false;
+  loaderHidden = false;
+  // for preloader end
   loader = false;
   loginMethodsActive = false;
   passwordHide = true;
@@ -48,6 +56,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
+  ngAfterViewInit() {
+    this.windowLoaded.next(true);
+  }
+  // for preloader
+  checkLoaded(loaded: any) {
+    if (loaded == 'true') this.loaderHidden = true;
+  }
+  // for preloader end
+
   ngOnDestroy(): void {
     this.toastService.clear();
   }
