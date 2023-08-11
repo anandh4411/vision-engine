@@ -16,7 +16,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class PreloaderComponent implements OnInit, OnChanges {
   @Output() loadedEvent = new EventEmitter<string>();
-  @Input() windowLoaded: Subject<boolean> = new BehaviorSubject(false);
+  @Input() windowLoaded = false;
   @Input() apiResponded: boolean = false;
   @Input() noApi: boolean = false;
   progressValue = 0;

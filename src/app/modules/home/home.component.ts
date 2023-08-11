@@ -4,20 +4,19 @@ import { FormControl, Validators } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   public isMobile: any;
   imageUrl: any;
   token: any;
   passwordHide = true;
   // for preloader
-  windowLoaded: Subject<boolean> = new BehaviorSubject(false);
+  windowLoaded = false;
   apiResponded = false;
   loaderHidden = false;
   // for preloader end
@@ -34,10 +33,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.token = localStorage.getItem('token');
     }
     this.getUserProfilePic();
-  }
-
-  ngAfterViewInit() {
-    this.windowLoaded.next(true);
   }
 
   // for preloader

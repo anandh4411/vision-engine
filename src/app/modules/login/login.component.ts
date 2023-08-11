@@ -20,10 +20,10 @@ import { Subject, BehaviorSubject } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy {
   @ViewChild('loginFailed') loginFailed: ElementRef | any;
   // for preloader
-  windowLoaded: Subject<boolean> = new BehaviorSubject(false);
+  windowLoaded = false;
   apiResponded = false;
   loaderHidden = false;
   // for preloader end
@@ -55,9 +55,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
-  }
-  ngAfterViewInit() {
-    this.windowLoaded.next(true);
+    let img = new window.Image();
+    if (img.complete) this.windowLoaded = true;
   }
   // for preloader
   checkLoaded(loaded: any) {
