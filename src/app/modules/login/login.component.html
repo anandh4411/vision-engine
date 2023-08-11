@@ -1,64 +1,79 @@
-<nav class="navbar-2">
-    <a routerLink="/">
-        <div class="logo-wrapper">
-            <img src="assets/img/logo2-blue.png" alt="">
-        </div>
-        <div class="title">
-            <h4>Vision Engine.</h4>
-        </div>
-    </a>
-</nav>
+<!-- loader -->
+<div *ngIf="loader" class="spinner-container">
+    <mat-spinner class="spinner"></mat-spinner>
+</div>
+<!-- loader end -->
+
+<!-- danger toast -->
+<ng-template #loginFailed>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+        <path
+            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
+    </svg>
+    Invalid email or password
+</ng-template>
+<!-- danger toast end -->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6 form-right-container">
         </div>
         <div class="col-sm-6 form-left-container">
+            <app-toasts class="invalid-email-password" aria-live="polite" aria-atomic="true"></app-toasts>
+
+            <nav class="navbar-2">
+                <a routerLink="/">
+                    <div class="logo-wrapper">
+                        <img src="assets/img/logo2-blue.png" alt="">
+                    </div>
+                    <div class="title">
+                        <h4>Vision Engine.</h4>
+                    </div>
+                </a>
+            </nav>
             <div class="form-wrapper">
                 <label>HAPPY TO SEE YOU</label>
                 <h1>Welcome back.</h1>
                 <label class="already-have">Doesn't have an account yet?<a routerLink="/signup">Sign up</a></label>
-                <form action="" class="common-form">
+                <form [formGroup]="userForm" class="common-form">
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Email</mat-label>
-                            <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <input formControlName="email" type="email" matInput placeholder="email@gmail.com">
                             <mat-icon matSuffix>
                                 email
                             </mat-icon>
-                            <mat-error
-                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            <mat-error *ngIf="userForm.get('email')?.hasError('pattern')">
                                 Please enter a valid email address
                             </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                            <mat-error *ngIf="userForm.get('email')?.hasError('required')">
                                 Email is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
-                            <mat-label>Enter Phone</mat-label>
-                            <input type="text" matInput placeholder="+91 XXX YYY XXXX">
-                            <mat-icon matSuffix>
-                                phone
-                            </mat-icon>
-                        </mat-form-field>
-                    </div>
-                    <div class="common-form-control">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Enter New Password</mat-label>
-                            <input matInput [type]="passwordHide ? 'password' : 'text'">
+                            <mat-label>Enter Password</mat-label>
+                            <input formControlName="password" matInput [type]="passwordHide ? 'password' : 'text'">
                             <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
                                 <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </a>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('min')">
+                                Password must be minimum 8 characters
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-footer">
                         <div class="common-form-btn-control">
-                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change method</a>
+                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change
+                                method</a>
                         </div>
                         <div class="common-form-btn-control">
-                            <a class="common-form-btn common-form-btn-submit">Login</a>
+                            <a (click)="login()" class="common-form-btn common-form-btn-submit">Login</a>
                         </div>
                     </div>
                     <div class="login-methods" [class.login-methods-active]="loginMethodsActive">

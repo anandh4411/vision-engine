@@ -1,3 +1,9 @@
+<!-- loader -->
+<div *ngIf="loader" class="spinner-container">
+    <mat-spinner class="spinner"></mat-spinner>
+</div>
+<!-- loader end -->
+
 <nav class="navbar-2">
     <a routerLink="/">
         <div class="logo-wrapper">
@@ -15,59 +21,89 @@
                 <label>START FOR FREE</label>
                 <h1>Create new account.</h1>
                 <label class="already-have">Already A Member?<a routerLink="/login">Log in</a></label>
-                <form action="" class="common-form">
+                <form [formGroup]="userForm" class="common-form">
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Name</mat-label>
-                            <input type="text" matInput placeholder="Steve Jobs">
+                            <input formControlName="name" type="text" matInput placeholder="Steve Jobs">
                             <mat-icon matSuffix>
                                 person
                             </mat-icon>
+                            <mat-error
+                                *ngIf="userForm.get('name')?.hasError('pattern') &&  userForm.get('name')?.touched">
+                                Please enter a valid name
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+                                Name is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Email</mat-label>
-                            <input type="email" matInput [formControl]="emailFormControl" placeholder="email@gmail.com">
+                            <input formControlName="email" type="email" matInput placeholder="email@gmail.com">
                             <mat-icon matSuffix>
                                 email
                             </mat-icon>
                             <mat-error
-                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                *ngIf="userForm.get('email')?.hasError('invalidPattern') &&  userForm.get('email')?.touched">
                                 Please enter a valid email address
                             </mat-error>
-                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                            <mat-error *ngIf="userForm.get('email')?.hasError('required')">
                                 Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('email')?.hasError('emailExists')">
+                                This email <strong>exists</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter Phone</mat-label>
-                            <input type="text" matInput placeholder="+91 XXX YYY XXXX">
+                            <input formControlName="phone" type="text" matInput placeholder="+91 XXX YYY XXXX">
                             <mat-icon matSuffix>
                                 phone
                             </mat-icon>
+                            <mat-error
+                                *ngIf="userForm.get('phone')?.hasError('pattern') || userForm.get('phone')?.hasError('min') || userForm.get('phone')?.hasError('max') &&  userForm.get('phone')?.touched">
+                                Please enter a valid phone number
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('phone')?.hasError('required')">
+                                Phone is <strong>required</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Enter New Password</mat-label>
-                            <input matInput [type]="passwordHide ? 'password' : 'text'">
+                            <input formControlName="password" matInput [type]="passwordHide ? 'password' : 'text'">
                             <a class="password-hide" mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
                                 <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </a>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userForm.get('password')?.hasError('min')">
+                                Password must be minimum 8 characters
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
                         <mat-form-field class="example-full-width">
                             <mat-label>Confirm Password</mat-label>
-                            <input matInput [type]="cpasswordHide ? 'password' : 'text'">
+                            <input formControlName="cpassword" matInput [type]="cpasswordHide ? 'password' : 'text'">
                             <a class="password-hide" mat-icon-button matSuffix (click)="cpasswordHide = !cpasswordHide"
                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="cpasswordHide">
                                 <mat-icon>{{cpasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </a>
+                            <mat-error *ngIf="userForm.get('cpassword')?.hasError('required')">
+                                Confirm Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error
+                                *ngIf="userForm.get('cpassword')?.hasError('passwordMismatch') && !userForm.get('cpassword')?.hasError('required')">
+                                Passwords does not <strong>match</strong>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="common-form-control">
@@ -83,10 +119,12 @@
                     </div>
                     <div class="common-form-footer">
                         <div class="common-form-btn-control">
-                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change method</a>
+                            <a (click)="changeMethod()" class="common-form-btn common-form-btn-method">Change
+                                method</a>
                         </div>
                         <div class="common-form-btn-control">
-                            <a (click)="open(otp)" class="common-form-btn common-form-btn-submit">Create account</a>
+                            <a (click)="createAccount()" class="common-form-btn common-form-btn-submit">Create
+                                account</a>
                         </div>
                     </div>
                     <div class="login-methods" [class.login-methods-active]="loginMethodsActive">
@@ -139,9 +177,8 @@
             </div>
         </a>
         <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
-            <image-cropper [autoCrop]="false" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
-                (loadImageFailed)="loadImageFailed()"></image-cropper>
+            <image-cropper [autoCrop]="true" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 4" (imageCropped)="imageCropped($event)"></image-cropper>
         </div>
 
         <div class="uploading-box" [class.uploading-box-active]="uploading">
@@ -160,8 +197,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="clearProPic()"
             [disabled]="imageChangedEvent == ''">Clear</button>
-        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;" (click)="proPicDone()"
-            [disabled]="imageChangedEvent == ''">Done</button>
+        <button type="button" class="btn btn-primary" style="background-color: #1d90f5;"
+            (click)="modal.dismiss('Cross click')" [disabled]="imageChangedEvent == ''">Done</button>
     </div>
 </ng-template>
 <!-- profile picture modal end -->
@@ -169,12 +206,12 @@
 <!-- otp modal -->
 <ng-template #otp let-modal>
     <div class="modal-header">
-        <h4 *ngIf="otpMethod == ''" class="modal-title" id="modal-basic-title">Verification Method</h4>
-        <h4 *ngIf="otpMethod != ''" class="modal-title" id="modal-basic-title">Verify Phone</h4>
+        <h4 *ngIf="false" class="modal-title" id="modal-basic-title">Verification Method</h4>
+        <h4 *ngIf="true" class="modal-title" id="modal-basic-title">Verify Email</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="close(otp)"></button>
     </div>
     <div class="otp-modal-body modal-body">
-        <div *ngIf="otpMethod == ''" class="otp-method-container">
+        <div *ngIf="false" class="otp-method-container">
             <div class="otp-img-wrapper">
                 <img src="assets/img/otp.png" alt="">
             </div>
@@ -182,39 +219,53 @@
                 <span>Choose where to recieve a 4 digit code to verify.</span>
             </div>
         </div>
-        <div *ngIf="otpMethod != ''" class="enter-otp-container text-center">
+        <div *ngIf="true" class="enter-otp-container text-center">
             <h2>{{countDown}}</h2>
-            <span class="enter-otp-main-title">Code is sent to +91 9496671855</span>
-            <form action="">
+            <span class="enter-otp-main-title">Code is sent to {{email}}</span>
+            <h6 *ngIf="otpInvalid" class="enter-otp-main-title otp-invalid-title">Otp is Invalid</h6>
+            <form [formGroup]="otpForm">
                 <div class="otp-input-wrapper">
-                    <input #input1 (keyup)="(input1.value.length == 1) ? input2.focus() : ''" maxlength="1"
+                    <input [class.otp-invalid]="otpInvalid" formControlName="input1" #input1
+                        (keydown)="removeOtpError()" (keyup)="(input1.value.length == 1) ? input2.focus() : ''"
+                        maxlength="1" required type="number">
+                    <input [class.otp-invalid]="otpInvalid" formControlName="input2" #input2
+                        (keydown)="removeOtpError()"
+                        (keyup)="(input2.value.length == 1) ? input3.focus() : input1.focus()" maxlength="1" required
                         type="number">
-                    <input #input2 (keyup)="(input2.value.length == 1) ? input3.focus() : input1.focus()" maxlength="1"
+                    <input [class.otp-invalid]="otpInvalid" formControlName="input3" #input3
+                        (keydown)="removeOtpError()"
+                        (keyup)="(input3.value.length == 1) ? input4.focus() : input2.focus()" maxlength="1" required
                         type="number">
-                    <input #input3 (keyup)="(input3.value.length == 1) ? input4.focus() : input2.focus()" maxlength="1"
-                        type="number">
-                    <input #input4 (keyup)="(input4.value.length == 0) ? input3.focus() : ''" maxlength="1"
-                        type="number">
+                    <input [class.otp-invalid]="otpInvalid" formControlName="input4" #input4
+                        (keydown)="removeOtpError()" (keyup)="((input4.value.length == 0) ? input3.focus() : '')"
+                        maxlength="1" required type="number">
                 </div>
             </form>
-            <span>Didn't recieve code? <a>Request again</a></span>
+            <span>Didn't recieve code? <a [class.a-disabled]="!resendOtpVar" (click)="resendOtp()">Request
+                    again</a></span>
         </div>
     </div>
     <div class="otp-modal-footer modal-footer">
-        <button *ngIf="otpMethod == ''" (click)="sendOtp('phone')" type="button" class="btn otp-btn">Verify with Phone
+        <button disabled *ngIf="false" (click)="sendOtp('phone')" type="button" class="btn otp-btn">Verify
+            with Phone
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
                 <path
                     d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z" />
             </svg>
         </button>
-        <button *ngIf="otpMethod == ''" (click)="sendOtp('email')" type="button" class="btn otp-btn">Verify with Email
+        <button *ngIf="false" (click)="sendOtp('email')" type="button" class="btn otp-btn">Verify with Email
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
                 <path
                     d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
             </svg>
         </button>
-        <button *ngIf="otpMethod != ''" type="button" class="btn otp-btn otp-btn-create">Verify and Create
+        <button *ngIf="true" [disabled]="resendOtpVar" (click)="verifyOtp()" type="button"
+            class="btn otp-btn otp-btn-create">Verify
+            and Create
             Account</button>
     </div>
 </ng-template>
 <!-- otp modal end -->
+
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

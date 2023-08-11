@@ -219,6 +219,12 @@
 .profile-btn-save {
   background-color: #1d90f5;
   color: white;
+  border: none;
+  width: 100%;
+}
+.disabled-submit {
+  background-color: #f3f6fb;
+  color: #95979b;
 }
 .common-form-btn-logout,
 .delete-account-btn,
