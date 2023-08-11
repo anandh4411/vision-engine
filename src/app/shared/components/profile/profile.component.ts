@@ -1,37 +1,153 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { UserService } from 'src/app/services/user.service';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { ToastService } from 'src/app/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   passwordHide = true;
+  cpasswordHide = true;
+  public userForm: FormGroup;
+  public formData = new FormData();
   public profilePicOptions: boolean = false;
   public updateProfilePic: boolean = false;
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  @ViewChild('profilePicOptionsElem') emojiPickerButton: ElementRef | any;
+  token: any;
+  imageUrl: any;
+  me: any;
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    public toastService: ToastService,
+    private router: Router
+  ) {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.pattern('^[a-zA-Z ]+')]],
+      phone: [
+        '',
+        [
+          Validators.pattern('[0-9]+'),
+          Validators.min(1000000000),
+          Validators.max(1000000000000000),
+        ],
+      ],
+      password: ['', [Validators.min(10000000)]],
+      cpassword: [''],
+    });
+    this.userForm
+      .get('cpassword')
+      ?.setValidators([this.passwordMatchValidator.bind(this)]);
+  }
 
-  constructor(private renderer: Renderer2, private sanitizer: DomSanitizer) {
-    // this.renderer.listen('window', 'click', (e: Event) => {
-    //   if (
-    //     e.target !== this.emojiPickerButton.nativeElement &&
-    //     e.target !== this.emojiPickerButton.nativeElement.children[0] &&
-    //     e.target !== this.emojiPickerButton.nativeElement.children[1] &&
-    //     e.target !== this.emojiPickerButton.nativeElement.children[2]
-    //   ) {
-    //     this.profilePicOptions = false;
-    //   }
-    // });
+  // Custom validator function
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    if (control.root.get('password')?.value !== control.value)
+      return { passwordMismatch: true };
+    return null;
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.getUserProfilePic();
+      this.getUserProfile();
+      this.isFormTouchedOrUpdated();
+    }
+  }
+
+  showSuccess(message: any) {
+    this.toastService.show(message, {
+      classname: 'bg-success text-light',
+      delay: 3000,
+    });
+  }
+
+  updateUserDetails() {
+    this.userForm.removeControl('cpassword');
+    this.userService
+      .updateUser(this.userForm.value, this.token)
+      .subscribe((res: any) => {
+        this.showSuccess('Profile updated successfully');
+      });
+  }
+
+  uploadProfilePic() {
+    this.formData.append('profile_pic', this.croppedImage);
+    this.userService
+      .updateUserProfilePic(this.formData, this.token)
+      .subscribe((res: any) => {
+        this.getUserProfilePic();
+        this.clearProPic();
+        this.showSuccess('Profile Picture updated successfully');
+      });
+  }
+
+  deleteProfilePic() {
+    this.userService.deleteUserProfilePic(this.token).subscribe((res: any) => {
+      this.getUserProfilePic();
+      this.showSuccess('Profile Picture removed successfully');
+    });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
+
+  // Check if any form control is touched or updated
+  isFormTouchedOrUpdated(): boolean {
+    for (const controlName in this.userForm.controls) {
+      if (this.userForm.controls.hasOwnProperty(controlName)) {
+        const control = this.userForm.controls[controlName];
+        if (control.dirty) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  getUserProfilePic() {
+    this.userService.getProfilePic(this.token).subscribe((blob: Blob) => {
+      this.convertBlobToBase64Url(blob).then((url: any) => {
+        this.imageUrl = url;
+      });
+    });
+  }
+  getUserProfile() {
+    this.userService.getUserById(this.token).subscribe((res: any) => {
+      this.me = res;
+      this.userForm.patchValue({
+        name: res.name,
+        phone: res.phone,
+      });
+    });
+  }
+
+  // Helper method to convert Blob to Base64 URL
+  private convertBlobToBase64Url(blob: Blob): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(blob);
+    });
   }
 
   profilePicOptionsSwitch() {
@@ -45,22 +161,17 @@ export class ProfileComponent {
   // image crop
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
-    console.log('image changed');
+  }
+  blobToFile(blob: Blob, fileName: string): File {
+    const fileType = blob.type;
+    const parts = [blob];
+    const file = new File(parts, fileName, { type: fileType });
+    return file;
   }
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl!);
-    // event.blob can be used to upload the cropped image
+    this.croppedImage = this.blobToFile(event.blob!, 'profile.png');
   }
-  imageLoaded(image: LoadedImage) {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
-  }
-  loadImageFailed() {
-    // show message
-  }
-  // image crop end
+
   clearProPic() {
     this.imageChangedEvent = '';
     this.profilePicOptions = false;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
@@ -31,27 +31,40 @@ export class UserService {
     return this.http.post<any>(this.apiUrl + 'login', val);
   }
 
-  public updateUser(val: any): Observable<any> {
-    return this.http.put(this.apiUrl + 'user/update', val);
+  public updateUser(val: any, token: any): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.put(this.apiUrl + 'user/update', val, { headers });
   }
 
-  public updateUserProfilePic(val: any): Observable<any> {
-    return this.http.put(this.apiUrl + 'user/profile/pic/update', val);
+  public updateUserProfilePic(val: any, token: any): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.put(this.apiUrl + 'user/profile/pic/update', val, {
+      headers,
+    });
   }
 
-  public deleteUserProfilePic(): Observable<any> {
-    return this.http.delete(this.apiUrl + 'user/profile/pic/delete');
+  public deleteUserProfilePic(token: any): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.delete(this.apiUrl + 'user/profile/pic/delete', {
+      headers,
+      responseType: 'blob',
+    });
   }
 
   public deleteUser(): Observable<any> {
     return this.http.delete(this.apiUrl + 'user/delete');
   }
 
-  public getUserById(): Observable<any> {
-    return this.http.get(this.apiUrl + 'user/me');
+  public getUserById(token: any): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.get(this.apiUrl + 'user/me', { headers });
   }
 
-  public getProfilePic(): Observable<any> {
-    return this.http.get(this.apiUrl + 'user/me/pic');
+  public getProfilePic(token: any): Observable<any> {
+    const headers = new HttpHeaders().set('x-auth-token', token);
+    return this.http.get(this.apiUrl + 'user/me/pic', {
+      headers,
+      responseType: 'blob',
+    });
   }
 }

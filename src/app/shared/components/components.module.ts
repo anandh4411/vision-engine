@@ -10,6 +10,7 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ModalComponent } from './modal/modal.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ToastsContainer } from './toast/toasts-container.component';
 
 @NgModule({
   declarations: [ModalComponent, ProfileComponent],
@@ -25,6 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
     NgIf,
     NgTemplateOutlet,
     NgFor,
+    ToastsContainer,
   ],
   exports: [ModalComponent, ProfileComponent],
 })
