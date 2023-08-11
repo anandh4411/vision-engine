@@ -1,4 +1,11 @@
-<div *ngIf="imageChangedEvent == ''">
+<!-- loader -->
+<div *ngIf="loader" class="spinner-container">
+    <mat-spinner class="spinner"></mat-spinner>
+</div>
+<!-- loader end -->
+
+
+<div *ngIf="imageChangedEvent == '' && !loader">
     <div class="cover-img">
         <img src="assets/img/cover-img.jpg" alt="">
     </div>
@@ -156,7 +163,7 @@
     </div>
 </div>
 
-<div *ngIf="imageChangedEvent != ''">
+<div *ngIf="imageChangedEvent != ''  && !loader">
     <div class="image-croper-wrapper">
         <div *ngIf="imageChangedEvent != ''" class="image-cropper-container">
             <image-cropper [autoCrop]="true" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"

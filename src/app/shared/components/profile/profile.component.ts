@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast.service';
-import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  loader = true;
   passwordHide = true;
   cpasswordHide = true;
   public userForm: FormGroup;
@@ -31,8 +32,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public toastService: ToastService,
-    private router: Router
+    public toastService: ToastService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.pattern('^[a-zA-Z ]+')]],
@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadProfilePic() {
+    this.loader = true;
     this.formData.append('profile_pic', this.croppedImage);
     this.userService
       .updateUserProfilePic(this.formData, this.token)
@@ -106,7 +107,7 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    window.location.reload();
   }
 
   // Check if any form control is touched or updated
@@ -122,13 +123,6 @@ export class ProfileComponent implements OnInit {
     return false;
   }
 
-  getUserProfilePic() {
-    this.userService.getProfilePic(this.token).subscribe((blob: Blob) => {
-      this.convertBlobToBase64Url(blob).then((url: any) => {
-        this.imageUrl = url;
-      });
-    });
-  }
   getUserProfile() {
     this.userService.getUserById(this.token).subscribe((res: any) => {
       this.me = res;
@@ -136,6 +130,20 @@ export class ProfileComponent implements OnInit {
         name: res.name,
         phone: res.phone,
       });
+    });
+  }
+  getUserProfilePic() {
+    this.userService.getProfilePic(this.token).subscribe({
+      next: (blob: Blob) => {
+        this.convertBlobToBase64Url(blob).then((url: any) => {
+          this.imageUrl = url;
+          this.loader = false;
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        this.imageUrl = null;
+        this.loader = false;
+      },
     });
   }
 

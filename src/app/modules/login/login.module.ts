@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 
 import { RouterModule } from '@angular/router';
@@ -9,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastsContainer } from 'src/app/shared/components/toast/toasts-container.component';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -24,6 +25,7 @@ import { ToastsContainer } from 'src/app/shared/components/toast/toasts-containe
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     ToastsContainer,
+    ComponentsModule,
   ],
 })
 export class LoginModule {}

@@ -1,28 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, Validators } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  passwordHide = true;
-  token: any;
+export class HomeComponent implements OnInit, AfterViewInit {
   public isMobile: any;
   imageUrl: any;
-
-  ngOnInit(): void {
-    this.isMobile = this.deviceService.isMobile();
-    if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token');
-      this.getUserProfilePic();
-    }
-  }
+  token: any;
+  passwordHide = true;
+  // for preloader
+  windowLoaded: Subject<boolean> = new BehaviorSubject(false);
+  apiResponded = false;
+  loaderHidden = false;
+  // for preloader end
 
   constructor(
     private modalService: NgbModal,
@@ -30,15 +28,35 @@ export class HomeComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  ngOnInit(): void {
+    this.isMobile = this.deviceService.isMobile();
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+    }
+    this.getUserProfilePic();
+  }
+
+  ngAfterViewInit() {
+    this.windowLoaded.next(true);
+  }
+
+  // for preloader
+  checkLoaded(loaded: any) {
+    if (loaded == 'true') this.loaderHidden = true;
+  }
+  // for preloader end
+
   getUserProfilePic() {
     this.userService.getProfilePic(this.token).subscribe({
       next: (blob: Blob) => {
         this.convertBlobToBase64Url(blob).then((url: any) => {
           this.imageUrl = url;
+          this.apiResponded = true;
         });
       },
       error: (err: HttpErrorResponse) => {
         this.imageUrl = null;
+        this.apiResponded = true;
       },
     });
   }
