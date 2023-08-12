@@ -6,6 +6,7 @@ import {
   ElementRef,
   Renderer2,
   AfterViewInit,
+  AfterViewChecked,
 } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
@@ -20,7 +21,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('loginFailed') loginFailed: ElementRef | any;
   // for preloader
   windowLoaded = false;
@@ -59,11 +60,14 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     let img = new window.Image();
     if (img.onload) this.windowLoaded = true;
   }
-  ngAfterViewInit() {
-    setTimeout(() => {
-      console.log('Component view has been fully rendered');
+  ngAfterViewChecked() {
+    if (document.readyState === 'complete') {
       this.windowLoaded = true;
-    }, 1000);
+    } else {
+      window.addEventListener('load', () => {
+        this.windowLoaded = true;
+      });
+    }
   }
   // for preloader
   checkLoaded(loaded: any) {
