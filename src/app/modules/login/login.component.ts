@@ -56,7 +56,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
     let img = new window.Image();
-    if (img.complete) this.windowLoaded = true;
+    if (img.onload) this.windowLoaded = true;
+    document.onreadystatechange = () => {
+      if (document.readyState !== 'complete') {
+        console.log('loading..');
+      } else {
+        console.log('loaded');
+        this.windowLoaded = true; // Now setting the windowLoaded variable within the component's context
+      }
+    };
   }
   // for preloader
   checkLoaded(loaded: any) {
