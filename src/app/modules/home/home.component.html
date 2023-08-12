@@ -1,7 +1,7 @@
 <app-preloader *ngIf="!loaderHidden" (loadedEvent)="checkLoaded($event)" [apiResponded]="apiResponded"
     [windowLoaded]="windowLoaded"></app-preloader>
 
-<div *ngIf="loaderHidden" class="main-container">
+<div [class.d-none]="loaderHidden" class="main-container">
 
     <!-- navbar -->
     <nav class="navbar d-flex justify-content-between">
