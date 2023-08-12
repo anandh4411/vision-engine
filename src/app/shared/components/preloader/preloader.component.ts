@@ -7,7 +7,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-preloader',
