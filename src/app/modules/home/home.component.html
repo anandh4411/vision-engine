@@ -9,8 +9,8 @@
             <!-- <img class="logo" src="assets/img/logo.png" alt=""> -->
         </div>
         <div class="nav-btn">
-            <a *ngIf="true" routerLink="/login" class="vision-btn vision-btn-dark btn-login">Login</a>
-            <a *ngIf="true" routerLink="/signup" class="vision-btn vision-btn-dark btn-signup">Signup</a>
+            <a *ngIf="!token" routerLink="/login" class="vision-btn vision-btn-dark btn-login">Login</a>
+            <a *ngIf="!token" routerLink="/signup" class="vision-btn vision-btn-dark btn-signup">Signup</a>
             <a *ngIf="token" [routerLink]="isMobile ? '/profile' : null" (click)="!isMobile && open(profile)"
                 class="profile-avatar-btn">
                 <img [src]="imageUrl || 'assets/img/avatar-skeleton.png'" alt="">
