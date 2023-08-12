@@ -11,6 +11,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-profile',
@@ -30,13 +31,15 @@ export class ProfileComponent implements OnInit {
   token: any;
   imageUrl: any;
   me: any;
+  imgResultAfterCompression: any;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     public toastService: ToastService,
     private router: Router,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private imageCompress: NgxImageCompressService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.pattern('^[a-zA-Z ]+')]],
@@ -99,6 +102,7 @@ export class ProfileComponent implements OnInit {
         this.getUserProfilePic();
         this.clearProPic();
         this.showSuccess('Profile Picture updated successfully');
+        this.formData = new FormData();
       });
   }
 
@@ -176,7 +180,7 @@ export class ProfileComponent implements OnInit {
     this.updateProfilePic = !this.updateProfilePic;
   }
 
-  // image crop
+  // image crop and compress
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
@@ -186,12 +190,63 @@ export class ProfileComponent implements OnInit {
     const file = new File(parts, fileName, { type: fileType });
     return file;
   }
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = this.blobToFile(event.blob!, 'profile.png');
+  dataURLToBlob(dataURL: string): Blob {
+    const base64String = dataURL.split(',')[1];
+    const byteCharacters = atob(base64String);
+    const byteArrays: Uint8Array[] = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: 'image/png' });
   }
+  async blobToDataURL(blob: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataURL = reader.result as string;
+        resolve(dataURL);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+  async imageCropped(event: ImageCroppedEvent) {
+    try {
+      const base64String = await this.blobToDataURL(event.blob!);
+      this.compressFile(base64String);
+    } catch (error) {
+      console.error('Error converting Blob to Base64:', error);
+    }
+  }
+  async compressFile(image: any) {
+    try {
+      this.imgResultAfterCompression = await this.imageCompress.compressFile(
+        image,
+        -1,
+        50,
+        50,
+        160
+      );
+      const newBlob = this.dataURLToBlob(this.imgResultAfterCompression);
+      this.croppedImage = this.blobToFile(newBlob!, 'profile.png');
+    } catch (error) {
+      console.error('Error compressing image:', error);
+    }
+  }
+  // image crop and compress end
 
   clearProPic() {
     this.imageChangedEvent = '';
     this.profilePicOptions = false;
+    this.croppedImage = null;
   }
 }
