@@ -4,9 +4,7 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
-  Renderer2,
   AfterViewInit,
-  AfterViewChecked,
 } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
@@ -14,14 +12,13 @@ import { ToastService } from 'src/app/services/toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('loginFailed') loginFailed: ElementRef | any;
   // for preloader
   windowLoaded = false;
@@ -40,8 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewChecked {
     private formBuilder: FormBuilder,
     private userService: UserService,
     public toastService: ToastService,
-    private router: Router,
-    private renderer: Renderer2
+    private router: Router
   ) {
     this.userForm = this.formBuilder.group({
       email: [
@@ -57,12 +53,9 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
-    let img = new window.Image();
-    if (img.onload) this.windowLoaded = true;
   }
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     setTimeout(() => {
-      console.log('Component view has been fully rendered');
       this.windowLoaded = true;
     }, 1000);
   }
