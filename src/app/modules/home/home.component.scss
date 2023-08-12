@@ -4,7 +4,58 @@
   color: white;
   overflow-x: hidden;
 }
-
+// profile modal
+::ng-deep .profile-modal-active .modal-dialog {
+  width: 500px;
+  .modal-content {
+    border-radius: 20px;
+    padding: 8px;
+    height: 90vh;
+    position: relative;
+  }
+  .modal-header {
+    border-bottom: none;
+    border-top: none;
+    svg {
+      width: 22px;
+      color: black;
+    }
+  }
+  .modal-title {
+    font-size: 19px;
+  }
+  // custom scrollbar
+  /* width */
+  .modal-body::-webkit-scrollbar {
+    width: 5px;
+  }
+  /* Track */
+  .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 35px;
+  }
+  /* Handle */
+  .modal-body::-webkit-scrollbar-thumb {
+    background: #a9a9a9;
+    border-radius: 35px;
+  }
+  /* Handle on hover */
+  .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  // custom scrollbar end
+  .modal-body {
+    padding: 15px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  .btn-close {
+    --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+  }
+}
+// profile modal end
 // navbar
 .navbar {
   top: 0;
@@ -246,56 +297,3 @@ img.vert-move {
     transform: translateY(-20px);
   }
 }
-
-// profile modal
-::ng-deep .modal-dialog {
-  width: 500px;
-  .modal-content {
-    border-radius: 20px;
-    padding: 8px;
-    height: 90vh;
-    position: relative;
-  }
-  .modal-header {
-    border-bottom: none;
-    border-top: none;
-    svg {
-      width: 22px;
-      color: black;
-    }
-  }
-  .modal-title {
-    font-size: 19px;
-  }
-  // custom scrollbar
-  /* width */
-  .modal-body::-webkit-scrollbar {
-    width: 5px;
-  }
-  /* Track */
-  .modal-body::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 35px;
-  }
-  /* Handle */
-  .modal-body::-webkit-scrollbar-thumb {
-    background: #a9a9a9;
-    border-radius: 35px;
-  }
-  /* Handle on hover */
-  .modal-body::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  // custom scrollbar end
-  .modal-body {
-    padding: 15px;
-    margin-bottom: 18px;
-    position: relative;
-    overflow: hidden;
-    overflow-y: scroll;
-  }
-  .btn-close {
-    --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
-  }
-}
-// profile modal end

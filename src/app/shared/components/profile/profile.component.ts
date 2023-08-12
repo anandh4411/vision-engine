@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +34,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public toastService: ToastService
+    public toastService: ToastService,
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.pattern('^[a-zA-Z ]+')]],
@@ -107,7 +111,8 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    window.location.reload();
+    if (!this.deviceService.isMobile()) window.location.reload();
+    else this.router.navigate(['/']);
   }
 
   // Check if any form control is touched or updated
@@ -124,12 +129,17 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserProfile() {
-    this.userService.getUserById(this.token).subscribe((res: any) => {
-      this.me = res;
-      this.userForm.patchValue({
-        name: res.name,
-        phone: res.phone,
-      });
+    this.userService.getUserById(this.token).subscribe({
+      next: (res: any) => {
+        this.me = res;
+        this.userForm.patchValue({
+          name: res.name,
+          phone: res.phone,
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        this.router.navigate(['/']);
+      },
     });
   }
   getUserProfilePic() {
