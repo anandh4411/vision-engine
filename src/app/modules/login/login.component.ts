@@ -61,13 +61,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (img.onload) this.windowLoaded = true;
   }
   ngAfterViewChecked() {
-    if (document.readyState === 'complete') {
+    setTimeout(() => {
+      console.log('Component view has been fully rendered');
       this.windowLoaded = true;
-    } else {
-      window.addEventListener('load', () => {
-        this.windowLoaded = true;
-      });
-    }
+    }, 1000);
   }
   // for preloader
   checkLoaded(loaded: any) {
