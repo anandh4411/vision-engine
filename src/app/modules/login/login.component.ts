@@ -60,23 +60,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     if (img.onload) this.windowLoaded = true;
   }
   ngAfterViewInit() {
-    const images = document.querySelectorAll('img');
-    let loadedImageCount = 0;
-    console.log(images);
-
-    const imageLoaded = () => {
-      loadedImageCount++;
-      if (loadedImageCount === images.length) {
-        setTimeout(() => {
-          console.log('Component view has been fully rendered');
-          this.windowLoaded = true;
-        }, 1000);
-      }
-    };
-    images.forEach((img) => {
-      img.addEventListener('load', imageLoaded);
-      img.addEventListener('error', imageLoaded);
-    });
+    setTimeout(() => {
+      console.log('Component view has been fully rendered');
+      this.windowLoaded = true;
+    }, 1000);
   }
   // for preloader
   checkLoaded(loaded: any) {
