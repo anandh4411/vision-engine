@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.windowLoaded = true;
-    }, 1000);
+    }, 100);
   }
   // for preloader
   checkLoaded(loaded: any) {
