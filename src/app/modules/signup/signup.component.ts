@@ -6,21 +6,21 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import {
-  AbstractControl,
-  AsyncValidatorFn,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Router } from '@angular/router';
 
@@ -31,6 +31,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('otp') otp: ElementRef | any;
+  imgResultAfterCompression: any;
   // for preloader
   windowLoaded = false;
   apiResponded = false;
@@ -62,7 +63,8 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     public toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private imageCompress: NgxImageCompressService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+')]],
@@ -238,7 +240,7 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
     this.uploading = !this.uploading;
   }
 
-  // image crop
+  // image crop and compress
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
@@ -248,10 +250,61 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
     const file = new File(parts, fileName, { type: fileType });
     return file;
   }
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = this.blobToFile(event.blob!, 'profile.png');
+  dataURLToBlob(dataURL: string): Blob {
+    const base64String = dataURL.split(',')[1];
+    const byteCharacters = atob(base64String);
+    const byteArrays: Uint8Array[] = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: 'image/png' });
   }
-  // image crop end
+  async blobToDataURL(blob: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataURL = reader.result as string;
+        resolve(dataURL);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+  async imageCropped(event: ImageCroppedEvent) {
+    try {
+      const base64String = await this.blobToDataURL(event.blob!);
+      this.compressFile(base64String);
+    } catch (error) {
+      console.error('Error converting Blob to Base64:', error);
+    }
+  }
+  async compressFile(image: any) {
+    try {
+      this.imgResultAfterCompression = await this.imageCompress.compressFile(
+        image,
+        -1,
+        50,
+        50,
+        160
+      );
+      const newBlob = this.dataURLToBlob(this.imgResultAfterCompression);
+      this.croppedImage = this.blobToFile(newBlob!, 'profile.png');
+      console.log(this.croppedImage);
+    } catch (error) {
+      console.error('Error compressing image:', error);
+    }
+  }
+  // image crop and compress end
+
   clearProPic() {
     this.imageChangedEvent = '';
   }

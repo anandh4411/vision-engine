@@ -12,6 +12,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { ToastsContainer } from '../../shared/components/toast/toasts-container.component';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @NgModule({
   declarations: [SignupComponent],
@@ -32,5 +33,6 @@ import { ComponentsModule } from 'src/app/shared/components/components.module';
     ToastsContainer,
     ComponentsModule,
   ],
+  providers: [NgxImageCompressService],
 })
 export class SignupModule {}
