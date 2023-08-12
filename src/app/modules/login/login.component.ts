@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.toastService.clear();
   }
+
   showDanger(template: any) {
     this.toastService.show(template, {
       classname: 'bg-danger text-light',

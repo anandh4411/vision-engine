@@ -132,10 +132,15 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+    this.handleRouteChange();
   }
 
   ngOnDestroy(): void {
     this.toastService.clear();
+    if (this.email)
+      this.userService.dicardCreateUser(this.email).subscribe((res: any) => {
+        console.log(res);
+      });
   }
 
   // for preloader
@@ -148,6 +153,15 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
     if (loaded == 'true') this.loaderHidden = true;
   }
   // for preloader end
+
+  // this is for fixing modal height issues on page change
+  private handleRouteChange() {
+    if (this.router.url == '/home') {
+      document.body.classList.add('profile-modal-active');
+    } else {
+      document.body.classList.remove('profile-modal-active');
+    }
+  }
 
   showSuccess(message: any) {
     this.toastService.show(message, {
@@ -298,7 +312,6 @@ export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
       );
       const newBlob = this.dataURLToBlob(this.imgResultAfterCompression);
       this.croppedImage = this.blobToFile(newBlob!, 'profile.png');
-      console.log(this.croppedImage);
     } catch (error) {
       console.error('Error compressing image:', error);
     }
