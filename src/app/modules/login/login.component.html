@@ -1,5 +1,5 @@
-<app-preloader *ngIf="!loaderHidden" (loadedEvent)="checkLoaded($event)" [windowLoaded]="windowLoaded"
-    [noApi]="true"></app-preloader>
+<app-preloader *ngIf="!loaderHidden" [title]="loaderTitle" (loadedEvent)="checkLoaded($event)"
+    [windowLoaded]="windowLoaded" [noApi]="true"></app-preloader>
 
 <!-- loader -->
 <div *ngIf="loader" class="spinner-container">

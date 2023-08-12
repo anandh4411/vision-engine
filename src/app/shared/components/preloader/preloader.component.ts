@@ -18,6 +18,7 @@ export class PreloaderComponent implements OnInit, OnChanges {
   @Input() windowLoaded = false;
   @Input() apiResponded: boolean = false;
   @Input() noApi: boolean = false;
+  @Input() title: string = '';
   progressValue = 0;
 
   ngOnInit(): void {}

@@ -4,6 +4,7 @@ import {
   ViewChild,
   OnInit,
   HostListener,
+  AfterViewInit,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -14,10 +15,16 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnInit, AfterViewInit {
   @ViewChild('dockMenuModalEle') dockMenuModalEle: ElementRef | any;
   @ViewChild('exit') exit: ElementRef | any;
   subject = new Subject<boolean>();
+  // for preloader
+  windowLoaded = false;
+  apiResponded = false;
+  loaderHidden = false;
+  loaderTitle = 'Hold Tight..';
+  // for preloader end
   public exitStatus: boolean = false;
   public swipedDown: boolean = false;
   public modalBlur: boolean = false;
@@ -37,6 +44,17 @@ export class RoomComponent implements OnInit {
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
+
+  // for preloader
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.windowLoaded = true;
+    }, 1000);
+  }
+  checkLoaded(loaded: any) {
+    if (loaded == 'true') this.loaderHidden = true;
+  }
+  // for preloader end
 
   // for switching video sizes and number of videos in layout
   public modeSwitch(mode: any) {
