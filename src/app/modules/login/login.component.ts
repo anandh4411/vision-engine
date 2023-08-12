@@ -20,7 +20,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('loginFailed') loginFailed: ElementRef | any;
   // for preloader
   windowLoaded = false;
@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService,
     public toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.userForm = this.formBuilder.group({
       email: [
@@ -62,9 +63,19 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log('loading..');
       } else {
         console.log('loaded');
-        this.windowLoaded = true; // Now setting the windowLoaded variable within the component's context
+        // Now setting the windowLoaded variable within the component's context
       }
     };
+  }
+  ngAfterViewInit() {
+    // Use the Renderer2 to add an event listener for the "load" event on the window
+    const loadListener = this.renderer.listen('window', 'load', () => {
+      console.log('Window fully loaded');
+      this.windowLoaded = true;
+      // Perform actions or trigger functions here once the window is fully loaded
+      // Cleanup: Remove the event listener after it has been executed
+      loadListener();
+    });
   }
   // for preloader
   checkLoaded(loaded: any) {
