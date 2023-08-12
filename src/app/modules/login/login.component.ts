@@ -68,13 +68,12 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
   ngAfterViewInit() {
-    // Use the Renderer2 to add an event listener for the "load" event on the window
     const loadListener = this.renderer.listen('window', 'load', () => {
       console.log('Window fully loaded');
-      this.windowLoaded = true;
-      // Perform actions or trigger functions here once the window is fully loaded
-      // Cleanup: Remove the event listener after it has been executed
       loadListener();
+      setTimeout(() => {
+        this.windowLoaded = true;
+      }, 200);
     });
   }
   // for preloader
