@@ -58,22 +58,24 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isMobile = this.deviceService.isMobile();
     let img = new window.Image();
     if (img.onload) this.windowLoaded = true;
-    document.onreadystatechange = () => {
-      if (document.readyState !== 'complete') {
-        console.log('loading..');
-      } else {
-        console.log('loaded');
-        // Now setting the windowLoaded variable within the component's context
-      }
-    };
   }
   ngAfterViewInit() {
-    const loadListener = this.renderer.listen('window', 'load', () => {
-      console.log('Window fully loaded');
-      loadListener();
-      setTimeout(() => {
-        this.windowLoaded = true;
-      }, 200);
+    const images = document.querySelectorAll('img');
+    let loadedImageCount = 0;
+    console.log(images);
+
+    const imageLoaded = () => {
+      loadedImageCount++;
+      if (loadedImageCount === images.length) {
+        setTimeout(() => {
+          console.log('Component view has been fully rendered');
+          this.windowLoaded = true;
+        }, 1000);
+      }
+    };
+    images.forEach((img) => {
+      img.addEventListener('load', imageLoaded);
+      img.addEventListener('error', imageLoaded);
     });
   }
   // for preloader
