@@ -1,3 +1,6 @@
+<app-preloader *ngIf="!loaderHidden" [title]="loaderTitle" (loadedEvent)="checkLoaded($event)" [noApi]="true"
+    [windowLoaded]="windowLoaded"></app-preloader>
+
 <!-- loader -->
 <div *ngIf="loader" class="spinner-container">
     <mat-spinner class="spinner"></mat-spinner>
@@ -149,7 +152,8 @@
         </div>
     </div>
 </div>
-<div *ngIf="!isMobile" class="signup-image-wrapper">
+
+<div [class.d-none]="!loaderHidden" *ngIf="!isMobile" class="signup-image-wrapper">
     <img src="assets/img/signup.jpg" alt="" class="signup-image">
 </div>
 

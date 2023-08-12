@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -28,8 +29,14 @@ import { Router } from '@angular/router';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('otp') otp: ElementRef | any;
+  // for preloader
+  windowLoaded = false;
+  apiResponded = false;
+  loaderHidden = false;
+  loaderTitle = 'Signup';
+  // for preloader end
   loader = false;
   passwordHide = true;
   cpasswordHide = true;
@@ -128,6 +135,17 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.toastService.clear();
   }
+
+  // for preloader
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.windowLoaded = true;
+    }, 1000);
+  }
+  checkLoaded(loaded: any) {
+    if (loaded == 'true') this.loaderHidden = true;
+  }
+  // for preloader end
 
   showSuccess(message: any) {
     this.toastService.show(message, {

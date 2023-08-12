@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { ToastsContainer } from '../../shared/components/toast/toasts-container.component';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
 
 @NgModule({
   declarations: [SignupComponent],
@@ -29,6 +30,7 @@ import { ToastsContainer } from '../../shared/components/toast/toasts-container.
     DirectivesModule,
     MatProgressSpinnerModule,
     ToastsContainer,
+    ComponentsModule,
   ],
 })
 export class SignupModule {}

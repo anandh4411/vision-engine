@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   windowLoaded = false;
   apiResponded = false;
   loaderHidden = false;
+  loaderTitle = 'Login';
   // for preloader end
   loader = false;
   loginMethodsActive = false;
@@ -54,12 +55,13 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
   }
+
+  // for preloader
   ngAfterViewInit() {
     setTimeout(() => {
       this.windowLoaded = true;
-    }, 100);
+    }, 1000);
   }
-  // for preloader
   checkLoaded(loaded: any) {
     if (loaded == 'true') this.loaderHidden = true;
   }

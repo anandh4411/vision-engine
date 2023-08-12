@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   public isMobile: any;
   imageUrl: any;
   token: any;
@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   windowLoaded = false;
   apiResponded = false;
   loaderHidden = false;
+  loaderTitle = 'Vision Engine';
   // for preloader end
 
   constructor(
@@ -36,6 +37,11 @@ export class HomeComponent implements OnInit {
   }
 
   // for preloader
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.windowLoaded = true;
+    }, 1000);
+  }
   checkLoaded(loaded: any) {
     if (loaded == 'true') this.loaderHidden = true;
   }

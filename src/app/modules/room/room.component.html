@@ -1,233 +1,79 @@
-<!-- desktop version -->
-<div *ngIf="!isMobile" class="container-fluid room-container">
-    <div class="row">
-        <!-- sidebar -->
-        <div class="col-sm-1 dock-container">
+<app-preloader *ngIf="!loaderHidden" [title]="loaderTitle" (loadedEvent)="checkLoaded($event)" [noApi]="true"
+    [windowLoaded]="windowLoaded"></app-preloader>
 
-            <!-- internet speed -->
-            <div class="net-speed-container" *ngIf="false">
-                <div class="net-speed-circle text-center">
-                    <p>8.7</p>
-                    <span>mb/s</span>
+<div [class.d-none]="!loaderHidden">
+    <!-- desktop version -->
+    <div *ngIf="!isMobile" class="container-fluid room-container">
+        <div class="row">
+            <!-- sidebar -->
+            <div class="col-sm-1 dock-container">
+
+                <!-- internet speed -->
+                <div class="net-speed-container" *ngIf="false">
+                    <div class="net-speed-circle text-center">
+                        <p>8.7</p>
+                        <span>mb/s</span>
+                    </div>
                 </div>
-            </div>
-            <!-- internet speed end -->
+                <!-- internet speed end -->
 
-            <!-- main dock -->
-            <div class="main-dock">
-                <a routerLink="/" class="logo-container dock-align-middle">
-                    <img src="assets/img/logo2.png" alt="">
-                </a>
-                <a (click)="enableNotification()" class="dock-align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-                    </svg>
-                </a>
-            </div>
-            <!-- main dock end -->
-
-            <!-- video window mode switcher -->
-            <div class="mode-switcher">
-                <a (click)="modeSwitch(1)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
-                        class="bi bi-dash" viewBox="3 3 10 10">
-                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                    </svg>
-                </a>
-                <a (click)="modeSwitch(2)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
-                        class="bi bi-pause-fill" viewBox="3 3 10 10">
-                        <path
-                            d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                    </svg>
-                </a>
-                <a (click)="modeSwitch(3)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 3">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
-                    </svg>
-                </a>
-                <a (click)="modeSwitch(4)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
-                    </svg>
-                </a>
-                <a (click)="modeSwitch(6)" class="dock-align-middle" [class.mode-active]="activeVideoNumber > 4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-3x3-gap-fill"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z" />
-                    </svg>
-                </a>
-            </div>
-            <!-- video window mode switcher end -->
-
-            <!-- page switcher -->
-            <div class="page-switcher">
-                <a routerLink="/home" routerLinkActive="active" class="dock-align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-house-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
-                        <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
-                    </svg>
-                </a>
-                <a routerLink="/room" routerLinkActive="active" class="dock-align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-camera-reels-fill" viewBox="0 0 16 16">
-                        <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                        <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                        <path
-                            d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
-                    </svg>
-                </a>
-                <a routerLink="/calender" routerLinkActive="active" class="dock-align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-calendar-day-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16v9zm-4.785-6.145a.428.428 0 1 0 0-.855.426.426 0 0 0-.43.43c0 .238.192.425.43.425zm.336.563h-.672v4.105h.672V8.418zm-6.867 4.105v-2.3h2.261v-.61H4.684V7.801h2.464v-.61H4v5.332h.684zm3.296 0h.676V9.98c0-.554.227-1.007.953-1.007.125 0 .258.004.329.015v-.613a1.806 1.806 0 0 0-.254-.02c-.582 0-.891.32-1.012.567h-.02v-.504H7.98v4.105z" />
-                    </svg>
-                </a>
-            </div>
-            <!-- page switcher end -->
-
-        </div>
-        <!-- sidebar end -->
-
-        <!-- video container -->
-        <div class="col-sm-8 video-call-container">
-
-            <!-- video modes -->
-            <div class="d-flex">
-                <!-- layout 1 -->
-                <div class="video-layout"
-                    [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber > 4, 'layout-1-active':activeVideoNumber == 1, 'layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
-                    <!-- video 1 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
-                        [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber > 3, 'videoMode1':activeVideoNumber < 4}"></app-video>
-                    <!-- video 1 end -->
-                    <!-- video 4 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber"
-                        [user]="{name: 'Name Surname', image: 'assets/img/video4.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber > 3}"></app-video>
-                    <!-- video 4 end -->
+                <!-- main dock -->
+                <div class="main-dock">
+                    <a routerLink="/" class="logo-container dock-align-middle">
+                        <img src="assets/img/logo2.png" alt="">
+                    </a>
+                    <a (click)="enableNotification()" class="dock-align-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                        </svg>
+                    </a>
                 </div>
-                <!-- layout 1 end -->
+                <!-- main dock end -->
 
-                <!-- layout 2 -->
-                <div class="video-layout"
-                    [ngClass]="{'layout-3-active': activeVideoNumber > 4, 'layout-2-active layout-left-margin':activeVideoNumber > 1 && activeVideoNumber < 5}">
-                    <!-- video 2 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber"
-                        [user]="{name: 'Name Surname', image: 'assets/img/video2.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber > 2, 'videoMode1':activeVideoNumber == 2}"></app-video>
-                    <!-- video 2 end -->
-                    <!-- video 3 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber"
-                        [user]="{name: 'Name Surname', image: 'assets/img/video3.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber > 2}"></app-video>
-                    <!-- video 3 end -->
+                <!-- video window mode switcher -->
+                <div class="mode-switcher">
+                    <a (click)="modeSwitch(1)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
+                            class="bi bi-dash" viewBox="3 3 10 10">
+                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                        </svg>
+                    </a>
+                    <a (click)="modeSwitch(2)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
+                            class="bi bi-pause-fill" viewBox="3 3 10 10">
+                            <path
+                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+                        </svg>
+                    </a>
+                    <a (click)="modeSwitch(3)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
+                        </svg>
+                    </a>
+                    <a (click)="modeSwitch(4)" class="dock-align-middle" [class.mode-active]="activeVideoNumber == 4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
+                        </svg>
+                    </a>
+                    <a (click)="modeSwitch(6)" class="dock-align-middle" [class.mode-active]="activeVideoNumber > 4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-3x3-gap-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z" />
+                        </svg>
+                    </a>
                 </div>
-                <!-- layout 2 end -->
-
-                <!-- layout 3 -->
-                <div class="video-layout" [ngClass]="{'layout-3-active layout-left-margin':activeVideoNumber > 4}">
-                    <!-- video 5 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber"
-                        [user]="{name: 'Name Surname', image: 'assets/img/video5.jpg'}"
-                        [modeClassName]="{'videoMode2': activeVideoNumber > 4}"></app-video>
-                    <!-- video 5 end -->
-                    <!-- video 6 -->
-                    <app-video [activeVideoNumber]="activeVideoNumber"
-                        [user]="{name: 'Name Surname', image: 'assets/img/video6.jpg'}"
-                        [modeClassName]="{'videoMode2':activeVideoNumber == 6}"></app-video>
-                    <!-- video 6 end -->
-                </div>
-                <!-- layout 3 end -->
-
-            </div>
-            <!-- video modes end -->
-
-        </div>
-        <!-- video container end -->
-
-        <!-- right section -->
-        <div class="col-sm-3 chat-participants-container">
-
-            <!-- notification -->
-            <app-notification [notificationStatus]="notificationStatus"
-                [notificationType]="notificationType"></app-notification>
-            <!-- notification end -->
-
-            <!-- material tab -->
-            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
-                <mat-tab label="Participants">
-                    <app-participants [notificationStatus]="notificationStatus"></app-participants>
-                </mat-tab>
-                <mat-tab label="Chats">
-                    <app-chats [notificationStatus]="notificationStatus"></app-chats>
-                </mat-tab>
-            </mat-tab-group>
-            <!-- material tab end -->
-
-        </div>
-        <!-- right section end -->
-    </div>
-</div>
-<!-- desktop version end -->
-
-<!-- mobile version -->
-<div *ngIf="isMobile" class="container-fluid room-container">
-
-    <!-- mobile content -->
-    <div class="mobile-content">
-        <!-- mobile-layout-1 -->
-        <div class="mobile-layout d-flex justify-content-between"
-            [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5, 'mobile-layout-1-active':activeVideoNumber == 1}">
-            <!-- video 1 -->
-            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4,'mobileVideoMode1':activeVideoNumber < 4}"
-                [isMobile]="isMobile"></app-video>
-            <!-- video 1 -->
-            <!-- video 4 -->
-            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video4.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4}" [isMobile]="isMobile"></app-video>
-            <!-- video 4 -->
-        </div>
-        <!-- mobile-layout-1-end -->
-
-        <!-- mobile-layout-2 -->
-        <div class="mobile-layout d-flex justify-content-between" style="margin-top: 8px;"
-            [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
-            <!-- video 2 -->
-            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video2.jpg'}"
-                [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 2, 'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
-                [isMobile]="isMobile"></app-video>
-            <!-- video 2 -->
-            <!-- video 3 -->
-            <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'You', image: 'assets/img/video3.jpg'}"
-                [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
-                [isMobile]="isMobile"></app-video>
-            <!-- video 3 -->
-        </div>
-        <!-- mobile-layout-2-end -->
-    </div>
-    <!-- mobile content end -->
-
-    <!-- dock menu modal -->
-    <div class="dock-menu-modal" [ngClass]="{'dock-menu-modal-enabled': dockMenuModal}">
-        <div class="mobile-top-dock">
-            <div class="d-flex justify-content-center align-items-center">
+                <!-- video window mode switcher end -->
 
                 <!-- page switcher -->
-                <div class="page-switcher mobile-page-switcher">
-                    <a routerLink="/home" routerLinkActive="active" class="dock-align-middle mobile-page">
+                <div class="page-switcher">
+                    <a routerLink="/home" routerLinkActive="active" class="dock-align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                             class="bi bi-house-fill" viewBox="0 0 16 16">
                             <path
@@ -235,7 +81,7 @@
                             <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
                         </svg>
                     </a>
-                    <a routerLink="/room" routerLinkActive="active" class="dock-align-middle mobile-page">
+                    <a routerLink="/room" routerLinkActive="active" class="dock-align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                             class="bi bi-camera-reels-fill" viewBox="0 0 16 16">
                             <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -244,7 +90,7 @@
                                 d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
                         </svg>
                     </a>
-                    <a routerLink="/calender" routerLinkActive="active" class="dock-align-middle mobile-page">
+                    <a routerLink="/calender" routerLinkActive="active" class="dock-align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                             class="bi bi-calendar-day-fill" viewBox="0 0 16 16">
                             <path
@@ -254,138 +100,303 @@
                 </div>
                 <!-- page switcher end -->
 
-                <!-- video window mode switcher -->
-                <div class="mode-switcher mobile-mode-switcher">
-                    <a (click)="modeSwitch(1)" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
-                            class="bi bi-dash" viewBox="3 3 10 10">
-                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                        </svg>
-                    </a>
-                    <a (click)="modeSwitch(2)" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
-                            class="bi bi-pause-fill" viewBox="3 3 10 10">
-                            <path
-                                d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
-                        </svg>
-                    </a>
-                    <a (click)="modeSwitch(3)" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
-                        </svg>
-                    </a>
-                    <a (click)="modeSwitch(4)" class="dock-align-middle mobile-switcher"
-                        [class.mode-active]="activeVideoNumber == 4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
-                        </svg>
-                    </a>
-                </div>
-                <!-- video window mode switcher end -->
+            </div>
+            <!-- sidebar end -->
 
-                <!-- internet speed -->
-                <div class="net-speed-container" *ngIf="true">
-                    <div class="net-speed-circle text-center">
-                        <p>8.7</p>
-                        <span>mb/s</span>
+            <!-- video container -->
+            <div class="col-sm-8 video-call-container">
+
+                <!-- video modes -->
+                <div class="d-flex">
+                    <!-- layout 1 -->
+                    <div class="video-layout"
+                        [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber > 4, 'layout-1-active':activeVideoNumber == 1, 'layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
+                        <!-- video 1 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
+                            [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                            [modeClassName]="{'videoMode2':activeVideoNumber > 3, 'videoMode1':activeVideoNumber < 4}"></app-video>
+                        <!-- video 1 end -->
+                        <!-- video 4 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber"
+                            [user]="{name: 'Name Surname', image: 'assets/img/video4.jpg'}"
+                            [modeClassName]="{'videoMode2':activeVideoNumber > 3}"></app-video>
+                        <!-- video 4 end -->
                     </div>
+                    <!-- layout 1 end -->
+
+                    <!-- layout 2 -->
+                    <div class="video-layout"
+                        [ngClass]="{'layout-3-active': activeVideoNumber > 4, 'layout-2-active layout-left-margin':activeVideoNumber > 1 && activeVideoNumber < 5}">
+                        <!-- video 2 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber"
+                            [user]="{name: 'Name Surname', image: 'assets/img/video2.jpg'}"
+                            [modeClassName]="{'videoMode2':activeVideoNumber > 2, 'videoMode1':activeVideoNumber == 2}"></app-video>
+                        <!-- video 2 end -->
+                        <!-- video 3 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber"
+                            [user]="{name: 'Name Surname', image: 'assets/img/video3.jpg'}"
+                            [modeClassName]="{'videoMode2':activeVideoNumber > 2}"></app-video>
+                        <!-- video 3 end -->
+                    </div>
+                    <!-- layout 2 end -->
+
+                    <!-- layout 3 -->
+                    <div class="video-layout" [ngClass]="{'layout-3-active layout-left-margin':activeVideoNumber > 4}">
+                        <!-- video 5 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber"
+                            [user]="{name: 'Name Surname', image: 'assets/img/video5.jpg'}"
+                            [modeClassName]="{'videoMode2': activeVideoNumber > 4}"></app-video>
+                        <!-- video 5 end -->
+                        <!-- video 6 -->
+                        <app-video [activeVideoNumber]="activeVideoNumber"
+                            [user]="{name: 'Name Surname', image: 'assets/img/video6.jpg'}"
+                            [modeClassName]="{'videoMode2':activeVideoNumber == 6}"></app-video>
+                        <!-- video 6 end -->
+                    </div>
+                    <!-- layout 3 end -->
+
                 </div>
-                <!-- internet speed end -->
+                <!-- video modes end -->
+
+            </div>
+            <!-- video container end -->
+
+            <!-- right section -->
+            <div class="col-sm-3 chat-participants-container">
+
+                <!-- notification -->
+                <app-notification [notificationStatus]="notificationStatus"
+                    [notificationType]="notificationType"></app-notification>
+                <!-- notification end -->
+
+                <!-- material tab -->
+                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+                    <mat-tab label="Participants">
+                        <app-participants [notificationStatus]="notificationStatus"></app-participants>
+                    </mat-tab>
+                    <mat-tab label="Chats">
+                        <app-chats [notificationStatus]="notificationStatus"></app-chats>
+                    </mat-tab>
+                </mat-tab-group>
+                <!-- material tab end -->
+
+            </div>
+            <!-- right section end -->
+        </div>
+    </div>
+    <!-- desktop version end -->
+
+    <!-- mobile version -->
+    <div *ngIf="isMobile" class="container-fluid room-container">
+
+        <!-- mobile content -->
+        <div class="mobile-content">
+            <!-- mobile-layout-1 -->
+            <div class="mobile-layout d-flex justify-content-between"
+                [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5, 'mobile-layout-1-active':activeVideoNumber == 1}">
+                <!-- video 1 -->
+                <app-video [activeVideoNumber]="activeVideoNumber"
+                    [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                    [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4,'mobileVideoMode1':activeVideoNumber < 4}"
+                    [isMobile]="isMobile"></app-video>
+                <!-- video 1 -->
+                <!-- video 4 -->
+                <app-video [activeVideoNumber]="activeVideoNumber"
+                    [user]="{name: 'You', image: 'assets/img/video4.jpg'}"
+                    [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4}" [isMobile]="isMobile"></app-video>
+                <!-- video 4 -->
+            </div>
+            <!-- mobile-layout-1-end -->
+
+            <!-- mobile-layout-2 -->
+            <div class="mobile-layout d-flex justify-content-between" style="margin-top: 8px;"
+                [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
+                <!-- video 2 -->
+                <app-video [activeVideoNumber]="activeVideoNumber"
+                    [user]="{name: 'You', image: 'assets/img/video2.jpg'}"
+                    [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 2, 'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
+                    [isMobile]="isMobile"></app-video>
+                <!-- video 2 -->
+                <!-- video 3 -->
+                <app-video [activeVideoNumber]="activeVideoNumber"
+                    [user]="{name: 'You', image: 'assets/img/video3.jpg'}"
+                    [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
+                    [isMobile]="isMobile"></app-video>
+                <!-- video 3 -->
+            </div>
+            <!-- mobile-layout-2-end -->
+        </div>
+        <!-- mobile content end -->
+
+        <!-- dock menu modal -->
+        <div class="dock-menu-modal" [ngClass]="{'dock-menu-modal-enabled': dockMenuModal}">
+            <div class="mobile-top-dock">
+                <div class="d-flex justify-content-center align-items-center">
+
+                    <!-- page switcher -->
+                    <div class="page-switcher mobile-page-switcher">
+                        <a routerLink="/home" routerLinkActive="active" class="dock-align-middle mobile-page">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-house-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
+                                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+                            </svg>
+                        </a>
+                        <a routerLink="/room" routerLinkActive="active" class="dock-align-middle mobile-page">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-camera-reels-fill" viewBox="0 0 16 16">
+                                <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                <path
+                                    d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
+                            </svg>
+                        </a>
+                        <a routerLink="/calender" routerLinkActive="active" class="dock-align-middle mobile-page">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-calendar-day-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16v9zm-4.785-6.145a.428.428 0 1 0 0-.855.426.426 0 0 0-.43.43c0 .238.192.425.43.425zm.336.563h-.672v4.105h.672V8.418zm-6.867 4.105v-2.3h2.261v-.61H4.684V7.801h2.464v-.61H4v5.332h.684zm3.296 0h.676V9.98c0-.554.227-1.007.953-1.007.125 0 .258.004.329.015v-.613a1.806 1.806 0 0 0-.254-.02c-.582 0-.891.32-1.012.567h-.02v-.504H7.98v4.105z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- page switcher end -->
+
+                    <!-- video window mode switcher -->
+                    <div class="mode-switcher mobile-mode-switcher">
+                        <a (click)="modeSwitch(1)" class="dock-align-middle mobile-switcher"
+                            [class.mode-active]="activeVideoNumber == 1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
+                                class="bi bi-dash" viewBox="3 3 10 10">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                            </svg>
+                        </a>
+                        <a (click)="modeSwitch(2)" class="dock-align-middle mobile-switcher"
+                            [class.mode-active]="activeVideoNumber == 2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="33" fill="currentColor"
+                                class="bi bi-pause-fill" viewBox="3 3 10 10">
+                                <path
+                                    d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+                            </svg>
+                        </a>
+                        <a (click)="modeSwitch(3)" class="dock-align-middle mobile-switcher"
+                            [class.mode-active]="activeVideoNumber == 3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-1x2-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z" />
+                            </svg>
+                        </a>
+                        <a (click)="modeSwitch(4)" class="dock-align-middle mobile-switcher"
+                            [class.mode-active]="activeVideoNumber == 4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-grid-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- video window mode switcher end -->
+
+                    <!-- internet speed -->
+                    <div class="net-speed-container" *ngIf="true">
+                        <div class="net-speed-circle text-center">
+                            <p>8.7</p>
+                            <span>mb/s</span>
+                        </div>
+                    </div>
+                    <!-- internet speed end -->
+                </div>
             </div>
         </div>
-    </div>
-    <!-- dock menu modal end -->
+        <!-- dock menu modal end -->
 
-    <!-- mobile bottom dock -->
-    <div class="mobile-bottom-dock-container">
-        <div class="mobile-bottom-dock">
-            <a class="call-cut-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-telephone-fill"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                </svg>
-            </a>
-            <a class="mic-control-btn mobile-bottom-dock-active-green">
-                <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-mic-fill"
-                    viewBox="0 0 16 16">
-                    <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-                    <path
-                        d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
-                </svg>
-                <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-mic-mute-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z" />
-                    <path
-                        d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z" />
-                </svg>
-            </a>
-            <a class="camera-control-btn">
-                <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-                </svg>
-                <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    class="bi bi-camera-video-off-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l6.69 9.365zm-10.114-9A2.001 2.001 0 0 0 0 5v6a2 2 0 0 0 2 2h5.728L.847 3.366zm9.746 11.925-10-14 .814-.58 10 14-.814.58z" />
-                </svg>
-            </a>
-            <a (click)="modalSwitch('participants')" [class.mobile-bottom-dock-active]="modalContent == 'participants'"
-                class="participants-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-people-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                </svg>
-            </a>
-            <a (click)="modalSwitch('chats')" [class.mobile-bottom-dock-active]="modalContent == 'chats'"
-                class="chat-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
-                </svg>
-            </a>
-            <a #dockMenuModalEle (click)="dockMenuModalSwitch()" [class.mobile-bottom-dock-active]="dockMenuModal"
-                class="participants-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-three-dots-vertical"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                </svg>
-            </a>
-            <a (click)="modalSwitch('comming-present')"
-                [class.mobile-bottom-dock-active]="modalContent == 'comming-present'" class="present-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                    <path
-                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                    <path
-                        d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
-                </svg>
-            </a>
-            <a (click)="modalSwitch('comming-board')"
-                [class.mobile-bottom-dock-active]="modalContent == 'comming-board'" class="white-board">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                </svg>
-            </a>
+        <!-- mobile bottom dock -->
+        <div class="mobile-bottom-dock-container">
+            <div class="mobile-bottom-dock">
+                <a class="call-cut-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-telephone-fill"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                    </svg>
+                </a>
+                <a class="mic-control-btn mobile-bottom-dock-active-green">
+                    <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-mic-fill"
+                        viewBox="0 0 16 16">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
+                        <path
+                            d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+                    </svg>
+                    <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-mic-mute-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z" />
+                        <path
+                            d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z" />
+                    </svg>
+                </a>
+                <a class="camera-control-btn">
+                    <svg *ngIf="1+1==3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                    </svg>
+                    <svg *ngIf="1+1==2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-camera-video-off-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10.961 12.365a1.99 1.99 0 0 0 .522-1.103l3.11 1.382A1 1 0 0 0 16 11.731V4.269a1 1 0 0 0-1.406-.913l-3.111 1.382A2 2 0 0 0 9.5 3H4.272l6.69 9.365zm-10.114-9A2.001 2.001 0 0 0 0 5v6a2 2 0 0 0 2 2h5.728L.847 3.366zm9.746 11.925-10-14 .814-.58 10 14-.814.58z" />
+                    </svg>
+                </a>
+                <a (click)="modalSwitch('participants')"
+                    [class.mobile-bottom-dock-active]="modalContent == 'participants'" class="participants-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-people-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    </svg>
+                </a>
+                <a (click)="modalSwitch('chats')" [class.mobile-bottom-dock-active]="modalContent == 'chats'"
+                    class="chat-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                    </svg>
+                </a>
+                <a #dockMenuModalEle (click)="dockMenuModalSwitch()" [class.mobile-bottom-dock-active]="dockMenuModal"
+                    class="participants-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-three-dots-vertical"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    </svg>
+                </a>
+                <a (click)="modalSwitch('comming-present')"
+                    [class.mobile-bottom-dock-active]="modalContent == 'comming-present'" class="present-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-upload"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path
+                            d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                    </svg>
+                </a>
+                <a (click)="modalSwitch('comming-board')"
+                    [class.mobile-bottom-dock-active]="modalContent == 'comming-board'" class="white-board">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                    </svg>
+                </a>
+            </div>
         </div>
-    </div>
-    <!-- mobile bottom dock end -->
+        <!-- mobile bottom dock end -->
 
+    </div>
+    <!-- mobile version end -->
 </div>
-<!-- mobile version end -->
 
 <!-- common modal -->
 <app-modal-blurred-common [isMobile]="isMobile" [modalBlur]="modalBlur" [modalBlurExit]="modalBlurExit"
