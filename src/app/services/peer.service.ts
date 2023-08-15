@@ -14,7 +14,10 @@ export class PeerService {
   peerId: any;
 
   constructor() {
-    this.socket = io('http://localhost:3002');
+    // http://localhost:3002
+    this.socket = io(
+      'https://vision-engine-communication-service-q76fygmh6-anandh4411.vercel.app'
+    );
     this.peer = new Peer();
     this.peer.on('open', (id: string) => {
       this.peerId = id;
