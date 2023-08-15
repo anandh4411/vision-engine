@@ -13,7 +13,7 @@
             <!-- recording component end -->
         </div>
     </div>
-    <!-- <img *ngIf="user.image" class="video-call-wrapper" src="{{user.image}}" alt=""> -->
+    <img *ngIf="user.image" class="video-call-wrapper" src="{{user.image}}" alt="">
 
     <!-- video local -->
     <video style="transform: rotateY(180deg);" *ngIf="hostUser" class="video-call-wrapper" #localVideo id="local-video"
