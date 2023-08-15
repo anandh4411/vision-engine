@@ -1,11 +1,27 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { PeerService } from 'src/app/services/peer.service';
 
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
 })
-export class VideoComponent implements OnChanges {
+export class VideoComponent implements OnChanges, OnInit, AfterViewInit {
+  // for video
+  @ViewChild('localVideo') localVideo: ElementRef | any;
+  @ViewChild('remoteVideo') remoteVideo: ElementRef | any;
+  room: string | any;
+  // for video end
+
   @Input() activeVideoNumber: any;
   @Input() modeClassName: any;
   @Input() hostUser: any;
@@ -13,6 +29,24 @@ export class VideoComponent implements OnChanges {
   @Input() isMobile: any;
   recordingStatus = false;
   public modeClassNameLocal = '';
+
+  constructor(private peerService: PeerService) {}
+
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.peerService
+      .getLocalStream()
+      .then((stream: MediaStream) => {
+        if (this.localVideo) {
+          const localVideo = this.localVideo.nativeElement as HTMLVideoElement;
+          localVideo.srcObject = stream;
+        }
+      })
+      .catch((error) => {
+        console.error('Error accessing local media:', error);
+      });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.modeClassName) {

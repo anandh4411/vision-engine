@@ -112,8 +112,8 @@
                     <div class="video-layout"
                         [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber > 4, 'layout-1-active':activeVideoNumber == 1, 'layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
                         <!-- video 1 -->
-                        <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
-                            [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                        <app-video [user]="{name: me?.name, profile_pic: imageUrl}"
+                            [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
                             [modeClassName]="{'videoMode2':activeVideoNumber > 3, 'videoMode1':activeVideoNumber < 4}"></app-video>
                         <!-- video 1 end -->
                         <!-- video 4 -->

@@ -9,6 +9,9 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserService } from 'src/app/services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -19,6 +22,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
   @ViewChild('dockMenuModalEle') dockMenuModalEle: ElementRef | any;
   @ViewChild('exit') exit: ElementRef | any;
   subject = new Subject<boolean>();
+
   // for preloader
   windowLoaded = false;
   apiResponded = false;
@@ -35,14 +39,24 @@ export class RoomComponent implements OnInit, AfterViewInit {
   public isMobile: any;
   public modalContent: any;
   public dockMenuModal: any;
+  me: any;
+  token: any;
+  imageUrl: any;
 
   constructor(
     private modalService: NgbModal,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.getUserProfile();
+      this.getUserProfilePic();
+    }
   }
 
   // for preloader
@@ -124,4 +138,42 @@ export class RoomComponent implements OnInit, AfterViewInit {
   //   event.returnValue = true;
   //   return false;
   // }
+
+  // api consuming
+
+  getUserProfile() {
+    this.userService.getUserById(this.token).subscribe({
+      next: (res: any) => {
+        this.me = res;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.router.navigate(['/']);
+      },
+    });
+  }
+  getUserProfilePic() {
+    this.userService.getProfilePic(this.token).subscribe({
+      next: (blob: Blob) => {
+        this.convertBlobToBase64Url(blob).then((url: any) => {
+          this.imageUrl = url;
+          // this.loader = false;
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        this.imageUrl = null;
+        // this.loader = false;
+      },
+    });
+  }
+
+  // Helper method to convert Blob to Base64 URL
+  private convertBlobToBase64Url(blob: Blob): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
 }
