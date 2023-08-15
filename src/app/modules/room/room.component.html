@@ -200,8 +200,8 @@
             <div class="mobile-layout d-flex justify-content-between"
                 [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5, 'mobile-layout-1-active':activeVideoNumber == 1}">
                 <!-- video 1 -->
-                <app-video [activeVideoNumber]="activeVideoNumber"
-                    [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: me?.name, profile_pic: imageUrl}"
+                    [hostUser]="true"
                     [modeClassName]="{'mobileVideoMode2':activeVideoNumber == 4,'mobileVideoMode1':activeVideoNumber < 4}"
                     [isMobile]="isMobile"></app-video>
                 <!-- video 1 -->
@@ -217,8 +217,7 @@
             <div class="mobile-layout d-flex justify-content-between" style="margin-top: 8px;"
                 [ngClass]="{'mobile-layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
                 <!-- video 2 -->
-                <app-video [activeVideoNumber]="activeVideoNumber"
-                    [user]="{name: 'You', image: 'assets/img/video2.jpg'}"
+                <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'Name'}"
                     [modeClassName]="{'mobileVideoMode1':activeVideoNumber == 2, 'mobileVideoMode2':activeVideoNumber == 3 || activeVideoNumber == 4}"
                     [isMobile]="isMobile"></app-video>
                 <!-- video 2 -->
