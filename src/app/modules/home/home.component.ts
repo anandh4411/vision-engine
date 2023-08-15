@@ -1,11 +1,18 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Socket, io } from 'socket.io-client';
+import { PeerService } from 'src/app/services/peer.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +20,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  socket: any;
   public isMobile: any;
   imageUrl: any;
   token: any;
@@ -23,13 +31,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loaderHidden = false;
   loaderTitle = 'Vision Engine';
   // for preloader end
+  public meetingForm: FormGroup;
 
   constructor(
     private modalService: NgbModal,
     private deviceService: DeviceDetectorService,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private peerService: PeerService
+  ) {
+    this.meetingForm = this.formBuilder.group({
+      meeting_url: ['', [Validators.required]],
+    });
+    this.socket = this.peerService.getSocket();
+
+    // Listen for user-joined event
+    this.socket.on('you-are-added', (roomID: any) => {
+      console.log(`User with ID ${roomID} joined the room`);
+      // Notify the host user or update UI as needed
+      console.log('added');
+    });
+  }
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
@@ -88,5 +111,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   open(modalName: any) {
     this.modalService.open(modalName, { centered: true });
+  }
+
+  requestJoin() {
+    Object.keys(this.meetingForm.controls).forEach((controlName) => {
+      this.meetingForm.get(controlName)?.markAsTouched();
+    });
+    if (this.meetingForm.valid) {
+      const roomId = this.meetingForm.get('meeting_url')?.value;
+      const peerId = this.peerService.getPeerId();
+      this.socket.emit('request-join-room', roomId, peerId);
+      this.joinRoom(roomId);
+      this.router.navigate(['/room']);
+      console.log(roomId + ',' + peerId);
+    }
+  }
+
+  joinRoom(roomId: string) {
+    this.peerService.joinRoom(roomId);
   }
 }

@@ -20,6 +20,7 @@ import { HomeComponent } from './home.component';
     ReactiveFormsModule,
     FormsModule,
     ComponentsModule,
+    ReactiveFormsModule,
   ],
 })
 export class HomeModule {}

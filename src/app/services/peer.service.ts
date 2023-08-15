@@ -1,24 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Peer, MediaConnection } from 'peerjs';
+import { Socket, io } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeerService {
+  private socket: Socket | any;
   private peer: Peer;
   private localStream: MediaStream | any;
   private remoteStream: MediaStream | any;
   private currentRoom: string | any;
+  peerId: any;
 
   constructor() {
+    this.socket = io('http://localhost:3002');
     this.peer = new Peer();
     this.peer.on('open', (id: string) => {
+      this.peerId = id;
       console.log('My peer ID is: ' + id);
     });
-
     this.peer.on('call', (call: MediaConnection) => {
       this.answerCall(call);
     });
+  }
+
+  getPeerId(): string {
+    return this.peerId;
+  }
+
+  getSocket() {
+    return this.socket;
   }
 
   async getLocalStream(): Promise<MediaStream> {
