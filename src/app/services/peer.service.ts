@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Peer, MediaConnection } from 'peerjs';
 import { Socket, io } from 'socket.io-client';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeerService {
+  socketIoUrl = environment.socketIoUrl;
   private socket: Socket | any;
   private peer: Peer;
   private localStream: MediaStream | any;
@@ -14,10 +16,7 @@ export class PeerService {
   peerId: any;
 
   constructor() {
-    // http://localhost:3002
-    this.socket = io(
-      'https://vision-engine-communication-service-q76fygmh6-anandh4411.vercel.app'
-    );
+    this.socket = io(this.socketIoUrl);
     this.peer = new Peer();
     this.peer.on('open', (id: string) => {
       this.peerId = id;
