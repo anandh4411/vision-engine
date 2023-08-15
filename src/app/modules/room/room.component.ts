@@ -9,6 +9,11 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UserService } from 'src/app/services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { PeerService } from 'src/app/services/peer.service';
+import { Socket, io } from 'socket.io-client';
 
 @Component({
   selector: 'app-room',
@@ -16,9 +21,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./room.component.scss'],
 })
 export class RoomComponent implements OnInit, AfterViewInit {
+  socket: any;
   @ViewChild('dockMenuModalEle') dockMenuModalEle: ElementRef | any;
   @ViewChild('exit') exit: ElementRef | any;
   subject = new Subject<boolean>();
+  room: string | any;
+
   // for preloader
   windowLoaded = false;
   apiResponded = false;
@@ -35,14 +43,67 @@ export class RoomComponent implements OnInit, AfterViewInit {
   public isMobile: any;
   public modalContent: any;
   public dockMenuModal: any;
+  me: any;
+  token: any;
+  imageUrl: any;
 
   constructor(
     private modalService: NgbModal,
-    private deviceService: DeviceDetectorService
-  ) {}
+    private deviceService: DeviceDetectorService,
+    private userService: UserService,
+    private router: Router,
+    private peerService: PeerService
+  ) {
+    this.socket = this.peerService.getSocket();
+
+    // Listen for user-joined event
+    this.socket.on(
+      'user-requested',
+      (socketId: any, roomID: any, peerId: any) => {
+        console.log(`User with ID ${peerId} joined the room`);
+        // Notify the host user or update UI as needed
+        this.startCall(peerId);
+        this.socket.emit('added-to-call', roomID);
+      }
+    );
+
+    this.socket.on('you-are-added', (roomID: any) => {
+      // Notify the host user or update UI as needed
+      console.log('added ' + roomID);
+      // router.navigate(['/room']);
+    });
+  }
 
   ngOnInit(): void {
     this.isMobile = this.deviceService.isMobile();
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.getUserProfile();
+      this.getUserProfilePic();
+    }
+    if (!this.getCurrentRoom()) {
+      this.createRoom();
+    }
+  }
+
+  createRoom() {
+    // Generate a random room ID
+    const roomId = 'room-' + Math.random().toString(36).substring(7);
+    this.peerService.createRoom(roomId);
+    this.room = roomId;
+    this.socket.emit('create-room', roomId);
+  }
+
+  joinRoom(): void {
+    this.socket.emit('join-room', this.room);
+  }
+
+  startCall(peerId: string) {
+    this.peerService.callPeer(peerId);
+  }
+
+  getCurrentRoom(): string {
+    return this.peerService.getCurrentRoom();
   }
 
   // for preloader
@@ -51,6 +112,7 @@ export class RoomComponent implements OnInit, AfterViewInit {
       this.windowLoaded = true;
     }, 1000);
   }
+
   checkLoaded(loaded: any) {
     if (loaded == 'true') this.loaderHidden = true;
   }
@@ -124,4 +186,42 @@ export class RoomComponent implements OnInit, AfterViewInit {
   //   event.returnValue = true;
   //   return false;
   // }
+
+  // api consuming
+
+  getUserProfile() {
+    this.userService.getUserById(this.token).subscribe({
+      next: (res: any) => {
+        this.me = res;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.router.navigate(['/']);
+      },
+    });
+  }
+  getUserProfilePic() {
+    this.userService.getProfilePic(this.token).subscribe({
+      next: (blob: Blob) => {
+        this.convertBlobToBase64Url(blob).then((url: any) => {
+          this.imageUrl = url;
+          // this.loader = false;
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        this.imageUrl = null;
+        // this.loader = false;
+      },
+    });
+  }
+
+  // Helper method to convert Blob to Base64 URL
+  private convertBlobToBase64Url(blob: Blob): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
 }

@@ -185,7 +185,8 @@
   line-height: 1.5;
 }
 .landing-sub {
-  font-size: 20px;
+  width: 80%;
+  font-size: 17px;
   line-height: 1.5;
   color: rgb(145, 145, 145);
 }
@@ -209,6 +210,12 @@
 .btn-container-right {
   margin-left: 10px;
   margin-top: 50px;
+}
+.url-submit-container {
+  button {
+    height: 56px;
+    font-size: 16px;
+  }
 }
 .right-container {
   margin-top: 20px;
@@ -266,7 +273,7 @@
 }
 
 .img-engine {
-  width: 80%;
+  width: 100%;
   margin-left: 20px;
 }
 

@@ -22,6 +22,7 @@
                     <a routerLink="/" class="logo-container dock-align-middle">
                         <img src="assets/img/logo2.png" alt="">
                     </a>
+                    <!-- enableNotification() -->
                     <a (click)="enableNotification()" class="dock-align-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-gear-fill"
                             viewBox="0 0 16 16">
@@ -112,8 +113,8 @@
                     <div class="video-layout"
                         [ngClass]="{'layout-3-active layout-right-margin':activeVideoNumber > 4, 'layout-1-active':activeVideoNumber == 1, 'layout-2-active':activeVideoNumber > 1 && activeVideoNumber < 5}">
                         <!-- video 1 -->
-                        <app-video [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
-                            [user]="{name: 'You', image: 'assets/img/video1.jpg'}"
+                        <app-video [user]="{name: me?.name, profile_pic: imageUrl}"
+                            [activeVideoNumber]="activeVideoNumber" [hostUser]="true"
                             [modeClassName]="{'videoMode2':activeVideoNumber > 3, 'videoMode1':activeVideoNumber < 4}"></app-video>
                         <!-- video 1 end -->
                         <!-- video 4 -->
@@ -128,8 +129,7 @@
                     <div class="video-layout"
                         [ngClass]="{'layout-3-active': activeVideoNumber > 4, 'layout-2-active layout-left-margin':activeVideoNumber > 1 && activeVideoNumber < 5}">
                         <!-- video 2 -->
-                        <app-video [activeVideoNumber]="activeVideoNumber"
-                            [user]="{name: 'Name Surname', image: 'assets/img/video2.jpg'}"
+                        <app-video [activeVideoNumber]="activeVideoNumber" [user]="{name: 'Name Surname'}"
                             [modeClassName]="{'videoMode2':activeVideoNumber > 2, 'videoMode1':activeVideoNumber == 2}"></app-video>
                         <!-- video 2 end -->
                         <!-- video 3 -->
@@ -168,6 +168,11 @@
                 <app-notification [notificationStatus]="notificationStatus"
                     [notificationType]="notificationType"></app-notification>
                 <!-- notification end -->
+
+
+                <div>
+                    <p>Current Room: {{ getCurrentRoom() }}</p>
+                </div>
 
                 <!-- material tab -->
                 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">

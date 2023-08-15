@@ -2,7 +2,8 @@
     <div [class.mobile-mode]="isMobile" class="video-top-bar">
         <div class="d-flex justify-content-between">
             <div class="name-container" [class.mode-6-name]="activeVideoNumber > 4">
-                <img src="assets/img/avatar.jpg" alt="">
+                <img *ngIf="!user.profile_pic" src="assets/img/avatar.jpg" alt="">
+                <img *ngIf="user.profile_pic" [src]="user.profile_pic" alt="">
                 <span
                     [style.display]="(modeClassNameLocal=='mobile-video-mode-2' || recordingStatus) ? 'none' : 'inline'">{{user.name}}</span>
             </div>
@@ -12,7 +13,17 @@
             <!-- recording component end -->
         </div>
     </div>
-    <img class="video-call-wrapper" src="{{user.image}}" alt="">
+    <img *ngIf="user.image" class="video-call-wrapper" src="{{user.image}}" alt="">
+
+    <!-- video local -->
+    <video style="transform: rotateY(180deg);" *ngIf="!user.image && hostUser" class="video-call-wrapper" #localVideo
+        id="local-video" autoplay muted></video>
+    <!-- video local end -->
+
+    <!-- video remote -->
+    <video *ngIf="!user.image && !hostUser" class="video-call-wrapper" #remoteVideo id="remote-video" autoplay></video>
+    <!-- video remote end -->
+
     <!-- call actions component -->
     <app-call-actions *ngIf="hostUser"></app-call-actions>
     <!-- call actions component end -->
