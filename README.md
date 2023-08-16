@@ -2,6 +2,10 @@
 
 Welcome to the Angular Video Call App! This application enables real-time video communication using PeerJS for seamless and high-quality connections. The backend is powered by a set of Node.js Express microservices.
 
+## Screenshot
+
+![App Screenshot](https://drive.google.com/uc?export=download&id=1soe3Q1sSm68ek-pZkQ4gRdeAaVx7zgsK)
+
 ## Features
 
 - 🎥 Real-Time Video Calls: Connect with peers in real-time using the power of PeerJS.
